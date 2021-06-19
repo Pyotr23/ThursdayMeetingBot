@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <AssemblyName>ThursdayMeetingBot.TelegramBot</AssemblyName>
+        <RootNamespace>ThursdayMeetingBot.TelegramBot</RootNamespace>
+        <DocumentationFile>$(MSBuildProjectDirectory)\ThursdayMeetingBot.TelegramBot.xml</DocumentationFile>
+        <Configurations>Debug;Release</Configurations>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="9.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers" />
+    </ItemGroup>
+
+</Project>

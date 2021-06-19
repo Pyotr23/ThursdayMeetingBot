@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ThursdayMeetingBot.TelegramBot</name>
+    </assembly>
+    <members>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Configurations.BotConfiguration">
+            <summary>
+                Configurations for bot
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Configurations.BotConfiguration.#ctor(System.String)">
+            <summary>
+                Configurations for bot
+            </summary>
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Program">
+            <summary>
+                App entry point
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Program.Main(System.String[])">
+            <summary>
+                Main class. 
+            </summary>
+            <param name="args"> Application arguments. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Program.CreateHostBuilder(System.String[])">
+            <summary>
+                Creating web app host.
+            </summary>
+            <param name="args"> Application arguments. </param>
+            <returns> Web app host object. </returns>
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Startup">
+            <summary>
+                Startup class.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Startup.Configuration">
+            <summary>
+                Configuration of web application.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="configuration"> IConfiguration instance. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+                Method for configure web app services.
+            </summary>
+            <param name="services"> Web app services collection. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+                This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"> IApplication Builder object. </param>
+            <param name="env"> IWwbHostEnvironment object. </param>
+        </member>
+    </members>
+</doc>
