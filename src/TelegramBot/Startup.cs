@@ -36,8 +36,8 @@ namespace ThursdayMeetingBot.TelegramBot
             var section = Configuration.GetSection(nameof(BotConfiguration));
             services.Configure<BotConfiguration>(section);
             
-            services.AddHttpClient(HttpClientConstants.Name, 
-                hc => hc.BaseAddress = new Uri(HttpClientConstants.UriString));
+            services.AddHttpClient(HttpClientConstant.Name, 
+                hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
