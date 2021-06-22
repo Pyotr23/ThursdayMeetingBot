@@ -6,9 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
+using Telegram.Bot.Exceptions;
 using ThursdayMeetingBot.TelegramBot.Configurations;
+using ThursdayMeetingBot.TelegramBot.Constants;
+using ThursdayMeetingBot.TelegramBot.Models.WebHook;
+#pragma warning disable 8620
 
 namespace ThursdayMeetingBot.TelegramBot.Controllers
 {
@@ -24,18 +27,18 @@ namespace ThursdayMeetingBot.TelegramBot.Controllers
         private readonly ILogger<BotConfigurationController> _logger;
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
-        /// <param name="httpClientFactory">Factory for creating http clients</param>
-        /// <param name="botOptions">Bot options</param>
-        /// <param name="logger">ILogger instance</param>
+        /// <param name="httpClientFactory"> Factory for creating http clients </param>
+        /// <param name="botOptions"> Bot options </param>
+        /// <param name="logger"> ILogger instance </param>
         public BotConfigurationController(IHttpClientFactory httpClientFactory, 
             IOptions<BotConfiguration> botOptions,
-            ILogger<BotConfigurationController> logger = null)
+            ILogger<BotConfigurationController> logger)
         {
             _httpClientFactory = httpClientFactory;
             _botConfiguration = botOptions.Value;
-            _logger = logger ?? NullLogger<BotConfigurationController>.Instance;
+            _logger = logger; 
         }
 
         /// <summary>
@@ -43,29 +46,38 @@ namespace ThursdayMeetingBot.TelegramBot.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<SetWebHookApiResult>> SetWebHook([FromBody] SetWebHookInputModel value)
+        public async Task<ActionResult<WebHookSettingResult>> SetWebHook([FromBody] WebHookSettingInputModel input)
         {
-            _logger.LogDebug($"Creating typed HttpClient for type {TypedHttpClients.TelegramApi}");
-            var client = _httpClientFactory.CreateClient(TypedHttpClients.TelegramApi);
-            var requestContent = new FormUrlEncodedContent(new []
+            _logger.LogDebug($"Creating typed HttpClient for type {HttpClientConstant.Name}");
+            
+            var response = await GetWebHookSettingResponse(input.Uri);
+            var result = await response
+                .Content
+                .ReadFromJsonAsync<WebHookSettingResult>();
+            
+            if (result == null)
             {
-                new KeyValuePair<string, string>("url", value.WebHookUri) 
-            });
-            var response = await client.PostAsync($"/bot{_botConfiguration.AccessToken}/setWebhook", requestContent, CancellationToken.None);
-            if (!response.IsSuccessStatusCode)
-            {
-                var responseWithError = await response.Content.ReadFromJsonAsync<SetWebHookApiResult>();
-                if (responseWithError == null)
-                    throw new SerializationException(
-                        $"Exception while serialization error response from SetWebHook Telegram Api to type {nameof(SetWebHookApiResult)}");
-                throw new ApiRequestException(responseWithError.Description, responseWithError.Error_code);
-            }
-            _logger.LogDebug("WebHook was set successfully");
-            var responseSuccess = await response.Content.ReadFromJsonAsync<SetWebHookApiResult>();
-            if (responseSuccess == null)
                 throw new SerializationException(
-                    $"Exception while serialization success response from SetWebHook Telegram Api to type {nameof(SetWebHookApiResult)}");
-            return responseSuccess;
+                $"Exception while serialization error response from SetWebHook Telegram Api to type {nameof(WebHookSettingResult)}");
+            }
+
+            if (!response.IsSuccessStatusCode)
+                throw new ApiRequestException(result.Description, result.ErrorCode);
+
+            _logger.LogDebug("WebHook was set successfully");
+            
+            return result;
+        }
+        
+        private async Task<HttpResponseMessage> GetWebHookSettingResponse(string uri)
+        {
+            var client = _httpClientFactory.CreateClient(HttpClientConstant.Name);
+            var nameValueCollection = new[] { new KeyValuePair<string,string>(WebHookConstant.Url, uri) };
+            var requestContent = new FormUrlEncodedContent(nameValueCollection);
+            var requestUri = string.Format(WebHookConstant.RequestUriTemplate, _botConfiguration.AccessToken);
+            return await client.PostAsync(requestUri, 
+                requestContent, 
+                CancellationToken.None);
         }
     }
 }

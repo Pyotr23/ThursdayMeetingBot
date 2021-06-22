@@ -5,5 +5,5 @@
     /// </summary>
     /// <param name="ErrorCode"> Error code. </param>
     /// <param name="Description"> Description message. </param>
-    public record SetWebHookResult(int ErrorCode, string Description);
+    public record WebHookSettingResult(int ErrorCode, string Description);
 }
