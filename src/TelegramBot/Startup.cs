@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ThursdayMeetingBot.TelegramBot.Configurations;
 using ThursdayMeetingBot.TelegramBot.Constants;
+using ThursdayMeetingBot.TelegramBot.Interfaces;
+using ThursdayMeetingBot.TelegramBot.Services;
 
 namespace ThursdayMeetingBot.TelegramBot
 {
@@ -41,8 +43,8 @@ namespace ThursdayMeetingBot.TelegramBot
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
-            // services.AddSingleton<IBotService, BotService>()
-            //     .AddScoped<IBotMessageService, BotMessageService>()
+            services.AddSingleton<IBotService, BotService>()
+                .AddScoped<IBotMessageService, BotMessageService>();
             //     .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto, Guid>>();
 
             services.AddControllers();
