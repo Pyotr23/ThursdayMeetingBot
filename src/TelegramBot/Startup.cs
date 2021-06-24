@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,11 +44,14 @@ namespace ThursdayMeetingBot.TelegramBot
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
-            services.AddSingleton<IBotService, BotService>()
+            services
+                .AddSingleton<IBotService, BotService>()
                 .AddScoped<IBotMessageService, BotMessageService>();
             //     .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto, Guid>>();
-
-            services.AddControllers();
+            
+            services
+                .AddControllers()
+                .AddNewtonsoftJson();
         }
 
         /// <summary>
