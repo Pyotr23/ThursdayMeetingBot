@@ -16,6 +16,16 @@
             </summary>
             <param name="AccessToken"> Access token. </param>
         </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Constants.BotCommand">
+            <summary>
+                List of bot commands.
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.TelegramBot.Constants.BotCommand.Start">
+            <summary>
+                Start command.
+            </summary>
+        </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Controllers.BotConfigurationController">
             <summary>
                 Controller for manage bot configuration.
@@ -40,18 +50,17 @@
                 Update controller.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.Controllers.UpdateController.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService,Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.TelegramBot.Controllers.UpdateController})">
+        <member name="M:ThursdayMeetingBot.TelegramBot.Controllers.UpdateController.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService)">
             <summary>
                 Constructor.
             </summary>
             <param name="botMessageService"> Service for manage bot messages. </param>
-            <param name="logger"> Logger instance. </param>
         </member>
         <member name="M:ThursdayMeetingBot.TelegramBot.Controllers.UpdateController.Post(Telegram.Bot.Types.Update)">
             <summary>
                 Post method for receive messages from Bot (Using webhook).
             </summary>
-            <param name="update"> New Update from bot. </param>
+            <param name="update"> New update from bot. </param>
             <returns> Ok Action or error. </returns>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService">
@@ -63,7 +72,7 @@
             <summary>
                 Processing a message.
             </summary>
-            <param name="messageEntity"> New message. </param>
+            <param name="update"> Incoming update. </param>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Interfaces.IBotService">
             <summary>
@@ -74,6 +83,72 @@
             <summary>
                 Telegram bot client.
             </summary>
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand">
+            <summary>
+                Base bot command.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand.Message">
+            <summary>
+                Message.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand.Chat">
+            <summary>
+                Chat.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand.#ctor(Telegram.Bot.Types.Message)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="message"> Message. </param>
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand">
+            <summary>
+                Command when "/start" received
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand.#ctor(Telegram.Bot.Types.Message)">
+            <inheritdoc />
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler`1">
+            <summary>
+                Base handler of commands for telegram bot
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler`1._logger">
+            <summary>
+                Logger.
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler`1._botService">
+            <summary>
+                Bot service.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{MediatR.IRequestHandler{`0}},ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="logger"> Logger. </param>
+            <param name="botService"> Bot service. </param>
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler">
+            <summary>
+                Command "/start" handler.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{MediatR.IRequestHandler{ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand}},ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
+            <inheritdoc />
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.Handle(ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
+            <summary>
+                Handle command.
+            </summary>
+            <param name="request"> Command </param>
+            <returns></returns>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Models.WebHook.WebHookSettingInputModel">
             <summary>
@@ -127,11 +202,12 @@
         <member name="T:ThursdayMeetingBot.TelegramBot.Services.BotMessageService">
             <inheritdoc />
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.Services.BotMessageService.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.TelegramBot.Services.BotMessageService})">
+        <member name="M:ThursdayMeetingBot.TelegramBot.Services.BotMessageService.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.TelegramBot.Services.BotMessageService},MediatR.IMediator)">
             <summary>
                 Constructor.
             </summary>
             <param name="logger"> Logger. </param>
+            <param name="mediator"> Mediator. </param>
         </member>
         <member name="M:ThursdayMeetingBot.TelegramBot.Services.BotMessageService.ProcessAsync(Telegram.Bot.Types.Update)">
             <inheritdoc />
