@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5EBF896F-D8F3-437E-9984-8519A311B90E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThursdayMeetingBot", "src\ThursdayMeetingBot\ThursdayMeetingBot.csproj", "{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot", "src\TelegramBot\TelegramBot.csproj", "{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
