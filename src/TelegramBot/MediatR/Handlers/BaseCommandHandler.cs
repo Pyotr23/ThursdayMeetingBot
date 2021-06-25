@@ -10,13 +10,8 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
     /// <summary>
     ///     Base handler of commands for telegram bot
     /// </summary>
-    public abstract class BaseCommandHandler<T> where T : BaseBotCommand
+    public abstract class BaseCommandHandler
     {
-        /// <summary>
-        ///     Logger.
-        /// </summary>
-        protected readonly ILogger<IRequestHandler<T>> _logger;
-
         /// <summary>
         ///     Bot service.
         /// </summary>
@@ -25,11 +20,9 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
         /// <summary>
         ///     Constructor.
         /// </summary>
-        /// <param name="logger"> Logger. </param>
         /// <param name="botService"> Bot service. </param>
-        protected BaseCommandHandler(ILogger<IRequestHandler<T>> logger, IBotService botService)
+        protected BaseCommandHandler(IBotService botService)
         {
-            _logger = logger;
             _botService = botService;
         }
     }

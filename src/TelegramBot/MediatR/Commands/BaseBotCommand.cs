@@ -6,7 +6,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Commands
     /// <summary>
     ///     Base bot command.
     /// </summary>
-    public abstract record BaseBotCommand : IRequest
+    public abstract record BaseBotCommand<T> : IRequest<T>
     {
         /// <summary>
         ///     Message.

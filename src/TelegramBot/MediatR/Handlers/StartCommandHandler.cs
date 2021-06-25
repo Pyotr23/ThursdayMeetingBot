@@ -12,12 +12,17 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
     /// <summary>
     ///     Command "/start" handler.
     /// </summary>
-    public class StartCommandHandler : BaseCommandHandler<StartCommand>, IRequestHandler<StartCommand>
+    public class StartCommandHandler : IRequestHandler<StartCommand, Unit>
     {
+        /// <summary>
+        ///     Logger.
+        /// </summary>
+        protected readonly ILogger<IRequestHandler<StartCommand, Unit>> _logger;
+        
         /// <inheritdoc />
-        public StartCommandHandler(ILogger<IRequestHandler<StartCommand>> logger, IBotService botService)
-            : base(logger, botService)
+        public StartCommandHandler(ILogger<IRequestHandler<StartCommand, Unit>> logger)
         {
+            _logger = logger;
         }
 
         /// <summary>
@@ -25,7 +30,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
         /// </summary>
         /// <param name="request"> Command </param>
         /// <returns></returns>
-        public async Task<Unit> Handle(StartCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(StartCommand request, CancellationToken cancellationToken = default)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));

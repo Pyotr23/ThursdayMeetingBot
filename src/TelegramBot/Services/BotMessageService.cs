@@ -48,7 +48,6 @@ namespace ThursdayMeetingBot.TelegramBot.Services
                         _logger.LogInformation("Unknown bot command \"{0}\"", message.Text);
                         break;
                 }
-                    
             }
         }
     }

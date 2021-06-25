@@ -84,22 +84,22 @@
                 Telegram bot client.
             </summary>
         </member>
-        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand">
+        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand`1">
             <summary>
                 Base bot command.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand.Message">
+        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand`1.Message">
             <summary>
                 Message.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand.Chat">
+        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand`1.Chat">
             <summary>
                 Chat.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand.#ctor(Telegram.Bot.Types.Message)">
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Commands.BaseBotCommand`1.#ctor(Telegram.Bot.Types.Message)">
             <summary>
                 Constructor.
             </summary>
@@ -113,26 +113,20 @@
         <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand.#ctor(Telegram.Bot.Types.Message)">
             <inheritdoc />
         </member>
-        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler`1">
+        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler">
             <summary>
                 Base handler of commands for telegram bot
             </summary>
         </member>
-        <member name="F:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler`1._logger">
-            <summary>
-                Logger.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler`1._botService">
+        <member name="F:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler._botService">
             <summary>
                 Bot service.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{MediatR.IRequestHandler{`0}},ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>
-            <param name="logger"> Logger. </param>
             <param name="botService"> Bot service. </param>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler">
@@ -140,7 +134,12 @@
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{MediatR.IRequestHandler{ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand}},ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
+        <member name="F:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler._logger">
+            <summary>
+                Logger.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{MediatR.IRequestHandler{ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand,MediatR.Unit}})">
             <inheritdoc />
         </member>
         <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.Handle(ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
