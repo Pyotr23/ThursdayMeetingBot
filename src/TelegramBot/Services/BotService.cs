@@ -14,13 +14,12 @@ namespace ThursdayMeetingBot.TelegramBot.Services
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="botConfiguration"> Bot configuration. </param>
-        public BotService(IOptions<BotConfiguration> botConfiguration)
+        /// <param name="botConfigurationOptions"> Bot configuration options. </param>
+        public BotService(IOptions<BotConfiguration> botConfigurationOptions)
         {
-            var accessToken = botConfiguration
+            var accessToken = botConfigurationOptions
                 .Value
                 .AccessToken;
-
             Client = new TelegramBotClient(accessToken);
         }
     }

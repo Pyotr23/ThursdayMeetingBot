@@ -8,13 +8,11 @@
             <summary>
                 Configurations for bot
             </summary>
-            <param name="AccessToken"> Access token. </param>
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.Configurations.BotConfiguration.#ctor(System.String)">
+        <member name="P:ThursdayMeetingBot.TelegramBot.Configurations.BotConfiguration.AccessToken">
             <summary>
-                Configurations for bot
+                Access token.    
             </summary>
-            <param name="AccessToken"> Access token. </param>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Constants.BotCommand">
             <summary>
@@ -50,7 +48,7 @@
                 Update controller.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.Controllers.UpdateController.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService)">
+        <member name="M:ThursdayMeetingBot.TelegramBot.Controllers.UpdateController.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService,ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -113,34 +111,17 @@
         <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand.#ctor(Telegram.Bot.Types.Message)">
             <inheritdoc />
         </member>
-        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler">
-            <summary>
-                Base handler of commands for telegram bot
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler._botService">
-            <summary>
-                Bot service.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BaseCommandHandler.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="botService"> Bot service. </param>
-        </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler">
             <summary>
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="F:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler._logger">
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler},ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
             <summary>
-                Logger.
+                Constructor.
             </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{MediatR.IRequestHandler{ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand,MediatR.Unit}})">
-            <inheritdoc />
+            <param name="botService"> Bot service. </param>
+            <param name="logger"> Logger. </param>
         </member>
         <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.Handle(ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
             <summary>
@@ -221,7 +202,7 @@
             <summary>
                 Constructor
             </summary>
-            <param name="botConfiguration"> Bot configuration. </param>
+            <param name="botConfigurationOptions"> Bot configuration options. </param>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Startup">
             <summary>

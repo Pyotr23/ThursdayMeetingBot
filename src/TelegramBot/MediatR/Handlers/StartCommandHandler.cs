@@ -14,14 +14,18 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
     /// </summary>
     public class StartCommandHandler : IRequestHandler<StartCommand, Unit>
     {
+        private readonly ILogger<StartCommandHandler> _logger;
+        private readonly IBotService _botService;
+
         /// <summary>
-        ///     Logger.
+        ///     Constructor.
         /// </summary>
-        protected readonly ILogger<IRequestHandler<StartCommand, Unit>> _logger;
-        
-        /// <inheritdoc />
-        public StartCommandHandler(ILogger<IRequestHandler<StartCommand, Unit>> logger)
+        /// <param name="botService"> Bot service. </param>
+        /// <param name="logger"> Logger. </param>
+        public StartCommandHandler(ILogger<StartCommandHandler> logger,
+            IBotService botService)
         {
+            _botService = botService;
             _logger = logger;
         }
 

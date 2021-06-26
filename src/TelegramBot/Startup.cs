@@ -42,15 +42,10 @@ namespace ThursdayMeetingBot.TelegramBot
             
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));
-
-            services.AddMvc();
-            
+         
+            services.AddSingleton<IBotService, BotService>();
+            services.AddScoped<IBotMessageService, BotMessageService>();
             services.AddMediatR(typeof(Startup));
-
-            services
-                .AddSingleton<IBotService, BotService>()
-                .AddScoped<IBotMessageService, BotMessageService>();
-                // .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler>();
 
             services
                 .AddControllers()

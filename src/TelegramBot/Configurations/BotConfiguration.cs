@@ -3,6 +3,11 @@
     /// <summary>
     ///     Configurations for bot
     /// </summary>
-    /// <param name="AccessToken"> Access token. </param>
-    public record BotConfiguration(string AccessToken);
+    public class BotConfiguration
+    {
+        /// <summary>
+        ///     Access token.    
+        /// </summary>
+        public string AccessToken { get; set; }
+    } 
 }
