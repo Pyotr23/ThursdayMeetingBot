@@ -1,16 +1,13 @@
 using System;
-using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ThursdayMeetingBot.TelegramBot.Configurations;
 using ThursdayMeetingBot.TelegramBot.Constants;
+using ThursdayMeetingBot.TelegramBot.Extensions;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
-using ThursdayMeetingBot.TelegramBot.MediatR.Commands;
-using ThursdayMeetingBot.TelegramBot.MediatR.Handlers;
 using ThursdayMeetingBot.TelegramBot.Services;
 
 namespace ThursdayMeetingBot.TelegramBot
@@ -37,8 +34,7 @@ namespace ThursdayMeetingBot.TelegramBot
         /// <param name="services"> Web app services collection. </param>
         public void ConfigureServices(IServiceCollection services)
         {
-            var section = Configuration.GetSection(nameof(BotConfiguration));
-            services.Configure<BotConfiguration>(section);
+            services.AddConfigurationSections(Configuration);
             
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));

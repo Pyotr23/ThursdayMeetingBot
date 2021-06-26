@@ -9,11 +9,6 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
     public class BotCommandHandler
     {
         /// <summary>
-        ///     Bot chat.
-        /// </summary>
-        protected Chat? Chat { get; set; }
-        
-        /// <summary>
         ///     Bot service
         /// </summary>
         protected IBotService BotService { get; }

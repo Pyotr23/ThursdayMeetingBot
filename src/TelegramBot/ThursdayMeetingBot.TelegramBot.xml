@@ -14,6 +14,26 @@
                 Access token.    
             </summary>
         </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Configurations.NotificationConfiguration">
+            <summary>
+                Configuration for an notification.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Configurations.NotificationConfiguration.DayOfWeek">
+            <summary>
+                The day of the week on which the notification will occur.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Configurations.NotificationConfiguration.Hour">
+            <summary>
+                Notification UTC hour.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Configurations.NotificationConfiguration.Minute">
+            <summary>
+                Minute of notification.
+            </summary>
+        </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Constants.BotCommand">
             <summary>
                 List of bot commands.
@@ -60,6 +80,19 @@
             </summary>
             <param name="update"> New update from bot. </param>
             <returns> Ok Action or error. </returns>
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Extensions.ServiceCollectionExtensions">
+            <summary>
+                Extensions for IServiceCollection instance.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Extensions.ServiceCollectionExtensions.AddConfigurationSections(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+                Add configuration sections.
+            </summary>
+            <param name="services"> Service collection. </param>
+            <param name="configuration"> Configuration. </param>
+            <returns> Configurated service collection. </returns>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService">
             <summary>
@@ -116,11 +149,6 @@
                 Base handler of commands for telegram bot.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BotCommandHandler.Chat">
-            <summary>
-                Bot chat.
-            </summary>
-        </member>
         <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BotCommandHandler.BotService">
             <summary>
                 Bot service
@@ -137,7 +165,7 @@
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler},ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.TelegramBot.Configurations.NotificationConfiguration},ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>
