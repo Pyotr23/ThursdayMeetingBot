@@ -1,13 +1,13 @@
 ﻿namespace ThursdayMeetingBot.TelegramBot.Configurations
 {
     /// <summary>
-    ///     Configurations for bot
+    ///     Configuration for bot.
     /// </summary>
-    public class BotConfiguration
+    public record BotConfiguration
     {
         /// <summary>
         ///     Access token.    
         /// </summary>
-        public string AccessToken { get; set; }
+        public string? AccessToken { get; init; }
     } 
 }

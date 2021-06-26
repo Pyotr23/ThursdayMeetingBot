@@ -20,7 +20,7 @@ namespace ThursdayMeetingBot.TelegramBot.Controllers
         ///     Constructor.
         /// </summary>
         /// <param name="botMessageService"> Service for manage bot messages. </param>
-        public UpdateController(IBotMessageService botMessageService, IBotService botService)
+        public UpdateController(IBotMessageService botMessageService)
         {
             _botMessageService = botMessageService;
         }

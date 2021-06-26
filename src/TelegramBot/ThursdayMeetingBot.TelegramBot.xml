@@ -6,7 +6,7 @@
     <members>
         <member name="T:ThursdayMeetingBot.TelegramBot.Configurations.BotConfiguration">
             <summary>
-                Configurations for bot
+                Configuration for bot.
             </summary>
         </member>
         <member name="P:ThursdayMeetingBot.TelegramBot.Configurations.BotConfiguration.AccessToken">
@@ -48,7 +48,7 @@
                 Update controller.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.Controllers.UpdateController.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService,ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.TelegramBot.Controllers.UpdateController.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService)">
             <summary>
                 Constructor.
             </summary>
@@ -111,6 +111,27 @@
         <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand.#ctor(Telegram.Bot.Types.Message)">
             <inheritdoc />
         </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BotCommandHandler">
+            <summary>
+                Base handler of commands for telegram bot.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BotCommandHandler.Chat">
+            <summary>
+                Bot chat.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BotCommandHandler.BotService">
+            <summary>
+                Bot service
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.BotCommandHandler.#ctor(ThursdayMeetingBot.TelegramBot.Interfaces.IBotService)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="botService"> Bot service. </param>
+        </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler">
             <summary>
                 Command "/start" handler.
@@ -127,7 +148,8 @@
             <summary>
                 Handle command.
             </summary>
-            <param name="request"> Command </param>
+            <param name="request"> Command. </param>
+            <param name="cancellationToken"> Cancellation token. </param>
             <returns></returns>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Models.WebHook.WebHookSettingInputModel">
