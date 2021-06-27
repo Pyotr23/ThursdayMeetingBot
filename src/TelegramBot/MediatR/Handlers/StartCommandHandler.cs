@@ -51,29 +51,41 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
                 nameof(StartCommand),
                 chat.Id);
 
-            var dueTime = GetFirstNotificationDateTime() - DateTime.UtcNow;
+            var firstNotificationDateTime = GetFirstNotificationDateTime();
+            var dueTime = firstNotificationDateTime - DateTime.UtcNow;
             var timer = new Timer(
                 async _ => await BotService
                     .Client
                     .SendTextMessageAsync(chat.Id, "Go to drink!",  cancellationToken:cancellationToken),
                 null,
                 dueTime,
-                TimeSpan.FromSeconds(DateTimeConstant.DaysInWeek)
+                TimeSpan.FromDays(DateTimeConstant.DaysInWeek)
             );
+            
+            _logger.LogInformation("Sending notifications has started (every {0} at {1}.)",
+                firstNotificationDateTime.DayOfWeek,
+                firstNotificationDateTime.ToShortTimeString());
 
             return Unit.Value;
         }
 
+        /// <summary>
+        ///     Get the date and the time of the first notification.
+        /// </summary>
+        /// <returns></returns>
         private DateTime GetFirstNotificationDateTime()
         {
             var utcNow = DateTime.UtcNow;
+            
             var previousSunday = utcNow
                 .AddDays(-1 * (int)utcNow.DayOfWeek)
                 .Date;
+            
             var notificationDateTimeForCurrentWeek = previousSunday
                 .AddDays((int)_configuration.DayOfWeek)
                 .AddHours(_configuration.Hour)
                 .AddMinutes(_configuration.Minute);
+            
             return notificationDateTimeForCurrentWeek < utcNow
                 ? notificationDateTimeForCurrentWeek.AddDays(DateTimeConstant.DaysInWeek)
                 : notificationDateTimeForCurrentWeek;

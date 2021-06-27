@@ -169,8 +169,9 @@
             <summary>
                 Constructor.
             </summary>
-            <param name="botService"> Bot service. </param>
             <param name="logger"> Logger. </param>
+            <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
+            <param name="botService"> Bot service. </param>
         </member>
         <member name="M:ThursdayMeetingBot.TelegramBot.MediatR.Handlers.StartCommandHandler.Handle(ThursdayMeetingBot.TelegramBot.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
             <summary>
