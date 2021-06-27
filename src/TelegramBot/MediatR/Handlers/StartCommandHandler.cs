@@ -2,10 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.TelegramBot.Configurations;
+using ThursdayMeetingBot.TelegramBot.Constants;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
 using ThursdayMeetingBot.TelegramBot.MediatR.Commands;
 
@@ -22,8 +22,9 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
         /// <summary>
         ///     Constructor.
         /// </summary>
-        /// <param name="botService"> Bot service. </param>
         /// <param name="logger"> Logger. </param>
+        /// <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
+        /// <param name="botService"> Bot service. </param>
         public StartCommandHandler(ILogger<StartCommandHandler> logger,
             IOptions<NotificationConfiguration> notificationConfigurationOptions, 
             IBotService botService)
@@ -50,20 +51,32 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
                 nameof(StartCommand),
                 chat.Id);
 
-            var utcNow = DateTime.UtcNow;
-            if (utcNow.DayOfWeek <= _configuration.DayOfWeek
-                && utcNow.Hour <= _configuration.Hour
-                && utcNow.Minute < _configuration.Minute)
-            {
-                var weekBeginning = utcNow.Date.AddDays(-1 * (int)utcNow.DayOfWeek);
-                var timer = new Timer(
-                    async _ => await BotService.Client.SendTextMessageAsync(chat.Id, "Go to drink!",  cancellationToken:cancellationToken),
-                    null,
-                    );
-            }
-            var notificationDateTime = new DateTime(utcNow.Year, utcNow.Month)
+            var dueTime = GetFirstNotificationDateTime() - DateTime.UtcNow;
+            var timer = new Timer(
+                async _ => await BotService
+                    .Client
+                    .SendTextMessageAsync(chat.Id, "Go to drink!",  cancellationToken:cancellationToken),
+                null,
+                dueTime,
+                TimeSpan.FromSeconds(DateTimeConstant.DaysInWeek)
+            );
 
             return Unit.Value;
+        }
+
+        private DateTime GetFirstNotificationDateTime()
+        {
+            var utcNow = DateTime.UtcNow;
+            var previousSunday = utcNow
+                .AddDays(-1 * (int)utcNow.DayOfWeek)
+                .Date;
+            var notificationDateTimeForCurrentWeek = previousSunday
+                .AddDays((int)_configuration.DayOfWeek)
+                .AddHours(_configuration.Hour)
+                .AddMinutes(_configuration.Minute);
+            return notificationDateTimeForCurrentWeek < utcNow
+                ? notificationDateTimeForCurrentWeek.AddDays(DateTimeConstant.DaysInWeek)
+                : notificationDateTimeForCurrentWeek;
         }
     }
 }
