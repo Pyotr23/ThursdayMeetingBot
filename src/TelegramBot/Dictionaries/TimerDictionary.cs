@@ -9,7 +9,7 @@ namespace ThursdayMeetingBot.TelegramBot.Dictionaries
     /// </summary>
     public static class TimerDictionary
     {
-        private static Dictionary<long, Timer> Dictionary => new Dictionary<long, Timer>();
+        private static Dictionary<long, Timer> Dictionary { get; } = new();
 
         /// <summary>
         ///     Add to dictionary a new key-value pair.

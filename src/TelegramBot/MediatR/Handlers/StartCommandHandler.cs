@@ -62,7 +62,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
                     .SendTextMessageAsync(chatId, "Go to drink!",  cancellationToken:cancellationToken),
                 null,
                 dueTime,
-                TimeSpan.FromDays(DateTimeConstant.DaysInWeek)
+                TimeSpan.FromSeconds(30)
             );
 
             await TimerDictionary.AddAsync(chatId, timer);

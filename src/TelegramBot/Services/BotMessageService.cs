@@ -44,6 +44,9 @@ namespace ThursdayMeetingBot.TelegramBot.Services
                     case BotCommand.Start:
                         await _mediator.Send(new StartCommand(message));
                         break;
+                    case BotCommand.Stop:
+                        await _mediator.Send(new StopCommand(message));
+                        break;
                     default:
                         _logger.LogInformation("Unknown bot command \"{0}\"", message.Text);
                         break;
