@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.TelegramBot.Configurations;
 using ThursdayMeetingBot.TelegramBot.Constants;
+using ThursdayMeetingBot.TelegramBot.Dictionaries;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
 using ThursdayMeetingBot.TelegramBot.MediatR.Commands;
 
@@ -45,26 +46,38 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
-            var chat = request.Chat;
+            var chatId = request
+                .Chat
+                .Id;
 
             _logger.LogInformation("{0}Handle begins for chatId={1}.",
                 nameof(StartCommand),
-                chat.Id);
+                chatId);
 
             var firstNotificationDateTime = GetFirstNotificationDateTime();
             var dueTime = firstNotificationDateTime - DateTime.UtcNow;
             var timer = new Timer(
                 async _ => await BotService
                     .Client
-                    .SendTextMessageAsync(chat.Id, "Go to drink!",  cancellationToken:cancellationToken),
+                    .SendTextMessageAsync(chatId, "Go to drink!",  cancellationToken:cancellationToken),
                 null,
                 dueTime,
                 TimeSpan.FromDays(DateTimeConstant.DaysInWeek)
             );
-            
-            _logger.LogInformation("Sending notifications has started (every {0} at {1}.)",
+
+            await TimerDictionary.AddAsync(chatId, timer);
+
+            var responseText = string.Format("Sending notifications has started (every {0} at {1}).",
                 firstNotificationDateTime.DayOfWeek,
                 firstNotificationDateTime.ToShortTimeString());
+            
+            _logger.LogInformation(responseText);
+
+            await BotService
+                .Client
+                .SendTextMessageAsync(chatId,
+                    responseText,
+                    cancellationToken: cancellationToken);
 
             return Unit.Value;
         }
