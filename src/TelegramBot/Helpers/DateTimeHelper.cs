@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.TelegramBot.Configurations;
 using ThursdayMeetingBot.TelegramBot.Constants;
+using ThursdayMeetingBot.TelegramBot.Models;
 
 namespace ThursdayMeetingBot.TelegramBot.Helpers
 {
@@ -24,8 +25,8 @@ namespace ThursdayMeetingBot.TelegramBot.Helpers
         /// <summary>
         ///     Get the date and the time of the first notification.
         /// </summary>
-        /// <returns></returns>
-        public DateTime GetFirstNotificationDateTime()
+        /// <returns> Class containing the necessary information about the notification time. </returns>
+        public NotificationDateTime GetFirstNotificationDateTime()
         {
             var utcNow = DateTime.UtcNow;
             
@@ -39,8 +40,8 @@ namespace ThursdayMeetingBot.TelegramBot.Helpers
                 .AddMinutes(_configuration.Minute);
             
             return notificationDateTimeForCurrentWeek < utcNow
-                ? notificationDateTimeForCurrentWeek.AddDays(DateTimeConstant.DaysInWeek)
-                : notificationDateTimeForCurrentWeek;
+                ? new NotificationDateTime(notificationDateTimeForCurrentWeek.AddDays(DateTimeConstant.DaysInWeek))
+                : new NotificationDateTime(notificationDateTimeForCurrentWeek);
         }
 
         /// <summary>
@@ -52,8 +53,8 @@ namespace ThursdayMeetingBot.TelegramBot.Helpers
         {
             var dayOfWeek = dateTime.DayOfWeek;
             var dayOfWeekIndex = (int) dayOfWeek;
-            if (dayOfWeekIndex < DateTimeConstant.DayOfWeekRussianDescription.Length)
-                return DateTimeConstant.DayOfWeekRussianDescription[dayOfWeekIndex];
+            if (dayOfWeekIndex < DateTimeConstant.DayOfWeekRussianDescriptions.Length)
+                return DateTimeConstant.DayOfWeekRussianDescriptions[dayOfWeekIndex];
             throw new ArgumentOutOfRangeException($"No russian description for the {dayOfWeek}.");
         }
     }

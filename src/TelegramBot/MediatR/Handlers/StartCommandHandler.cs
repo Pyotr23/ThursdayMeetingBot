@@ -5,8 +5,8 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.TelegramBot.Configurations;
-using ThursdayMeetingBot.TelegramBot.Constants;
 using ThursdayMeetingBot.TelegramBot.Dictionaries;
+using ThursdayMeetingBot.TelegramBot.Extensions;
 using ThursdayMeetingBot.TelegramBot.Helpers;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
 using ThursdayMeetingBot.TelegramBot.MediatR.Commands;
@@ -56,21 +56,20 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
                 chatId);
 
             var firstNotificationDateTime = _dateTimeHelper.GetFirstNotificationDateTime();
-            var dueTime = firstNotificationDateTime - DateTime.UtcNow;
             var timer = new Timer(
                 async _ => await BotService
                     .Client
                     .SendTextMessageAsync(chatId, "Go to drink!",  cancellationToken:cancellationToken),
                 null,
-                dueTime,
+                firstNotificationDateTime.DueTime,
                 TimeSpan.FromSeconds(30)
             );
 
             await TimerDictionary.AddAsync(chatId, timer);
-
-            var responseText = string.Format("Включены уведомления по  Sending notifications has started (every {0} at {1}).",
-                firstNotificationDateTime.DayOfWeek,
-                firstNotificationDateTime.ToShortTimeString());
+           
+            var responseText = string.Format("Включены уведомления о встречах по {0} в {1}.",
+                firstNotificationDateTime.RussianDayOfWeekName,
+                firstNotificationDateTime.MoscowShortTime);
             
             _logger.LogInformation(responseText);
 

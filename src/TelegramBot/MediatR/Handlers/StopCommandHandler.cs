@@ -49,7 +49,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
 
             await TimerDictionary.DeleteAsync(chatId);
 
-            var responseText = "Meeting notifications are stopped.";
+            var responseText = "Уведомления о встречах отключены.";
             
             _logger.LogInformation(responseText);
 

@@ -1,10 +1,19 @@
 ﻿namespace ThursdayMeetingBot.TelegramBot.Constants
 {
-    internal static class DateTimeConstant
+    /// <summary>
+    ///     Date and time constants.
+    /// </summary>
+    public static class DateTimeConstant
     {
-        internal const int DaysInWeek = 7;
+        /// <summary>
+        ///     The number of days in a week.
+        /// </summary>
+        public const int DaysInWeek = 7;
 
-        internal static readonly string[] DayOfWeekRussianDescription = 
+        /// <summary>
+        ///     Names of days of the week in Russian in the plural in the genitive case.
+        /// </summary>
+        public static readonly string[] DayOfWeekRussianDescriptions = 
         {
             "воскресеньям",
             "понедельникам",
@@ -14,5 +23,10 @@
             "пятницам",
             "субботам"
         };
+
+        /// <summary>
+        ///     Moscow time zone.
+        /// </summary>
+        public const int MoscowTimeZone = 3;
     }
 }

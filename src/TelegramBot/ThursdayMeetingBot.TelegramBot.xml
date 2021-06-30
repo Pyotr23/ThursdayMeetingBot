@@ -34,6 +34,26 @@
                 Minute of notification.
             </summary>
         </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Constants.DateTimeConstant">
+            <summary>
+                Date and time constants.
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.TelegramBot.Constants.DateTimeConstant.DaysInWeek">
+            <summary>
+                The number of days in a week.
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.TelegramBot.Constants.DateTimeConstant.DayOfWeekRussianDescriptions">
+            <summary>
+                Names of days of the week in Russian in the plural in the genitive case.
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.TelegramBot.Constants.DateTimeConstant.MoscowTimeZone">
+            <summary>
+                Moscow time zone.
+            </summary>
+        </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Controllers.BotConfigurationController">
             <summary>
                 Controller for manage bot configuration.
@@ -88,6 +108,18 @@
                 Stop and delete existing timer.
             </summary>
             <param name="id"> Timer identificator. </param>
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Extensions.DateTimeExtensions">
+            <summary>
+                Date and time extensions.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Extensions.DateTimeExtensions.ToMoscowTime(System.DateTime)">
+            <summary>
+                Convert UTC time to Moscow time.
+            </summary>
+            <param name="utcDateTime"> UTC time. </param>
+            <returns> Moscow time. </returns>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Extensions.ServiceCollectionExtensions">
             <summary>
