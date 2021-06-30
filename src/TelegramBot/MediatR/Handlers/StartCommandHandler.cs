@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.TelegramBot.Configurations;
 using ThursdayMeetingBot.TelegramBot.Constants;
 using ThursdayMeetingBot.TelegramBot.Dictionaries;
+using ThursdayMeetingBot.TelegramBot.Helpers;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
 using ThursdayMeetingBot.TelegramBot.MediatR.Commands;
 
@@ -18,7 +19,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
     public class StartCommandHandler : BotCommandHandler, IRequestHandler<StartCommand, Unit>
     {
         private readonly ILogger<StartCommandHandler> _logger;
-        private readonly NotificationConfiguration _configuration;
+        private readonly DateTimeHelper _dateTimeHelper;
 
         /// <summary>
         ///     Constructor.
@@ -32,7 +33,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
             : base(botService)
         {
             _logger = logger;
-            _configuration = notificationConfigurationOptions.Value;
+            _dateTimeHelper = new DateTimeHelper(notificationConfigurationOptions);
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
                 nameof(StartCommand),
                 chatId);
 
-            var firstNotificationDateTime = GetFirstNotificationDateTime();
+            var firstNotificationDateTime = _dateTimeHelper.GetFirstNotificationDateTime();
             var dueTime = firstNotificationDateTime - DateTime.UtcNow;
             var timer = new Timer(
                 async _ => await BotService
@@ -67,7 +68,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
 
             await TimerDictionary.AddAsync(chatId, timer);
 
-            var responseText = string.Format("Sending notifications has started (every {0} at {1}).",
+            var responseText = string.Format("Включены уведомления по  Sending notifications has started (every {0} at {1}).",
                 firstNotificationDateTime.DayOfWeek,
                 firstNotificationDateTime.ToShortTimeString());
             
@@ -80,28 +81,6 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
                     cancellationToken: cancellationToken);
 
             return Unit.Value;
-        }
-
-        /// <summary>
-        ///     Get the date and the time of the first notification.
-        /// </summary>
-        /// <returns></returns>
-        private DateTime GetFirstNotificationDateTime()
-        {
-            var utcNow = DateTime.UtcNow;
-            
-            var previousSunday = utcNow
-                .AddDays(-1 * (int)utcNow.DayOfWeek)
-                .Date;
-            
-            var notificationDateTimeForCurrentWeek = previousSunday
-                .AddDays((int)_configuration.DayOfWeek)
-                .AddHours(_configuration.Hour)
-                .AddMinutes(_configuration.Minute);
-            
-            return notificationDateTimeForCurrentWeek < utcNow
-                ? notificationDateTimeForCurrentWeek.AddDays(DateTimeConstant.DaysInWeek)
-                : notificationDateTimeForCurrentWeek;
         }
     }
 }

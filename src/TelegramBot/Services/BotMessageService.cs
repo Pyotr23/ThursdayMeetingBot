@@ -39,18 +39,20 @@ namespace ThursdayMeetingBot.TelegramBot.Services
                 .Type; 
             if (firstEntityType == MessageEntityType.BotCommand)
             {
+                BaseBotCommand<Unit> command;
                 switch (message.Text)
                 {
                     case BotCommand.Start:
-                        await _mediator.Send(new StartCommand(message));
+                        command = new StartCommand(message);
                         break;
                     case BotCommand.Stop:
-                        await _mediator.Send(new StopCommand(message));
+                        command = new StopCommand(message); 
                         break;
                     default:
                         _logger.LogInformation("Unknown bot command \"{0}\"", message.Text);
-                        break;
+                        return;
                 }
+                await _mediator.Send(command);
             }
         }
     }

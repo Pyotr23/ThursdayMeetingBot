@@ -7,7 +7,7 @@ namespace ThursdayMeetingBot.TelegramBot.Extensions
     /// <summary>
     ///     Extensions for IServiceCollection instance.
     /// </summary>
-    public static class ServiceCollectionExtensions
+    internal static class ServiceCollectionExtensions
     {
         /// <summary>
         ///     Add configuration sections.
