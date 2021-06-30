@@ -1,14 +1,12 @@
 using System;
-using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ThursdayMeetingBot.TelegramBot.Configurations;
 using ThursdayMeetingBot.TelegramBot.Constants;
+using ThursdayMeetingBot.TelegramBot.Extensions;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
 using ThursdayMeetingBot.TelegramBot.Services;
 
@@ -36,19 +34,15 @@ namespace ThursdayMeetingBot.TelegramBot
         /// <param name="services"> Web app services collection. </param>
         public void ConfigureServices(IServiceCollection services)
         {
-            var section = Configuration.GetSection(nameof(BotConfiguration));
-            services.Configure<BotConfiguration>(section);
+            services.AddConfigurationSections(Configuration);
             
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));
+         
+            services.AddSingleton<IBotService, BotService>();
+            services.AddScoped<IBotMessageService, BotMessageService>();
+            services.AddMediatR(typeof(Startup));
 
-            services.AddMediatR(Assembly.GetExecutingAssembly());
-
-            services
-                .AddSingleton<IBotService, BotService>()
-                .AddScoped<IBotMessageService, BotMessageService>();
-            //     .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto, Guid>>();
-            
             services
                 .AddControllers()
                 .AddNewtonsoftJson();

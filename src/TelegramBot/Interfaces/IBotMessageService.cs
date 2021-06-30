@@ -11,7 +11,7 @@ namespace ThursdayMeetingBot.TelegramBot.Interfaces
         /// <summary>
         ///     Processing a message.
         /// </summary>
-        /// <param name="messageEntity"> New message. </param>
-        Task ProcessAsync(Update messageEntity);
+        /// <param name="update"> Incoming update. </param>
+        Task ProcessAsync(Update update);
     }
 }
