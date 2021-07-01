@@ -1,4 +1,5 @@
 ﻿using System;
+using ThursdayMeetingBot.TelegramBot.Constants;
 using ThursdayMeetingBot.TelegramBot.Extensions;
 using ThursdayMeetingBot.TelegramBot.Helpers;
 
@@ -42,9 +43,11 @@ namespace ThursdayMeetingBot.TelegramBot.Models
         /// <summary>
         ///     Bot answer.
         /// </summary>
-        public string BotAnswer => 
-            $"Включены уведомления о встречах по {RussianDayOfWeekName} в {MoscowShortTime}";
-
+        public string BotMessage => 
+            string.Format(BotAnswer.NotificationsAreEnabled,
+                RussianDayOfWeekName,
+                MoscowShortTime);
+        
         /// <summary>
         ///     Message for logging.
         /// </summary>

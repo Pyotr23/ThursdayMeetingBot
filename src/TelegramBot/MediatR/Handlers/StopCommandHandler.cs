@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using ThursdayMeetingBot.TelegramBot.Constants;
 using ThursdayMeetingBot.TelegramBot.Dictionaries;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
 using ThursdayMeetingBot.TelegramBot.MediatR.Commands;
@@ -54,7 +55,7 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
             await BotService
                 .Client
                 .SendTextMessageAsync(chatId,
-                    "Уведомления о встречах отключены",
+                    BotAnswer.NotificationsAreDisabled,
                     cancellationToken: cancellationToken);
 
             return Unit.Value;

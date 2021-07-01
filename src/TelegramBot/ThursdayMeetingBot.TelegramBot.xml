@@ -308,7 +308,7 @@
                 Formatted time until notification.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.BotAnswer">
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.BotMessage">
             <summary>
                 Bot answer.
             </summary>
