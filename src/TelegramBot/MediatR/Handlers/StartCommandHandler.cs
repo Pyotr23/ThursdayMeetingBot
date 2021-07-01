@@ -59,24 +59,20 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
             var timer = new Timer(
                 async _ => await BotService
                     .Client
-                    .SendTextMessageAsync(chatId, "Go to drink!",  cancellationToken:cancellationToken),
+                    .SendTextMessageAsync(chatId, "Идём сегодня?",  cancellationToken:cancellationToken),
                 null,
                 firstNotificationDateTime.DueTime,
                 TimeSpan.FromSeconds(30)
             );
 
             await TimerDictionary.AddAsync(chatId, timer);
-           
-            var responseText = string.Format("Включены уведомления о встречах по {0} в {1}.",
-                firstNotificationDateTime.RussianDayOfWeekName,
-                firstNotificationDateTime.MoscowShortTime);
-            
-            _logger.LogInformation(responseText);
+
+            _logger.LogInformation(firstNotificationDateTime.LogMessage);
 
             await BotService
                 .Client
                 .SendTextMessageAsync(chatId,
-                    responseText,
+                    firstNotificationDateTime.BotAnswer,
                     cancellationToken: cancellationToken);
 
             return Unit.Value;

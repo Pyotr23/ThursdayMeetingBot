@@ -149,7 +149,7 @@
             <summary>
                 Get the date and the time of the first notification.
             </summary>
-            <returns></returns>
+            <returns> Class containing the necessary information about the notification time. </returns>
         </member>
         <member name="M:ThursdayMeetingBot.TelegramBot.Helpers.DateTimeHelper.GetDayOfWeekRussianDescription(System.DateTime)">
             <summary>
@@ -272,6 +272,57 @@
             <param name="request"> Command. </param>
             <param name="cancellationToken"> Cancellation token. </param>
             <returns></returns>
+        </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime">
+            <summary>
+                Notification time class.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.Value">
+            <summary>
+                Value.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.DayOfWeek">
+            <summary>
+                Day of week.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.RussianDayOfWeekName">
+            <summary>
+                Russian description of day of week.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.MoscowShortTime">
+            <summary>
+                Value in Moscow time zone.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.DueTime">
+            <summary>
+                Time until notification.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.FormattedDueTime">
+            <summary>
+                Formatted time until notification.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.BotAnswer">
+            <summary>
+                Bot answer.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.LogMessage">
+            <summary>
+                Message for logging.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Models.NotificationDateTime.#ctor(System.DateTime)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="dateTime"> The date and time to create the entity for. </param>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Models.WebHook.WebHookSettingInputModel">
             <summary>

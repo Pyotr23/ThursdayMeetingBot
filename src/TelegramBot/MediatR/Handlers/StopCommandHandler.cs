@@ -49,14 +49,12 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
 
             await TimerDictionary.DeleteAsync(chatId);
 
-            var responseText = "Уведомления о встречах отключены.";
-            
-            _logger.LogInformation(responseText);
+            _logger.LogInformation("Meeting notifications are disabled.");
 
             await BotService
                 .Client
                 .SendTextMessageAsync(chatId,
-                    responseText,
+                    "Уведомления о встречах отключены",
                     cancellationToken: cancellationToken);
 
             return Unit.Value;

@@ -35,6 +35,23 @@ namespace ThursdayMeetingBot.TelegramBot.Models
         public TimeSpan DueTime => Value - DateTime.UtcNow;
 
         /// <summary>
+        ///     Formatted time until notification.
+        /// </summary>
+        public string FormattedDueTime => DueTime.ToString(@"d\.hh\:mm");
+
+        /// <summary>
+        ///     Bot answer.
+        /// </summary>
+        public string BotAnswer => 
+            $"Включены уведомления о встречах по {RussianDayOfWeekName} в {MoscowShortTime}";
+
+        /// <summary>
+        ///     Message for logging.
+        /// </summary>
+        public string LogMessage =>
+            $"Notifications are enabled, every {DayOfWeek}, {MoscowShortTime}, after {FormattedDueTime}.";
+
+        /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="dateTime"> The date and time to create the entity for. </param>
