@@ -2,7 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5EBF896F-D8F3-437E-9984-8519A311B90E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThursdayMeetingBot", "src\ThursdayMeetingBot\ThursdayMeetingBot.csproj", "{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot", "src\TelegramBot\TelegramBot.csproj", "{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "src\UnitTests\UnitTests.csproj", "{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,8 +16,13 @@ Global
 		{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC} = {5EBF896F-D8F3-437E-9984-8519A311B90E}
+		{A1EF095D-2677-4BA8-A31B-88ABCF8735FF} = {5EBF896F-D8F3-437E-9984-8519A311B90E}
 	EndGlobalSection
 EndGlobal
