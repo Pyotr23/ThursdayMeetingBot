@@ -1,4 +1,5 @@
 ﻿using System;
+using ThursdayMeetingBot.TelegramBot.Constants;
 using ThursdayMeetingBot.TelegramBot.Extensions;
 using ThursdayMeetingBot.TelegramBot.Helpers;
 
@@ -33,6 +34,25 @@ namespace ThursdayMeetingBot.TelegramBot.Models
         ///     Time until notification.
         /// </summary>
         public TimeSpan DueTime => Value - DateTime.UtcNow;
+
+        /// <summary>
+        ///     Formatted time until notification.
+        /// </summary>
+        public string FormattedDueTime => DueTime.ToString(@"d\.hh\:mm");
+
+        /// <summary>
+        ///     Bot answer.
+        /// </summary>
+        public string BotMessage => 
+            string.Format(BotAnswer.NotificationsAreEnabled,
+                RussianDayOfWeekName,
+                MoscowShortTime);
+        
+        /// <summary>
+        ///     Message for logging.
+        /// </summary>
+        public string LogMessage =>
+            $"Notifications are enabled, every {DayOfWeek}, {MoscowShortTime}, after {FormattedDueTime}.";
 
         /// <summary>
         ///     Constructor.

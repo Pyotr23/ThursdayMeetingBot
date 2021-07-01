@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using ThursdayMeetingBot.TelegramBot.Constants;
 using ThursdayMeetingBot.TelegramBot.Dictionaries;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
 using ThursdayMeetingBot.TelegramBot.MediatR.Commands;
@@ -49,14 +50,12 @@ namespace ThursdayMeetingBot.TelegramBot.MediatR.Handlers
 
             await TimerDictionary.DeleteAsync(chatId);
 
-            var responseText = "Уведомления о встречах отключены.";
-            
-            _logger.LogInformation(responseText);
+            _logger.LogInformation("Meeting notifications are disabled.");
 
             await BotService
                 .Client
                 .SendTextMessageAsync(chatId,
-                    responseText,
+                    BotAnswer.NotificationsAreDisabled,
                     cancellationToken: cancellationToken);
 
             return Unit.Value;
