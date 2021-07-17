@@ -12,6 +12,6 @@ namespace ThursdayMeetingBot.TelegramBot.Models.WebHook
         /// </summary>
         [Required]
         [Url]
-        public string Uri { get; init; } = null!;
+        public string Uri { get; init; }
     }
 }

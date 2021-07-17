@@ -2,12 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>9</LangVersion>
         <AssemblyName>ThursdayMeetingBot.TelegramBot</AssemblyName>
         <RootNamespace>ThursdayMeetingBot.TelegramBot</RootNamespace>
         <DocumentationFile>$(MSBuildProjectDirectory)\ThursdayMeetingBot.TelegramBot.xml</DocumentationFile>
         <Configurations>Debug;Release</Configurations>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
         <UserSecretsId>ddce0edc-1046-41b2-aa89-9c5b4b1c4df9</UserSecretsId>
     </PropertyGroup>
 

@@ -8,6 +8,6 @@
         /// <summary>
         ///     Access token.    
         /// </summary>
-        public string? AccessToken { get; init; }
+        public string AccessToken { get; init; }
     } 
 }
