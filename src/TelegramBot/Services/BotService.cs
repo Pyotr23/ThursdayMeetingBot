@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System;
+using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using ThursdayMeetingBot.TelegramBot.Configurations;
+using ThursdayMeetingBot.TelegramBot.Constants;
 using ThursdayMeetingBot.TelegramBot.Interfaces;
 
 namespace ThursdayMeetingBot.TelegramBot.Services
@@ -14,12 +16,9 @@ namespace ThursdayMeetingBot.TelegramBot.Services
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="botConfigurationOptions"> Bot configuration options. </param>
-        public BotService(IOptions<BotConfiguration> botConfigurationOptions)
+        public BotService()
         {
-            var accessToken = botConfigurationOptions
-                .Value
-                .AccessToken;
+            var accessToken = Environment.GetEnvironmentVariable(EnvironmentConstant.BotAccessTokenAlias);
             Client = new TelegramBotClient(accessToken);
         }
     }

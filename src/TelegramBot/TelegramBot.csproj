@@ -8,7 +8,8 @@
         <DocumentationFile>$(MSBuildProjectDirectory)\ThursdayMeetingBot.TelegramBot.xml</DocumentationFile>
         <Configurations>Debug;Release</Configurations>
         <Nullable>disable</Nullable>
-        <UserSecretsId>ddce0edc-1046-41b2-aa89-9c5b4b1c4df9</UserSecretsId>
+        <AssemblyVersion>1.0.1</AssemblyVersion>
+        <FileVersion>1.0.1</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>

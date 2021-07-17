@@ -392,11 +392,10 @@
         <member name="P:ThursdayMeetingBot.TelegramBot.Services.BotService.Client">
             <inheritdoc />
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.Services.BotService.#ctor(Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.TelegramBot.Configurations.BotConfiguration})">
+        <member name="M:ThursdayMeetingBot.TelegramBot.Services.BotService.#ctor">
             <summary>
                 Constructor
             </summary>
-            <param name="botConfigurationOptions"> Bot configuration options. </param>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Startup">
             <summary>
