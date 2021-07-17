@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TelegramBot\TelegramBot.csproj" />
+      <ProjectReference Include="..\..\TelegramBot\TelegramBot.csproj" />
     </ItemGroup>
 
 </Project>

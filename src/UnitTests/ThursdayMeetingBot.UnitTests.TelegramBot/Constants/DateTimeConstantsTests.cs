@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using ThursdayMeetingBot.TelegramBot.Constants;
 
-namespace UnitTests.Constants
+namespace ThursdayMeetingBot.UnitTests.TelegramBot.Constants
 {
     public class DateTimeConstantsTests
     {

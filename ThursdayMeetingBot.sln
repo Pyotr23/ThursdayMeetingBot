@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5EBF896F-D8F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot", "src\TelegramBot\TelegramBot.csproj", "{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "src\UnitTests\UnitTests.csproj", "{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThursdayMeetingBot.UnitTests.TelegramBot", "src\UnitTests\ThursdayMeetingBot.UnitTests.TelegramBot\ThursdayMeetingBot.UnitTests.TelegramBot.csproj", "{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +21,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC} = {5EBF896F-D8F3-437E-9984-8519A311B90E}
-		{A1EF095D-2677-4BA8-A31B-88ABCF8735FF} = {5EBF896F-D8F3-437E-9984-8519A311B90E}
+		{28C5232D-35B6-4559-AC36-7D2125199FFB} = {5EBF896F-D8F3-437E-9984-8519A311B90E}
+		{A970C7B6-D3B8-4F79-BCFA-2F27B612D7A0} = {5EBF896F-D8F3-437E-9984-8519A311B90E}
+		{A1EF095D-2677-4BA8-A31B-88ABCF8735FF} = {A970C7B6-D3B8-4F79-BCFA-2F27B612D7A0}
 	EndGlobalSection
 EndGlobal

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using ThursdayMeetingBot.TelegramBot.Extensions;
 
-namespace UnitTests.Extensions
+namespace ThursdayMeetingBot.UnitTests.TelegramBot.Extensions
 {
     public class DateTimeExtensionsTests
     {
