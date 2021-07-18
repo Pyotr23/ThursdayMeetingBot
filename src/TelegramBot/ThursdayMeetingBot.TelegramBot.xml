@@ -158,6 +158,23 @@
             <param name="dateTime"> Date with time. </param>
             <returns> Day of the week in Russian in the parent plural case. </returns>
         </member>
+        <member name="T:ThursdayMeetingBot.TelegramBot.Helpers.EnvironmentHelper">
+            <summary>
+                A helper for working with the environment.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Helpers.EnvironmentHelper.GetEnvironment">
+            <summary>
+                Get the environment.
+            </summary>
+            <returns> Environment (Development, Production and etc.). </returns>
+        </member>
+        <member name="M:ThursdayMeetingBot.TelegramBot.Helpers.EnvironmentHelper.IsDevelopment">
+            <summary>
+                Is the environment Development.
+            </summary>
+            <returns> Check result. </returns>
+        </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Interfaces.IBotMessageService">
             <summary>
                 Service for processing messages received from the bot.
@@ -392,10 +409,11 @@
         <member name="P:ThursdayMeetingBot.TelegramBot.Services.BotService.Client">
             <inheritdoc />
         </member>
-        <member name="M:ThursdayMeetingBot.TelegramBot.Services.BotService.#ctor">
+        <member name="M:ThursdayMeetingBot.TelegramBot.Services.BotService.#ctor(Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.TelegramBot.Configurations.BotConfiguration})">
             <summary>
-                Constructor
+                Constructor.
             </summary>
+            <param name="config"> Bot configuration options. </param>
         </member>
         <member name="T:ThursdayMeetingBot.TelegramBot.Startup">
             <summary>

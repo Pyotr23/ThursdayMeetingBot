@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using ThursdayMeetingBot.TelegramBot.Constants;
+using ThursdayMeetingBot.TelegramBot.Helpers;
 
 namespace ThursdayMeetingBot.TelegramBot
 {
@@ -42,15 +43,14 @@ namespace ThursdayMeetingBot.TelegramBot
         /// <returns> Application configuration object. </returns>
         private static IConfiguration BuildConfiguration(string[] args)
         {
-            var environmentVariable = Environment.GetEnvironmentVariable(EnvironmentConstant.Name) 
-                                      ?? Environments.Production;
-
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{environmentVariable}.json", true, true)
+                .AddJsonFile($"appsettings.{EnvironmentHelper.GetEnvironment()}.json", 
+                    true, 
+                    true)
                 .AddEnvironmentVariables();
 
-            if(environmentVariable.Equals(Environments.Development))
+            if(EnvironmentHelper.IsDevelopment())
                 configurationBuilder.AddUserSecrets<Startup>();
 
             return configurationBuilder
