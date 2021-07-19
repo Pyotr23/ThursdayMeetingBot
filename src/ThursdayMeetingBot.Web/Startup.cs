@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.Services;
 
 namespace ThursdayMeetingBot.Web

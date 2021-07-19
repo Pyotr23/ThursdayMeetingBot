@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ThursdayMeetingBot.Libraries.Core</name>
+    </assembly>
+    <members>
+        <member name="T:ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotMessageService">
+            <summary>
+                Service for processing messages received from the bot.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotMessageService.ProcessAsync(Telegram.Bot.Types.Update)">
+            <summary>
+                Processing a message.
+            </summary>
+            <param name="update"> Incoming update. </param>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotService">
+            <summary>
+                Service for managing telegram bot client.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotService.Client">
+            <summary>
+                Telegram bot client.
+            </summary>
+        </member>
+    </members>
+</doc>
