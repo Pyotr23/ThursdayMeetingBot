@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\libraries\Libraries.Core\Libraries.Core.csproj" />
+      <ProjectReference Include="..\libraries\Libraries.MediatR\Libraries.MediatR.csproj" />
     </ItemGroup>
 
 </Project>

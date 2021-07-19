@@ -4,6 +4,82 @@
         <name>ThursdayMeetingBot.Libraries.Core</name>
     </assembly>
     <members>
+        <member name="T:ThursdayMeetingBot.Libraries.Core.Configurations.NotificationConfiguration">
+            <summary>
+                Configuration for an notification.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Configurations.NotificationConfiguration.DayOfWeek">
+            <summary>
+                The day of the week on which the notification will occur.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Configurations.NotificationConfiguration.Hour">
+            <summary>
+                Notification UTC hour.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Configurations.NotificationConfiguration.Minute">
+            <summary>
+                Minute of notification.
+            </summary>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.Core.Constants.DateTimeConstant">
+            <summary>
+                Date and time constants.
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.Libraries.Core.Constants.DateTimeConstant.DaysInWeek">
+            <summary>
+                The number of days in a week.
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.Libraries.Core.Constants.DateTimeConstant.DayOfWeekRussianDescriptions">
+            <summary>
+                Names of days of the week in Russian in the plural in the genitive case.
+            </summary>
+        </member>
+        <member name="F:ThursdayMeetingBot.Libraries.Core.Constants.DateTimeConstant.MoscowTimeZone">
+            <summary>
+                Moscow time zone.
+            </summary>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.Core.Extensions.DateTimeExtensions">
+            <summary>
+                Date and time extensions.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.Core.Extensions.DateTimeExtensions.ToMoscowTime(System.DateTime)">
+            <summary>
+                Convert UTC time to Moscow time.
+            </summary>
+            <param name="utcDateTime"> UTC time. </param>
+            <returns> Moscow time. </returns>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.Core.Helpers.DateTimeHelper">
+            <summary>
+                DateTime helper.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.Core.Helpers.DateTimeHelper.#ctor(Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Configurations.NotificationConfiguration})">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="notificationConfigurationOptions"> Notification configuration. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.Core.Helpers.DateTimeHelper.GetFirstNotificationDateTime">
+            <summary>
+                Get the date and the time of the first notification.
+            </summary>
+            <returns> Class containing the necessary information about the notification time. </returns>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.Core.Helpers.DateTimeHelper.GetDayOfWeekRussianDescription(System.DateTime)">
+            <summary>
+                Get the day of the week in Russian in the parent plural case.
+            </summary>
+            <param name="dateTime"> Date with time. </param>
+            <returns> Day of the week in Russian in the parent plural case. </returns>
+        </member>
         <member name="T:ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotMessageService">
             <summary>
                 Service for processing messages received from the bot.
@@ -24,6 +100,52 @@
             <summary>
                 Telegram bot client.
             </summary>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime">
+            <summary>
+                Notification time class.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime.Value">
+            <summary>
+                Value.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime.DayOfWeek">
+            <summary>
+                Day of week.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime.RussianDayOfWeekName">
+            <summary>
+                Russian description of day of week.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime.MoscowShortTime">
+            <summary>
+                Value in Moscow time zone.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime.DueTime">
+            <summary>
+                Time until notification.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime.FormattedDueTime">
+            <summary>
+                Formatted time until notification.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime.LogMessage">
+            <summary>
+                Message for logging.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.Core.Models.Notification.NotificationDateTime.#ctor(System.DateTime)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="dateTime"> The date and time to create the entity for. </param>
         </member>
     </members>
 </doc>

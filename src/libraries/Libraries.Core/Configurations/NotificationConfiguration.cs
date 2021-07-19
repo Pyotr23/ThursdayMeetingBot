@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ThursdayMeetingBot.Web.Configurations
+namespace ThursdayMeetingBot.Libraries.Core.Configurations
 {
     /// <summary>
     ///     Configuration for an notification.

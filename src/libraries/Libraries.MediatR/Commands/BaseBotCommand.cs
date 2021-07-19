@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Telegram.Bot.Types;
 
-namespace ThursdayMeetingBot.Web.MediatR.Commands
+namespace ThursdayMeetingBot.Libraries.MediatR.Commands
 {
     /// <summary>
     ///     Base bot command.

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>ThursdayMeetingBot.Libraries.MediatR</AssemblyName>
+        <RootNamespace>ThursdayMeetingBot.Libraries.MediatR</RootNamespace>
+        <DocumentationFile>$(MSBuildProjectDirectory)\ThursdayMeetingBot.Libraries.MediatR.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0-preview.6.21352.12" />
+      <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0-preview.6.21352.12" />
+      <PackageReference Include="Telegram.Bot" Version="11.0.0-beta-4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Libraries.Core\Libraries.Core.csproj" />
+    </ItemGroup>
+
+</Project>

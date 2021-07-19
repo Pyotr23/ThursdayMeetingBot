@@ -1,7 +1,7 @@
 ﻿using System;
-using ThursdayMeetingBot.Web.Constants;
+using ThursdayMeetingBot.Libraries.Core.Constants;
 
-namespace ThursdayMeetingBot.Web.Extensions
+namespace ThursdayMeetingBot.Libraries.Core.Extensions
 {
     /// <summary>
     ///     Date and time extensions.

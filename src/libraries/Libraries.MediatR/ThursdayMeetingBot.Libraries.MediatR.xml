@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ThursdayMeetingBot.Libraries.MediatR</name>
+    </assembly>
+    <members>
+        <member name="T:ThursdayMeetingBot.Libraries.MediatR.Commands.BaseBotCommand`1">
+            <summary>
+                Base bot command.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.MediatR.Commands.BaseBotCommand`1.Message">
+            <summary>
+                Message.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.MediatR.Commands.BaseBotCommand`1.Chat">
+            <summary>
+                Chat.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Commands.BaseBotCommand`1.#ctor(Telegram.Bot.Types.Message)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="message"> Message. </param>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.MediatR.Commands.StartCommand">
+            <summary>
+                Command when "/start" received.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Commands.StartCommand.#ctor(Telegram.Bot.Types.Message)">
+            <inheritdoc />
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.MediatR.Commands.StopCommand">
+            <summary>
+                Command when "/start" received.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Commands.StopCommand.#ctor(Telegram.Bot.Types.Message)">
+            <inheritdoc />
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.MediatR.Dictionaries.TimerDictionary">
+            <summary>
+                Dictionary of timers.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Dictionaries.TimerDictionary.AddAsync(System.Int64,System.Threading.Timer)">
+            <summary>
+                Add to dictionary a new key-value pair.
+            </summary>
+            <param name="id"> Identificator-key. </param>
+            <param name="timer"> Timer-value. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Dictionaries.TimerDictionary.DeleteAsync(System.Int64)">
+            <summary>
+                Stop and delete existing timer.
+            </summary>
+            <param name="id"> Timer identificator. </param>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.MediatR.Handlers.BotCommandHandler">
+            <summary>
+                Base handler of commands for telegram bot.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Libraries.MediatR.Handlers.BotCommandHandler.BotService">
+            <summary>
+                Bot service
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Handlers.BotCommandHandler.#ctor(ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotService)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="botService"> Bot service. </param>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.MediatR.Handlers.StartCommandHandler">
+            <summary>
+                Command "/start" handler.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Libraries.MediatR.Handlers.StartCommandHandler},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotService)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="logger"> Logger. </param>
+            <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
+            <param name="botService"> Bot service. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Handlers.StartCommandHandler.Handle(ThursdayMeetingBot.Libraries.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
+            <summary>
+                Handle command.
+            </summary>
+            <param name="request"> Command. </param>
+            <param name="cancellationToken"> Cancellation token. </param>
+            <returns> A task with representation of the void type. </returns>
+        </member>
+        <member name="T:ThursdayMeetingBot.Libraries.MediatR.Handlers.StopCommandHandler">
+            <summary>
+                Command "/stop" handler.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Libraries.MediatR.Handlers.StartCommandHandler},ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotService)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="logger"> Logger. </param>
+            <param name="botService"> Bot service. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.Libraries.MediatR.Handlers.StopCommandHandler.Handle(ThursdayMeetingBot.Libraries.MediatR.Commands.StopCommand,System.Threading.CancellationToken)">
+            <summary>
+                Handle command.
+            </summary>
+            <param name="request"> Command. </param>
+            <param name="cancellationToken"> Cancellation token. </param>
+            <returns> A task with representation of the void type. </returns>
+        </member>
+    </members>
+</doc>

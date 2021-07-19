@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
-using ThursdayMeetingBot.Web.Configurations;
-using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Models;
+using ThursdayMeetingBot.Libraries.Core.Configurations;
+using ThursdayMeetingBot.Libraries.Core.Constants;
+using ThursdayMeetingBot.Libraries.Core.Models.Notification;
 
-namespace ThursdayMeetingBot.Web.Helpers
+namespace ThursdayMeetingBot.Libraries.Core.Helpers
 {
     /// <summary>
     ///     DateTime helper.

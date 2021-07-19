@@ -1,6 +1,6 @@
 ﻿using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
 
-namespace ThursdayMeetingBot.Web.MediatR.Handlers
+namespace ThursdayMeetingBot.Libraries.MediatR.Handlers
 {
     /// <summary>
     ///     Base handler of commands for telegram bot.

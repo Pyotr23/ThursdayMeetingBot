@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ThursdayMeetingBot.Libraries.Core.Configurations;
+using ThursdayMeetingBot.Libraries.Core.Helpers;
 using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
-using ThursdayMeetingBot.Web.Configurations;
-using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Dictionaries;
-using ThursdayMeetingBot.Web.Helpers;
-using ThursdayMeetingBot.Web.MediatR.Commands;
+using ThursdayMeetingBot.Libraries.MediatR.Commands;
+using ThursdayMeetingBot.Libraries.MediatR.Constants;
+using ThursdayMeetingBot.Libraries.MediatR.Dictionaries;
 
-namespace ThursdayMeetingBot.Web.MediatR.Handlers
+namespace ThursdayMeetingBot.Libraries.MediatR.Handlers
 {
     /// <summary>
     ///     Command "/start" handler.
@@ -69,10 +69,14 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
 
             _logger.LogInformation(firstNotificationDateTime.LogMessage);
 
+            var message = string.Format(BotAnswer.NotificationsAreEnabled,
+                firstNotificationDateTime.RussianDayOfWeekName,
+                firstNotificationDateTime.MoscowShortTime);
+            
             await BotService
                 .Client
                 .SendTextMessageAsync(chatId,
-                    firstNotificationDateTime.BotMessage,
+                    message,
                     cancellationToken: cancellationToken);
 
             return Unit.Value;

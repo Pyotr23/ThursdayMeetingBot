@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ThursdayMeetingBot.Web.Dictionaries
+namespace ThursdayMeetingBot.Libraries.MediatR.Dictionaries
 {
     /// <summary>
     ///     Dictionary of timers.

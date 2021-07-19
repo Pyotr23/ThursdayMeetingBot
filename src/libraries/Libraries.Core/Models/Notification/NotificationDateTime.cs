@@ -1,9 +1,8 @@
 ﻿using System;
-using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Extensions;
-using ThursdayMeetingBot.Web.Helpers;
+using ThursdayMeetingBot.Libraries.Core.Extensions;
+using ThursdayMeetingBot.Libraries.Core.Helpers;
 
-namespace ThursdayMeetingBot.Web.Models
+namespace ThursdayMeetingBot.Libraries.Core.Models.Notification
 {
     /// <summary>
     ///     Notification time class.
@@ -23,7 +22,7 @@ namespace ThursdayMeetingBot.Web.Models
         /// <summary>
         ///     Russian description of day of week.
         /// </summary>
-        public string RussianDayOfWeekName => DateTimeHelper.GetDayOfWeekRussianDescription(Value);
+        public string RussianDayOfWeekName => DateTimeHelper. GetDayOfWeekRussianDescription(Value);
         
         /// <summary>
         ///     Value in Moscow time zone.
@@ -40,14 +39,6 @@ namespace ThursdayMeetingBot.Web.Models
         /// </summary>
         public string FormattedDueTime => DueTime.ToString(@"d\.hh\:mm");
 
-        /// <summary>
-        ///     Bot answer.
-        /// </summary>
-        public string BotMessage => 
-            string.Format(BotAnswer.NotificationsAreEnabled,
-                RussianDayOfWeekName,
-                MoscowShortTime);
-        
         /// <summary>
         ///     Message for logging.
         /// </summary>

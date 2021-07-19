@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ThursdayMeetingBot.Web.Constants;
+using ThursdayMeetingBot.Libraries.Core.Constants;
 
 namespace ThursdayMeetingBot.UnitTests.TelegramBot.Constants
 {

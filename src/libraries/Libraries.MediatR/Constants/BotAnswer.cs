@@ -1,4 +1,4 @@
-﻿namespace ThursdayMeetingBot.Web.Constants
+﻿namespace ThursdayMeetingBot.Libraries.MediatR.Constants
 {
     internal static class BotAnswer
     {

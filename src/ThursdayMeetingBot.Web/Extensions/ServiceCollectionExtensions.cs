@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ThursdayMeetingBot.Libraries.Core.Configurations;
 using ThursdayMeetingBot.Web.Configurations;
 
 namespace ThursdayMeetingBot.Web.Extensions

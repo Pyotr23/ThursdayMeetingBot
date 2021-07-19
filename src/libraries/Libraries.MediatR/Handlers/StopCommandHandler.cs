@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
-using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Dictionaries;
-using ThursdayMeetingBot.Web.MediatR.Commands;
+using ThursdayMeetingBot.Libraries.MediatR.Commands;
+using ThursdayMeetingBot.Libraries.MediatR.Constants;
+using ThursdayMeetingBot.Libraries.MediatR.Dictionaries;
 
-namespace ThursdayMeetingBot.Web.MediatR.Handlers
+namespace ThursdayMeetingBot.Libraries.MediatR.Handlers
 {
     /// <summary>
     ///     Command "/stop" handler.

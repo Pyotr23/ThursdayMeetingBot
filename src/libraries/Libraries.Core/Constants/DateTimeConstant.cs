@@ -1,4 +1,4 @@
-﻿namespace ThursdayMeetingBot.Web.Constants
+﻿namespace ThursdayMeetingBot.Libraries.Core.Constants
 {
     /// <summary>
     ///     Date and time constants.

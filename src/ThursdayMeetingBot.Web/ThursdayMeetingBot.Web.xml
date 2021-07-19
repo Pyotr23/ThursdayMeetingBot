@@ -14,46 +14,6 @@
                 Access token.    
             </summary>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Configurations.NotificationConfiguration">
-            <summary>
-                Configuration for an notification.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Configurations.NotificationConfiguration.DayOfWeek">
-            <summary>
-                The day of the week on which the notification will occur.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Configurations.NotificationConfiguration.Hour">
-            <summary>
-                Notification UTC hour.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Configurations.NotificationConfiguration.Minute">
-            <summary>
-                Minute of notification.
-            </summary>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Constants.DateTimeConstant">
-            <summary>
-                Date and time constants.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.DaysInWeek">
-            <summary>
-                The number of days in a week.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.DayOfWeekRussianDescriptions">
-            <summary>
-                Names of days of the week in Russian in the plural in the genitive case.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.MoscowTimeZone">
-            <summary>
-                Moscow time zone.
-            </summary>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.Controllers.BotConfigurationController">
             <summary>
                 Controller for manage bot configuration.
@@ -91,36 +51,6 @@
             <param name="update"> New update from bot. </param>
             <returns> Ok Action or error. </returns>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Dictionaries.TimerDictionary">
-            <summary>
-                Dictionary of timers.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Dictionaries.TimerDictionary.AddAsync(System.Int64,System.Threading.Timer)">
-            <summary>
-                Add to dictionary a new key-value pair.
-            </summary>
-            <param name="id"> Identificator-key. </param>
-            <param name="timer"> Timer-value. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Dictionaries.TimerDictionary.DeleteAsync(System.Int64)">
-            <summary>
-                Stop and delete existing timer.
-            </summary>
-            <param name="id"> Timer identificator. </param>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Extensions.DateTimeExtensions">
-            <summary>
-                Date and time extensions.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Extensions.DateTimeExtensions.ToMoscowTime(System.DateTime)">
-            <summary>
-                Convert UTC time to Moscow time.
-            </summary>
-            <param name="utcDateTime"> UTC time. </param>
-            <returns> Moscow time. </returns>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions">
             <summary>
                 Extensions for IServiceCollection instance.
@@ -133,30 +63,6 @@
             <param name="services"> Service collection. </param>
             <param name="configuration"> Configuration. </param>
             <returns> Configurated service collection. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Helpers.DateTimeHelper">
-            <summary>
-                DateTime helper.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.DateTimeHelper.#ctor(Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.NotificationConfiguration})">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="notificationConfigurationOptions"> Notification configuration. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.DateTimeHelper.GetFirstNotificationDateTime">
-            <summary>
-                Get the date and the time of the first notification.
-            </summary>
-            <returns> Class containing the necessary information about the notification time. </returns>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.DateTimeHelper.GetDayOfWeekRussianDescription(System.DateTime)">
-            <summary>
-                Get the day of the week in Russian in the parent plural case.
-            </summary>
-            <param name="dateTime"> Date with time. </param>
-            <returns> Day of the week in Russian in the parent plural case. </returns>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Helpers.EnvironmentHelper">
             <summary>
@@ -180,151 +86,6 @@
                 Get an access token for the bot.
             </summary>
             <returns> Access token. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1">
-            <summary>
-                Base bot command.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.Message">
-            <summary>
-                Message.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.Chat">
-            <summary>
-                Chat.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.#ctor(Telegram.Bot.Types.Message)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="message"> Message. </param>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.StartCommand">
-            <summary>
-                Command when "/start" received.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.StartCommand.#ctor(Telegram.Bot.Types.Message)">
-            <inheritdoc />
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.StopCommand">
-            <summary>
-                Command when "/start" received.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.StopCommand.#ctor(Telegram.Bot.Types.Message)">
-            <inheritdoc />
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.BotCommandHandler">
-            <summary>
-                Base handler of commands for telegram bot.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.MediatR.Handlers.BotCommandHandler.BotService">
-            <summary>
-                Bot service
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.BotCommandHandler.#ctor(ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotService)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="botService"> Bot service. </param>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler">
-            <summary>
-                Command "/start" handler.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotService)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="logger"> Logger. </param>
-            <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
-            <param name="botService"> Bot service. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler.Handle(ThursdayMeetingBot.Web.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
-            <summary>
-                Handle command.
-            </summary>
-            <param name="request"> Command. </param>
-            <param name="cancellationToken"> Cancellation token. </param>
-            <returns> A task with representation of the void type. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler">
-            <summary>
-                Command "/stop" handler.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler},ThursdayMeetingBot.Libraries.Core.Interfaces.Bot.IBotService)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="logger"> Logger. </param>
-            <param name="botService"> Bot service. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.Handle(ThursdayMeetingBot.Web.MediatR.Commands.StopCommand,System.Threading.CancellationToken)">
-            <summary>
-                Handle command.
-            </summary>
-            <param name="request"> Command. </param>
-            <param name="cancellationToken"> Cancellation token. </param>
-            <returns> A task with representation of the void type. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Models.NotificationDateTime">
-            <summary>
-                Notification time class.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.Value">
-            <summary>
-                Value.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.DayOfWeek">
-            <summary>
-                Day of week.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.RussianDayOfWeekName">
-            <summary>
-                Russian description of day of week.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.MoscowShortTime">
-            <summary>
-                Value in Moscow time zone.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.DueTime">
-            <summary>
-                Time until notification.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.FormattedDueTime">
-            <summary>
-                Formatted time until notification.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.BotMessage">
-            <summary>
-                Bot answer.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.LogMessage">
-            <summary>
-                Message for logging.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Models.NotificationDateTime.#ctor(System.DateTime)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="dateTime"> The date and time to create the entity for. </param>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Models.WebHook.WebHookSettingInputModel">
             <summary>
