@@ -27,5 +27,14 @@ namespace ThursdayMeetingBot.Web.Helpers
         {
             return GetEnvironment().Equals(Environments.Development);
         }
+
+        /// <summary>
+        ///     Get an access token for the bot.
+        /// </summary>
+        /// <returns> Access token. </returns>
+        public static string GetBotAccessToken()
+        {
+            return Environment.GetEnvironmentVariable(EnvironmentConstant.BotAccessTokenAlias);
+        }
     }
 }

@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
 using ThursdayMeetingBot.Web.Configurations;
-using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Helpers;
 
 namespace ThursdayMeetingBot.Web.Services
@@ -24,7 +22,7 @@ namespace ThursdayMeetingBot.Web.Services
                 ? config
                     .Value
                     .AccessToken
-                : Environment.GetEnvironmentVariable(EnvironmentConstant.BotAccessTokenAlias);
+                : EnvironmentHelper.GetBotAccessToken();
 
             Client = new TelegramBotClient(accessToken);
         }

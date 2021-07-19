@@ -175,6 +175,12 @@
             </summary>
             <returns> Check result. </returns>
         </member>
+        <member name="M:ThursdayMeetingBot.Web.Helpers.EnvironmentHelper.GetBotAccessToken">
+            <summary>
+                Get an access token for the bot.
+            </summary>
+            <returns> Access token. </returns>
+        </member>
         <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1">
             <summary>
                 Base bot command.
