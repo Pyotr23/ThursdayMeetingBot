@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using ThursdayMeetingBot.TelegramBot.Helpers;
+using ThursdayMeetingBot.Web.Helpers;
 
 namespace ThursdayMeetingBot.UnitTests.TelegramBot.Helpers
 {

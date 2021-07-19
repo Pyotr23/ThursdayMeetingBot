@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using ThursdayMeetingBot.TelegramBot.Extensions;
+using ThursdayMeetingBot.Web.Extensions;
 
 namespace ThursdayMeetingBot.UnitTests.TelegramBot.Extensions
 {
