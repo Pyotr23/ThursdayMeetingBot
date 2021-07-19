@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
+using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
 using ThursdayMeetingBot.Web.Configurations;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Helpers;
-using ThursdayMeetingBot.Web.Interfaces;
 
 namespace ThursdayMeetingBot.Web.Services
 {

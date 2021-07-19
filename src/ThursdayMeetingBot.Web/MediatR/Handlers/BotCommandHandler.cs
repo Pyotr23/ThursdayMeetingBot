@@ -1,4 +1,4 @@
-﻿using ThursdayMeetingBot.Web.Interfaces;
+﻿using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers
 {

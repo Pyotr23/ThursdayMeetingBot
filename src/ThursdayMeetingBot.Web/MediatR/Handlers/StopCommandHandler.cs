@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Dictionaries;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
-using ThursdayMeetingBot.Web.Interfaces;
+using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
 
 namespace ThursdayMeetingBot.Web.Controllers
 {

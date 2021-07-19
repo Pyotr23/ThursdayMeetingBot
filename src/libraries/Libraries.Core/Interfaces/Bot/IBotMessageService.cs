@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
-namespace ThursdayMeetingBot.Web.Interfaces
+namespace ThursdayMeetingBot.Libraries.Core.Interfaces.Bot
 {
     /// <summary>
     ///     Service for processing messages received from the bot.

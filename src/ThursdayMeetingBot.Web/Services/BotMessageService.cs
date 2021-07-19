@@ -4,8 +4,8 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using ThursdayMeetingBot.Libraries.Core.Interfaces.Bot;
 using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 
 namespace ThursdayMeetingBot.Web.Services
