@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5EBF896F-D8F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThursdayMeetingBot.Web", "src\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj", "{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThursdayMeetingBot.UnitTests.TelegramBot", "src\UnitTests\ThursdayMeetingBot.UnitTests.TelegramBot\ThursdayMeetingBot.UnitTests.TelegramBot.csproj", "{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.ThursdayMeetingBot.Web", "src\UnitTests\UnitTests.ThursdayMeetingBot.Web\UnitTests.ThursdayMeetingBot.Web.csproj", "{A1EF095D-2677-4BA8-A31B-88ABCF8735FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B7917DD6-CC91-48AC-B73D-4BBEE2FFF272}"
 EndProject
