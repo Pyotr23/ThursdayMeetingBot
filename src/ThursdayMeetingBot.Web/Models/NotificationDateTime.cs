@@ -8,37 +8,37 @@ namespace ThursdayMeetingBot.Web.Models
     /// <summary>
     ///     Notification time class.
     /// </summary>
-    public record NotificationDateTime
+    internal record NotificationDateTime
     {
         /// <summary>
         ///     Value.
         /// </summary>
-        public DateTime Value { get; }
+        private DateTime Value { get; }
         
         /// <summary>
         ///     Day of week.
         /// </summary>
-        public DayOfWeek DayOfWeek => Value.DayOfWeek;
+        private DayOfWeek DayOfWeek => Value.DayOfWeek;
         
         /// <summary>
         ///     Russian description of day of week.
         /// </summary>
-        public string RussianDayOfWeekName => DateTimeHelper.GetDayOfWeekRussianDescription(Value);
+        private string RussianDayOfWeekName => DateTimeHelper.GetDayOfWeekRussianDescription(Value);
         
         /// <summary>
         ///     Value in Moscow time zone.
         /// </summary>
-        public string MoscowShortTime => Value.ToMoscowTime().ToShortTimeString();
+        private string MoscowShortTime => Value.ToMoscowTime().ToShortTimeString();
         
         /// <summary>
         ///     Time until notification.
         /// </summary>
-        public TimeSpan DueTime => Value - DateTime.UtcNow;
+        internal TimeSpan DueTime => Value - DateTime.UtcNow;
 
         /// <summary>
         ///     Formatted time until notification.
         /// </summary>
-        public string FormattedDueTime => DueTime.ToString(@"d\.hh\:mm");
+        private string FormattedDueTime => DueTime.ToString(@"d\.hh\:mm");
 
         /// <summary>
         ///     Bot answer.

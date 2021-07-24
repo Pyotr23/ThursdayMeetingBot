@@ -9,7 +9,7 @@ namespace ThursdayMeetingBot.Web.Helpers
     /// <summary>
     ///     DateTime helper.
     /// </summary>
-    public class DateTimeHelper
+    internal class DateTimeHelper
     {
         private readonly NotificationConfiguration _configuration;
         
@@ -17,7 +17,7 @@ namespace ThursdayMeetingBot.Web.Helpers
         ///     Constructor.
         /// </summary>
         /// <param name="notificationConfigurationOptions"> Notification configuration. </param>
-        public DateTimeHelper(IOptions<NotificationConfiguration> notificationConfigurationOptions)
+        internal DateTimeHelper(IOptions<NotificationConfiguration> notificationConfigurationOptions)
         {
             _configuration = notificationConfigurationOptions.Value;
         }
@@ -26,7 +26,7 @@ namespace ThursdayMeetingBot.Web.Helpers
         ///     Get the date and the time of the first notification.
         /// </summary>
         /// <returns> Class containing the necessary information about the notification time. </returns>
-        public NotificationDateTime GetFirstNotificationDateTime()
+        internal NotificationDateTime GetFirstNotificationDateTime()
         {
             var utcNow = DateTime.UtcNow;
             
@@ -49,7 +49,7 @@ namespace ThursdayMeetingBot.Web.Helpers
         /// </summary>
         /// <param name="dateTime"> Date with time. </param>
         /// <returns> Day of the week in Russian in the parent plural case. </returns>
-        public static string GetDayOfWeekRussianDescription(DateTime dateTime)
+        internal static string GetDayOfWeekRussianDescription(DateTime dateTime)
         {
             var dayOfWeek = dateTime.DayOfWeek;
             var dayOfWeekIndex = (int) dayOfWeek;

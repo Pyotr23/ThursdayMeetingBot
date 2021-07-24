@@ -1,19 +1,22 @@
-﻿namespace ThursdayMeetingBot.Web.Constants
+﻿using System.Runtime.CompilerServices;
+
+[assembly:InternalsVisibleTo("UnitTests.ThursdayMeetingBot.Web")]
+namespace ThursdayMeetingBot.Web.Constants
 {
     /// <summary>
     ///     Date and time constants.
     /// </summary>
-    public static class DateTimeConstant
+    internal static class DateTimeConstant
     {
         /// <summary>
         ///     The number of days in a week.
         /// </summary>
-        public const int DaysInWeek = 7;
+        internal const int DaysInWeek = 7;
 
         /// <summary>
         ///     Names of days of the week in Russian in the plural in the genitive case.
         /// </summary>
-        public static readonly string[] DayOfWeekRussianDescriptions = 
+        internal static readonly string[] DayOfWeekRussianDescriptions = 
         {
             "воскресеньям",
             "понедельникам",
@@ -27,6 +30,6 @@
         /// <summary>
         ///     Moscow time zone.
         /// </summary>
-        public const int MoscowTimeZone = 3;
+        internal const int MoscowTimeZone = 3;
     }
 }

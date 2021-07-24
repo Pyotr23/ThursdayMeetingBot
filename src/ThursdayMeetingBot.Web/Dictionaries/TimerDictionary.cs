@@ -7,7 +7,7 @@ namespace ThursdayMeetingBot.Web.Dictionaries
     /// <summary>
     ///     Dictionary of timers.
     /// </summary>
-    public static class TimerDictionary
+    internal static class TimerDictionary
     {
         private static Dictionary<long, Timer> Dictionary { get; } = new();
 
@@ -16,7 +16,7 @@ namespace ThursdayMeetingBot.Web.Dictionaries
         /// </summary>
         /// <param name="id"> Identificator-key. </param>
         /// <param name="timer"> Timer-value. </param>
-        public static async Task AddAsync(long id, Timer timer)
+        internal static async Task AddAsync(long id, Timer timer)
         {
             await DeleteAsync(id);
             Dictionary.Add(id, timer);
@@ -26,7 +26,7 @@ namespace ThursdayMeetingBot.Web.Dictionaries
         ///     Stop and delete existing timer.
         /// </summary>
         /// <param name="id"> Timer identificator. </param>
-        public static async Task DeleteAsync(long id)
+        internal static async Task DeleteAsync(long id)
         {
             if (Dictionary.ContainsKey(id))
             {

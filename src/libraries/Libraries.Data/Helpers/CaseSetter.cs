@@ -4,18 +4,29 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ThursdayMeetingBot.Libraries.Data.Helpers
 {
+    /// <summary>
+    ///     A class that changes the case of names.
+    /// </summary>
     public class CaseSetter
     {
         private readonly Func<string, string> _getNewName;
         private readonly ModelBuilder _modelBuilder;
         private IMutableEntityType _entityType;
 
+        /// <summary>
+        ///     Construcor.
+        /// </summary>
+        /// <param name="nameChangeRule"> The delegate on the basis of which the name is changed. </param>
+        /// <param name="modelBuilder"> Model builder. </param>
         public CaseSetter(Func<string, string> nameChangeRule, ModelBuilder modelBuilder)
         {
             _getNewName = nameChangeRule;
             _modelBuilder = modelBuilder;
         }
         
+        /// <summary>
+        ///     Change the names of database entities.
+        /// </summary>
         public void ChangeDatabaseEntityNames()
         {
             foreach (var entityType in _modelBuilder.Model.GetEntityTypes())
