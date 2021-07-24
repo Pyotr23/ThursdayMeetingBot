@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ThursdayMeetingBot.Libraries.Data.Contexts;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
 using ThursdayMeetingBot.Web.Interfaces;
@@ -34,14 +35,17 @@ namespace ThursdayMeetingBot.Web
         /// <param name="services"> Web app services collection. </param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddConfigurationSections(Configuration);
+            services
+                .AddConfigurationSections(Configuration)
+                .AddDbContexts<BotDbContext>(Configuration);
             
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));
          
-            services.AddSingleton<IBotService, BotService>();
-            services.AddScoped<IBotMessageService, BotMessageService>();
-            services.AddMediatR(typeof(Startup));
+            services
+                .AddSingleton<IBotService, BotService>()
+                .AddScoped<IBotMessageService, BotMessageService>()
+                .AddMediatR(typeof(Startup));
 
             services
                 .AddControllers()
