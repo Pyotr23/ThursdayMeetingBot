@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using ThursdayMeetingBot.Libraries.Data.Configurations;
+using ThursdayMeetingBot.Libraries.Data.Contexts;
 using ThursdayMeetingBot.Web.Configurations;
 
 namespace ThursdayMeetingBot.Web.Extensions
@@ -36,7 +37,7 @@ namespace ThursdayMeetingBot.Web.Extensions
             this IServiceCollection services,
             IConfiguration configuration) where T : DbContext
         {
-            var migrationAssembly = typeof(ServiceCollectionExtensions)
+            var migrationAssembly = typeof(BotDbContext)
                 .GetTypeInfo()
                 .Assembly
                 .GetName()
