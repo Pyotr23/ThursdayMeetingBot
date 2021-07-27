@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ThursdayMeetingBot.Libraries.Data.Models.Base
+namespace ThursdayMeetingBot.Libraries.Core.Models.Entities.Base
 {
     /// <summary>
     ///     Base model for aggregated entities.

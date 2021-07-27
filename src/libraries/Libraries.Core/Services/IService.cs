@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using ThursdayMeetingBot.Libraries.Core.Models.Entities.Base;
 
 namespace ThursdayMeetingBot.Libraries.Core.Services
 {
@@ -10,9 +11,9 @@ namespace ThursdayMeetingBot.Libraries.Core.Services
     /// <typeparam name="TDto"> Dto for add or update. </typeparam>
     /// <typeparam name="TEntity"> Entity for add or update. </typeparam>
     /// <typeparam name="TKey"> Parameter with unique identifier of entry. </typeparam>
-    public interface IService<TDto, in TEntity, in TKey>
+    public interface IService<TDto, in TEntity, TKey>
         where TDto : class
-        where TEntity : class
+        where TEntity : AggregatedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -26,18 +27,18 @@ namespace ThursdayMeetingBot.Libraries.Core.Services
         /// <summary>
         ///     Create new entry.
         /// </summary>
-        /// <param name="entityToAdd"> Model with information about new entry. </param>
+        /// <param name="dtoToAdd"> DTO with information about new entry. </param>
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns> New entry information. </returns>
-        Task<TDto> CreateAsync(TEntity entityToAdd, CancellationToken cancellationToken = default);
+        Task<TKey> CreateAsync(TDto dtoToAdd, CancellationToken cancellationToken = default);
         
         /// <summary>
         ///     Update entry.
         /// </summary>
-        /// <param name="entityToUpdate"> Model with information to update. </param>
+        /// <param name="dtoToUpdate"> DTO with information to update. </param>
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns> Update entry information. </returns>
-        Task<bool> UpdateAsync(TEntity entityToUpdate, CancellationToken cancellationToken = default);
+        Task<bool> UpdateAsync(TDto dtoToUpdate, CancellationToken cancellationToken = default);
         
         /// <summary>
         ///     Delete entry.
