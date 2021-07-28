@@ -4,15 +4,23 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ThursdayMeetingBot.Libraries.Core.Models.Entities.Base;
+using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
+using ThursdayMeetingBot.Libraries.Core.Models.Entities;
 using ThursdayMeetingBot.Libraries.Core.Services;
 
 namespace ThursdayMeetingBot.Libraries.Service.Services
 {
-    public abstract class BaseService<TDbContext, TDto, TEntity,TKey> : IService<TDto,TEntity,TKey>
+    /// <summary>
+    ///     Base service.
+    /// </summary>
+    /// <typeparam name="TDbContext"> DbContext. </typeparam>
+    /// <typeparam name="TDto"> DTO model. </typeparam>
+    /// <typeparam name="TEntity"> The entity with which the basic operations will be performed on the table. </typeparam>
+    /// <typeparam name="TKey"> Type of entry unique identifier. </typeparam>
+    public abstract class BaseService<TDbContext, TDto, TEntity,TKey> : IService<TDto,TKey>
     where TDbContext : DbContext
-    where TDto : class
-    where TEntity : AggregatedEntity<TKey>
+    where TDto : DtoBase<TKey>
+    where TEntity : UserBase<TKey>
     where TKey : IEquatable<TKey>
     {
         private string _typeName = typeof(TEntity).Name;

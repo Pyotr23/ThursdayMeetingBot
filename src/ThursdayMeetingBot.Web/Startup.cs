@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
+using ThursdayMeetingBot.Libraries.Data.Models;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
 using ThursdayMeetingBot.Web.Interfaces;
@@ -37,7 +39,13 @@ namespace ThursdayMeetingBot.Web
         {
             services
                 .AddConfigurationSections(Configuration)
-                .AddDbContexts<BotDbContext>(Configuration);
+                .AddDbContexts<BotDbContext>(Configuration)
+                .AddServices<BotDbContext, UserDto<int>, User, int>();
+
+            services.AddAutoMapper(config =>
+            {
+
+            });
             
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));

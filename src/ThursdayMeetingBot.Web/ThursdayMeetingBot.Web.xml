@@ -134,6 +134,17 @@
             <param name="configuration"> Configuration. </param>
             <returns> Configurated service collection. </returns>
         </member>
+        <member name="M:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions.AddServices``4(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+                Add services for working with database.
+            </summary>
+            <typeparam name="TDbContext"> Db context type. </typeparam>
+            <typeparam name="TDto">  User DTO type. </typeparam>
+            <typeparam name="TEntity"> User type. </typeparam>
+            <typeparam name="TKey"> Generic key for user entity. </typeparam>
+            <param name="services"> IServiceCollection instance. </param>
+            <returns> Service collection. </returns>
+        </member>
         <member name="T:ThursdayMeetingBot.Web.Helpers.DateTimeHelper">
             <summary>
                 DateTime helper.

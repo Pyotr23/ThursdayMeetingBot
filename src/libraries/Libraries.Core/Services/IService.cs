@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Models.Entities.Base;
 
 namespace ThursdayMeetingBot.Libraries.Core.Services
@@ -9,11 +10,9 @@ namespace ThursdayMeetingBot.Libraries.Core.Services
     ///     Base service for manage entries.
     /// </summary>
     /// <typeparam name="TDto"> Dto for add or update. </typeparam>
-    /// <typeparam name="TEntity"> Entity for add or update. </typeparam>
     /// <typeparam name="TKey"> Parameter with unique identifier of entry. </typeparam>
-    public interface IService<TDto, in TEntity, TKey>
-        where TDto : class
-        where TEntity : AggregatedEntity<TKey>
+    public interface IService<TDto, TKey>
+        where TDto : DtoBase<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
