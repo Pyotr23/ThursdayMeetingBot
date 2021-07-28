@@ -43,11 +43,7 @@ namespace ThursdayMeetingBot.Web.Extensions
             this IServiceCollection services,
             IConfiguration configuration) where T : DbContext
         {
-            var migrationAssembly = typeof(BotDbContext)
-                .GetTypeInfo()
-                .Assembly
-                .GetName()
-                .Name;
+            const string migrationAssembly = "ThursdayMeetingBot.Libraries.Data.Migration";
 
             void PostgreOptionsAction(NpgsqlDbContextOptionsBuilder builder) 
                 => builder.MigrationsAssembly(migrationAssembly);

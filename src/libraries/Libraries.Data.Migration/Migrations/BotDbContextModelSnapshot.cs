@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
 
-namespace ThursdayMeetingBot.Libraries.Data.Migrations
+namespace ThursdayMeetingBot.Libraries.Data.Migration.Migrations
 {
     [DbContext(typeof(BotDbContext))]
     partial class BotDbContextModelSnapshot : ModelSnapshot
@@ -21,9 +21,9 @@ namespace ThursdayMeetingBot.Libraries.Data.Migrations
 
             modelBuilder.Entity("ThursdayMeetingBot.Libraries.Data.Models.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 

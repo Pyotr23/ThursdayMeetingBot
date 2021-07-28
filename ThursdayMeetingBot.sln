@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Core", "src\libra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Service", "src\libraries\Libraries.Service\Libraries.Service.csproj", "{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Data.Migration", "src\libraries\Libraries.Data.Migration\Libraries.Data.Migration.csproj", "{02E3461E-8406-40BD-8927-46DE4BAE3707}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02E3461E-8406-40BD-8927-46DE4BAE3707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E3461E-8406-40BD-8927-46DE4BAE3707}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E3461E-8406-40BD-8927-46DE4BAE3707}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E3461E-8406-40BD-8927-46DE4BAE3707}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC} = {5EBF896F-D8F3-437E-9984-8519A311B90E}
@@ -55,5 +61,6 @@ Global
 		{D9C5B2FC-79A3-4FFA-B9C4-F7869E3A50B4} = {B7917DD6-CC91-48AC-B73D-4BBEE2FFF272}
 		{323B00B9-A02A-44E1-962A-B65F3E2936B5} = {0F0EECD6-3F25-4258-B892-17E53801A9D8}
 		{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E} = {0F0EECD6-3F25-4258-B892-17E53801A9D8}
+		{02E3461E-8406-40BD-8927-46DE4BAE3707} = {0F0EECD6-3F25-4258-B892-17E53801A9D8}
 	EndGlobalSection
 EndGlobal
