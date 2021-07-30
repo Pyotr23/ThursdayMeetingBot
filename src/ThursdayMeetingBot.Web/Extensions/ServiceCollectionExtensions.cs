@@ -43,7 +43,7 @@ namespace ThursdayMeetingBot.Web.Extensions
             this IServiceCollection services,
             IConfiguration configuration) where T : DbContext
         {
-            const string migrationAssembly = "ThursdayMeetingBot.Libraries.Data.Migration";
+            const string migrationAssembly = "ThursdayMeetingBot.Libraries.Data.MigrationStore";
 
             void PostgreOptionsAction(NpgsqlDbContextOptionsBuilder builder) 
                 => builder.MigrationsAssembly(migrationAssembly);

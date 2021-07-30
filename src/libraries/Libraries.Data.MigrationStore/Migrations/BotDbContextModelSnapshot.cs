@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
 
-namespace ThursdayMeetingBot.Libraries.Data.Migration.Migrations
+namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
 {
     [DbContext(typeof(BotDbContext))]
     partial class BotDbContextModelSnapshot : ModelSnapshot
@@ -39,27 +39,16 @@ namespace ThursdayMeetingBot.Libraries.Data.Migration.Migrations
                         .HasColumnType("text")
                         .HasColumnName("last_name");
 
-                    b.Property<long>("TelegramChatId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("telegram_chat_id");
-
-                    b.Property<int>("TelegramId")
-                        .HasColumnType("integer")
-                        .HasColumnName("telegram_id");
-
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_date");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Username")
                         .HasColumnType("text")
-                        .HasColumnName("user_name");
+                        .HasColumnName("username");
 
                     b.HasKey("Id")
                         .HasName("pk_users");
-
-                    b.HasIndex("TelegramChatId")
-                        .HasDatabaseName("ix_users_telegram_chat_id");
 
                     b.ToTable("users");
                 });

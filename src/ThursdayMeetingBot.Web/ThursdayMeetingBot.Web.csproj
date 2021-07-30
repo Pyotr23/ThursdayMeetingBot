@@ -30,7 +30,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\libraries\Libraries.Core\Libraries.Core.csproj" />
-      <ProjectReference Include="..\libraries\Libraries.Data.Migration\Libraries.Data.Migration.csproj" />
+      <ProjectReference Include="..\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj" />
       <ProjectReference Include="..\libraries\Libraries.Data\Libraries.Data.csproj" />
       <ProjectReference Include="..\libraries\Libraries.Service\Libraries.Service.csproj" />
     </ItemGroup>

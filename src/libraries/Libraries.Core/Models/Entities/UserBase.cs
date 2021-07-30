@@ -11,14 +11,9 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.Entities
         where TKey : IEquatable<TKey>
     {
         /// <summary>
-        ///     Unique identifier of user in Telegram.
+        ///     Username that starts with "@".
         /// </summary>
-        public int TelegramId { get; set; }
-
-        /// <summary>
-        ///     User name that starts with "@".
-        /// </summary>
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         /// <summary>
         ///     User first name.
@@ -30,10 +25,5 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.Entities
         ///     User last name.
         /// </summary>
         public string LastName { get; set; }
-
-        /// <summary>
-        ///     Unique identifier of telegram chat for current user.
-        /// </summary>
-        public long TelegramChatId { get; set; }
     }
 }

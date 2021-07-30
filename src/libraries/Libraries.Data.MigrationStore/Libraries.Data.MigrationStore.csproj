@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <AssemblyName>ThursdayMeetingBot.Libraries.Data.Migration</AssemblyName>
-        <RootNamespace>ThursdayMeetingBot.Libraries.Data.Migration</RootNamespace>
+        <AssemblyName>ThursdayMeetingBot.Libraries.Data.MigrationStore</AssemblyName>
+        <RootNamespace>ThursdayMeetingBot.Libraries.Data.MigrationStore</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
