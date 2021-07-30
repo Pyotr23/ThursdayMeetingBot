@@ -15,14 +15,14 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
     /// </summary>
     public class StopCommandHandler : BotCommandHandler, IRequestHandler<StopCommand, Unit>
     {
-        private readonly ILogger<StartCommandHandler> _logger;
+        private readonly ILogger<StopCommandHandler> _logger;
 
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
         /// <param name="botService"> Bot service. </param>
-        public StopCommandHandler(ILogger<StartCommandHandler> logger,
+        public StopCommandHandler(ILogger<StopCommandHandler> logger,
             IBotService botService)
             : base(botService)
         {

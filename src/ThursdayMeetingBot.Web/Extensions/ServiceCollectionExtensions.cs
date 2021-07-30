@@ -68,15 +68,14 @@ namespace ThursdayMeetingBot.Web.Extensions
         /// <typeparam name="TKey"> Generic key for user entity. </typeparam>
         /// <param name="services"> IServiceCollection instance. </param>
         /// <returns> Service collection. </returns>
-        internal static IServiceCollection AddServices<TDbContext, TDto, TEntity, TKey>(
+        internal static IServiceCollection AddServices<TDbContext, TDto, TEntity>(
             this IServiceCollection services)
             where TDbContext : DbContext
-            where TDto : UserDto<TKey>
-            where TEntity : UserBase<TKey>
-            where TKey : IEquatable<TKey>
+            where TDto : UserDto
+            where TEntity : UserBase
         {
-            services.TryAddScoped<IUserService<TDto, TKey>,
-                UserService<TDbContext, TDto, TEntity, TKey>>();
+            services.TryAddScoped<IUserService<TDto>,
+                UserService<TDbContext, TDto, TEntity>>();
 
             return services;
         }

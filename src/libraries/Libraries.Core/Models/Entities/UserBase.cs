@@ -1,14 +1,11 @@
-﻿using System;
-using ThursdayMeetingBot.Libraries.Core.Models.Entities.Base;
+﻿using ThursdayMeetingBot.Libraries.Core.Models.Entities.Base;
 
 namespace ThursdayMeetingBot.Libraries.Core.Models.Entities
 {
     /// <summary>
     ///     Base user model.
     /// </summary>
-    /// <typeparam name="TKey"> Type of entity unique index. </typeparam>
-    public record UserBase<TKey> : AggregatedEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public record UserBase : AggregatedEntity<int>
     {
         /// <summary>
         ///     Username that starts with "@".

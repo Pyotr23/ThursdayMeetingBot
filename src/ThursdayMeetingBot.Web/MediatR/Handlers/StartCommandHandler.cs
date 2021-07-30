@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
+using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Web.Configurations;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Dictionaries;
@@ -16,10 +18,12 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
     /// <summary>
     ///     Command "/start" handler.
     /// </summary>
-    public class StartCommandHandler : BotCommandHandler, IRequestHandler<StartCommand, Unit>
+    public class StartCommandHandler<TUserDto> : BotCommandHandler, IRequestHandler<StartCommand, Unit>
+        where TUserDto : UserDto, new()
     {
-        private readonly ILogger<StartCommandHandler> _logger;
+        private readonly ILogger<StartCommandHandler<TUserDto>> _logger;
         private readonly DateTimeHelper _dateTimeHelper;
+        private readonly IUserService<TUserDto> _userService;
 
         /// <summary>
         ///     Constructor.
@@ -27,12 +31,14 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         /// <param name="logger"> Logger. </param>
         /// <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
         /// <param name="botService"> Bot service. </param>
-        public StartCommandHandler(ILogger<StartCommandHandler> logger,
+        public StartCommandHandler(ILogger<StartCommandHandler<TUserDto>> logger,
             IOptions<NotificationConfiguration> notificationConfigurationOptions, 
+            IUserService<TUserDto> userService,
             IBotService botService)
             : base(botService)
         {
             _logger = logger;
+            _userService = userService;
             _dateTimeHelper = new DateTimeHelper(notificationConfigurationOptions);
         }
 
@@ -68,6 +74,15 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
             await TimerDictionary.AddAsync(chatId, timer);
 
             _logger.LogInformation(firstNotificationDateTime.LogMessage);
+
+            var userDto = new TUserDto();
+            var telegramUser = request.Message.From;
+            userDto.Id = telegramUser.Id;
+            userDto.FirstName = telegramUser.FirstName;
+            userDto.LastName = telegramUser.LastName;
+            userDto.Username = telegramUser.Username;
+           
+            await _userService.Register(userDto, cancellationToken);
 
             await BotService
                 .Client

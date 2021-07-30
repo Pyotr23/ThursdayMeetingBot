@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Telegram.Bot.Types;
 
 namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
 {
     /// <summary>
     ///     User DTO.
     /// </summary>
-    public record UserDto<TKey> : DtoBase<TKey> 
-        where TKey : IEquatable<TKey>
+    public record UserDto : DtoBase<int>
     {
         /// <summary>
         ///     Username that starts with "@".
@@ -23,5 +22,13 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
         ///     User last name.
         /// </summary>
         public string LastName { get; set; }
+
+        public UserDto(User telegramUser) => (Id, FirstName, LastName, Username)
+            = (telegramUser.Id, telegramUser.FirstName, telegramUser.LastName, telegramUser.Username);
+
+        public UserDto()
+        {
+            
+        }
     }
 }

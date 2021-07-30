@@ -134,7 +134,7 @@
             <param name="configuration"> Configuration. </param>
             <returns> Configurated service collection. </returns>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions.AddServices``4(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions.AddServices``3(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
                 Add services for working with database.
             </summary>
@@ -260,12 +260,12 @@
             </summary>
             <param name="botService"> Bot service. </param>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler">
+        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1">
             <summary>
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.NotificationConfiguration},ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Core.Services.IUserService{`0},ThursdayMeetingBot.Web.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -273,7 +273,7 @@
             <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
             <param name="botService"> Bot service. </param>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler.Handle(ThursdayMeetingBot.Web.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.Handle(ThursdayMeetingBot.Web.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
             <summary>
                 Handle command.
             </summary>
@@ -286,7 +286,7 @@
                 Command "/stop" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler},ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler},ThursdayMeetingBot.Web.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>

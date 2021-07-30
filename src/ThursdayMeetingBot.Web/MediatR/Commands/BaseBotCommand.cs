@@ -11,7 +11,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Commands
         /// <summary>
         ///     Message.
         /// </summary>
-        private Message Message { get; }
+        public Message Message { get; }
 
         /// <summary>
         ///     Chat.
