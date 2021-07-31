@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ThursdayMeetingBot.Libraries.Core.Models.Entities.Base
 {
@@ -14,8 +13,7 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.Entities.Base
         ///     Unique identifier.
         /// </summary>
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public TKey Id { get; set; }
+        public virtual TKey Id { get; set; }
         
         /// <summary>
         ///     Created date.
