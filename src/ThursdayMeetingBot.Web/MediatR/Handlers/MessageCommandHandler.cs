@@ -31,7 +31,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         /// <inheritdoc />
         public async Task<Unit> Handle(MessageCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"[{request.Id}] Start message handler");
+            _logger.LogInformation($"[{request.Id}] Start message handler");
             
             var firstEntityType = request
                 .Message

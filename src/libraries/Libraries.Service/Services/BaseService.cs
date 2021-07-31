@@ -83,14 +83,17 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         public async Task<bool> UpdateAsync(TDto dtoToUpdate, CancellationToken cancellationToken = default)
         {
             _logger.LogDebug($"Start updating {_typeName}");
-            var entity = _mapper.Map<TEntity>(dtoToUpdate);
-            entity.UpdatedDate = DateTime.UtcNow;
-            
+
             _context
                 .ChangeTracker
                 .Clear();
+            
+            var entity = _mapper.Map<TEntity>(dtoToUpdate);
 
-            _dbSet.Update(entity);
+            _dbSet
+                .Update(entity)
+                .Property(x => x.CreatedDate)
+                .IsModified = false;
             
             _logger.LogDebug($"Updating {_typeName} save changes");
             var commitStatus = await _context

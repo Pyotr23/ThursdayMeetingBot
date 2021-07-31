@@ -41,7 +41,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         /// <inheritdoc />
         public async Task<Unit> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogDebug("[{0}] Update handler starts", request.Id);
+            _logger.LogInformation($"[{request.Id}] Update handler starts");
             var userDto = _mapper.Map<TUserDto>(request.Sender);
             await _userService.RegisterAsync(userDto, cancellationToken);
             await _mediator.Send(new MessageCommand(request.Update), cancellationToken);

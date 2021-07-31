@@ -44,12 +44,12 @@ namespace ThursdayMeetingBot.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Update update)
         {
-            _logger.LogDebug($"[{update.Id}] Start to handle update: {update.GetInfo()}");
+            _logger.LogInformation($"[{update.Id}] Start to handle update: {update.GetInfo()}");
             
             try
             {
                 await _mediator.Send(new UpdateCommand(update));
-                _logger.LogDebug($"[{update.Id}] Update processed");
+                _logger.LogInformation($"[{update.Id}] Update processed");
             }
             catch (Exception ex)
             {

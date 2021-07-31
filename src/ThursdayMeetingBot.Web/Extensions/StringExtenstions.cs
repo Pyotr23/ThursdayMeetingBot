@@ -7,7 +7,7 @@ namespace ThursdayMeetingBot.Web.Extensions
     {
         internal static string GetFirstLetters(this string str)
         {
-            var lastLetterIndex = Math.Min(str.Length - 1, StringConstant.FirstLettersNumber);
+            var lastLetterIndex = Math.Min(str.Length, StringConstant.FirstLettersNumber);
             return str[..lastLetterIndex];
         }
     }

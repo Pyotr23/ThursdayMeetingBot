@@ -52,9 +52,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
                 .Chat
                 .Id;
 
-            _logger.LogInformation("{0}Handle begins for chatId={1}.",
-                nameof(StartCommand),
-                chatId);
+            _logger.LogInformation($"[{request.Id}] Handle of start command");
 
             var firstNotificationDateTime = _dateTimeHelper.GetFirstNotificationDateTime();
             var timer = new Timer(
