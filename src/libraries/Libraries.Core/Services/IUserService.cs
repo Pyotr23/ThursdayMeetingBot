@@ -18,6 +18,6 @@ namespace ThursdayMeetingBot.Libraries.Core.Services
         /// <param name="dto"> User DTO. </param>
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns> Task. </returns>
-        Task Register(TDto dto, CancellationToken cancellationToken);
+        Task RegisterAsync(TDto dto, CancellationToken cancellationToken);
     }
 }

@@ -43,13 +43,13 @@ namespace ThursdayMeetingBot.Web.Services
                 switch (message.Text)
                 {
                     case BotCommand.Start:
-                        command = new StartCommand(message);
+                        command = new StartCommand(update);
                         break;
                     case BotCommand.Stop:
-                        command = new StopCommand(message); 
+                        command = new StopCommand(update); 
                         break;
                     default:
-                        _logger.LogInformation("Unknown bot command \"{0}\"", message.Text);
+                        _logger.LogWarning("Unknown bot command \"{0}\"", message.Text);
                         return;
                 }
                 await _mediator.Send(command);

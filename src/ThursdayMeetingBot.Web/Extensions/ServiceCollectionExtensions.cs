@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -9,9 +7,9 @@ using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Models.Entities;
 using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Libraries.Data.Configurations;
-using ThursdayMeetingBot.Libraries.Data.Contexts;
 using ThursdayMeetingBot.Libraries.Service.Services;
 using ThursdayMeetingBot.Web.Configurations;
+using ThursdayMeetingBot.Web.Constants;
 
 namespace ThursdayMeetingBot.Web.Extensions
 {
@@ -43,7 +41,7 @@ namespace ThursdayMeetingBot.Web.Extensions
             this IServiceCollection services,
             IConfiguration configuration) where T : DbContext
         {
-            const string migrationAssembly = "ThursdayMeetingBot.Libraries.Data.MigrationStore";
+            const string migrationAssembly = AssemblyConstant.MigrationAssemblyName;
 
             void PostgreOptionsAction(NpgsqlDbContextOptionsBuilder builder) 
                 => builder.MigrationsAssembly(migrationAssembly);
@@ -65,7 +63,6 @@ namespace ThursdayMeetingBot.Web.Extensions
         /// <typeparam name="TDbContext"> Db context type. </typeparam>
         /// <typeparam name="TDto">  User DTO type. </typeparam>
         /// <typeparam name="TEntity"> User type. </typeparam>
-        /// <typeparam name="TKey"> Generic key for user entity. </typeparam>
         /// <param name="services"> IServiceCollection instance. </param>
         /// <returns> Service collection. </returns>
         internal static IServiceCollection AddServices<TDbContext, TDto, TEntity>(

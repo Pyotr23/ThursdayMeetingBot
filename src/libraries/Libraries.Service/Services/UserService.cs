@@ -34,7 +34,7 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         }
 
         /// <inheritdoc cref="IUserService{TDto,TKey}"/>
-        public async Task Register(TDto dto, CancellationToken cancellationToken = default)
+        public async Task RegisterAsync(TDto dto, CancellationToken cancellationToken = default)
         {
             _logger.LogDebug($"Start register user with Id={dto.Id}");
             var existingUserDto = await GetByIdAsync(dto.Id, cancellationToken);

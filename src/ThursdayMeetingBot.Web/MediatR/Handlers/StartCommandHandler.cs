@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Web.Configurations;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Dictionaries;
@@ -23,8 +22,6 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
     {
         private readonly ILogger<StartCommandHandler<TUserDto>> _logger;
         private readonly DateTimeHelper _dateTimeHelper;
-        private readonly IUserService<TUserDto> _userService;
-
         /// <summary>
         ///     Constructor.
         /// </summary>
@@ -33,12 +30,10 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         /// <param name="botService"> Bot service. </param>
         public StartCommandHandler(ILogger<StartCommandHandler<TUserDto>> logger,
             IOptions<NotificationConfiguration> notificationConfigurationOptions, 
-            IUserService<TUserDto> userService,
             IBotService botService)
             : base(botService)
         {
             _logger = logger;
-            _userService = userService;
             _dateTimeHelper = new DateTimeHelper(notificationConfigurationOptions);
         }
 
@@ -82,8 +77,6 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
             userDto.LastName = telegramUser.LastName;
             userDto.Username = telegramUser.Username;
            
-            await _userService.Register(userDto, cancellationToken);
-
             await BotService
                 .Client
                 .SendTextMessageAsync(chatId,

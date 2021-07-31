@@ -9,7 +9,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Commands
     public record StartCommand : BaseBotCommand<Unit>
     {
         /// <inheritdoc />
-        public StartCommand(Message message) : base(message)
+        public StartCommand(Update update) : base(update)
         {
         }
     }

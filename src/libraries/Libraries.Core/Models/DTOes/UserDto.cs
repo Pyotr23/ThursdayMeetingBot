@@ -22,13 +22,5 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
         ///     User last name.
         /// </summary>
         public string LastName { get; set; }
-
-        public UserDto(User telegramUser) => (Id, FirstName, LastName, Username)
-            = (telegramUser.Id, telegramUser.FirstName, telegramUser.LastName, telegramUser.Username);
-
-        public UserDto()
-        {
-            
-        }
     }
 }

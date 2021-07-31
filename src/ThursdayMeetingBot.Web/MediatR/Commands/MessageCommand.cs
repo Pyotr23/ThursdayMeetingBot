@@ -4,12 +4,12 @@ using Telegram.Bot.Types;
 namespace ThursdayMeetingBot.Web.MediatR.Commands
 {
     /// <summary>
-    ///     Command when "/start" received.
+    ///     Command for processing messages.
     /// </summary>
-    public record StopCommand : BaseBotCommand<Unit>
+    public record MessageCommand : BaseBotCommand<Unit>
     {
         /// <inheritdoc />
-        public StopCommand(Update update) : base(update) 
-        {}
+        public MessageCommand(Update update) : base(update)
+        { }
     }
 }
