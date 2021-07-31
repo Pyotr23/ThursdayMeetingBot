@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Web.Configurations;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Dictionaries;
@@ -16,18 +17,18 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
     /// <summary>
     ///     Command "/start" handler.
     /// </summary>
-    public class StartCommandHandler : BotCommandHandler, IRequestHandler<StartCommand, Unit>
+    public class StartCommandHandler<TUserDto> : BotCommandHandler, IRequestHandler<StartCommand, Unit>
+        where TUserDto : UserDto, new()
     {
-        private readonly ILogger<StartCommandHandler> _logger;
+        private readonly ILogger<StartCommandHandler<TUserDto>> _logger;
         private readonly DateTimeHelper _dateTimeHelper;
-
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
         /// <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
         /// <param name="botService"> Bot service. </param>
-        public StartCommandHandler(ILogger<StartCommandHandler> logger,
+        public StartCommandHandler(ILogger<StartCommandHandler<TUserDto>> logger,
             IOptions<NotificationConfiguration> notificationConfigurationOptions, 
             IBotService botService)
             : base(botService)
@@ -51,9 +52,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
                 .Chat
                 .Id;
 
-            _logger.LogInformation("{0}Handle begins for chatId={1}.",
-                nameof(StartCommand),
-                chatId);
+            _logger.LogInformation($"[{request.Id}] Handle of start command");
 
             var firstNotificationDateTime = _dateTimeHelper.GetFirstNotificationDateTime();
             var timer = new Timer(
@@ -69,6 +68,13 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
 
             _logger.LogInformation(firstNotificationDateTime.LogMessage);
 
+            var userDto = new TUserDto();
+            var telegramUser = request.Message.From;
+            userDto.Id = telegramUser.Id;
+            userDto.FirstName = telegramUser.FirstName;
+            userDto.LastName = telegramUser.LastName;
+            userDto.Username = telegramUser.Username;
+           
             await BotService
                 .Client
                 .SendTextMessageAsync(chatId,

@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Telegram.Bot.Types;
 
 namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
 {
     /// <summary>
     ///     User DTO.
     /// </summary>
-    public record UserDto<TKey> : DtoBase<TKey> 
-        where TKey : IEquatable<TKey>
+    public record UserDto : DtoBase<int>
     {
         /// <summary>
         ///     Username that starts with "@".

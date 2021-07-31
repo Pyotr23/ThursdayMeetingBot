@@ -5,7 +5,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Libraries.Core.Models.Entities;
+using ThursdayMeetingBot.Libraries.Core.Models.Entities.Base;
 using ThursdayMeetingBot.Libraries.Core.Services;
 
 namespace ThursdayMeetingBot.Libraries.Service.Services
@@ -20,10 +20,10 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
     public abstract class BaseService<TDbContext, TDto, TEntity,TKey> : IService<TDto,TKey>
     where TDbContext : DbContext
     where TDto : DtoBase<TKey>
-    where TEntity : UserBase<TKey>
+    where TEntity : AggregatedEntity<TKey>
     where TKey : IEquatable<TKey>
     {
-        private string _typeName = typeof(TEntity).Name;
+        private readonly string _typeName = typeof(TEntity).Name;
         
         protected readonly DbSet<TEntity> _dbSet;
         protected readonly IMapper _mapper;
@@ -41,12 +41,12 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         }
         
         /// <inheritdoc />
-        public async Task<TDto> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
+        public async Task<TDto?> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
         {
             _logger.LogDebug($"Start getting {_typeName} with Id={id}");
             var entity = await _dbSet
                 .FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken)
-                .ConfigureAwait(false);;
+                .ConfigureAwait(false);
             
             if (entity is null)
             {
@@ -82,14 +82,17 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         public async Task<bool> UpdateAsync(TDto dtoToUpdate, CancellationToken cancellationToken = default)
         {
             _logger.LogDebug($"Start updating {_typeName}");
-            var entity = _mapper.Map<TEntity>(dtoToUpdate);
-            entity.UpdatedDate = DateTime.UtcNow;
-            
+
             _context
                 .ChangeTracker
                 .Clear();
+            
+            var entity = _mapper.Map<TEntity>(dtoToUpdate);
 
-            _dbSet.Update(entity);
+            _dbSet
+                .Update(entity)
+                .Property(x => x.CreatedDate)
+                .IsModified = false;
             
             _logger.LogDebug($"Updating {_typeName} save changes");
             var commitStatus = await _context

@@ -5,6 +5,5 @@ namespace ThursdayMeetingBot.Libraries.Data.Models
     /// <summary>
     ///     User.
     /// </summary>
-    public record User : UserBase<int> 
-    { }
+    public record User : UserBase;
 }

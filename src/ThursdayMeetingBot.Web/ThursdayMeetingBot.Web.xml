@@ -78,11 +78,12 @@
                 Update controller.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Controllers.UpdateController.#ctor(ThursdayMeetingBot.Web.Interfaces.IBotMessageService)">
+        <member name="M:ThursdayMeetingBot.Web.Controllers.UpdateController.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Controllers.UpdateController},MediatR.IMediator)">
             <summary>
                 Constructor.
             </summary>
-            <param name="botMessageService"> Service for manage bot messages. </param>
+            <param name="logger"> Logger. </param>
+            <param name="mediator"> Mediator. </param>
         </member>
         <member name="M:ThursdayMeetingBot.Web.Controllers.UpdateController.Post(Telegram.Bot.Types.Update)">
             <summary>
@@ -134,14 +135,13 @@
             <param name="configuration"> Configuration. </param>
             <returns> Configurated service collection. </returns>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions.AddServices``4(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions.AddServices``3(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
                 Add services for working with database.
             </summary>
             <typeparam name="TDbContext"> Db context type. </typeparam>
             <typeparam name="TDto">  User DTO type. </typeparam>
             <typeparam name="TEntity"> User type. </typeparam>
-            <typeparam name="TKey"> Generic key for user entity. </typeparam>
             <param name="services"> IServiceCollection instance. </param>
             <returns> Service collection. </returns>
         </member>
@@ -186,17 +186,6 @@
             </summary>
             <returns> Check result. </returns>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Interfaces.IBotMessageService">
-            <summary>
-                Service for processing messages received from the bot.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Interfaces.IBotMessageService.ProcessAsync(Telegram.Bot.Types.Update)">
-            <summary>
-                Processing a message.
-            </summary>
-            <param name="update"> Incoming update. </param>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.Interfaces.IBotService">
             <summary>
                 Service for managing telegram bot client.
@@ -207,9 +196,25 @@
                 Telegram bot client.
             </summary>
         </member>
+        <member name="T:ThursdayMeetingBot.Web.MapperProfiles.TelegramMapperProfile`1">
+            <summary>
+                Profile for mapping of telegram entities to DTO.
+            </summary>
+            <typeparam name="TUserDto"></typeparam>
+        </member>
+        <member name="M:ThursdayMeetingBot.Web.MapperProfiles.TelegramMapperProfile`1.#ctor">
+            <summary>
+                Constructor.
+            </summary>
+        </member>
         <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1">
             <summary>
                 Base bot command.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.Update">
+            <summary>
+                Incoming update.   
             </summary>
         </member>
         <member name="P:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.Message">
@@ -222,18 +227,36 @@
                 Chat.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.#ctor(Telegram.Bot.Types.Message)">
+        <member name="P:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.Sender">
+            <summary>
+                Sender.
+            </summary>
+        </member>
+        <member name="P:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.Id">
+            <summary>
+                Update's unique identifier.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.BaseBotCommand`1.#ctor(Telegram.Bot.Types.Update)">
             <summary>
                 Constructor.
             </summary>
-            <param name="message"> Message. </param>
+            <param name="update"> Incoming update. </param>
+        </member>
+        <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.MessageCommand">
+            <summary>
+                Command for processing messages.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.MessageCommand.#ctor(Telegram.Bot.Types.Update)">
+            <inheritdoc />
         </member>
         <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.StartCommand">
             <summary>
                 Command when "/start" received.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.StartCommand.#ctor(Telegram.Bot.Types.Message)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.StartCommand.#ctor(Telegram.Bot.Types.Update)">
             <inheritdoc />
         </member>
         <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.StopCommand">
@@ -241,7 +264,15 @@
                 Command when "/start" received.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.StopCommand.#ctor(Telegram.Bot.Types.Message)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.StopCommand.#ctor(Telegram.Bot.Types.Update)">
+            <inheritdoc />
+        </member>
+        <member name="T:ThursdayMeetingBot.Web.MediatR.Commands.UpdateCommand">
+            <summary>
+                Command for handle incoming update.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Commands.UpdateCommand.#ctor(Telegram.Bot.Types.Update)">
             <inheritdoc />
         </member>
         <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.BotCommandHandler">
@@ -260,12 +291,27 @@
             </summary>
             <param name="botService"> Bot service. </param>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler">
+        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.MessageCommandHandler">
+            <summary>
+                 Handler for processing messages
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.MessageCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.MessageCommandHandler},MediatR.IMediator)">
+            <summary>
+                Constructor.
+            </summary>
+            <param name="logger"> Logger. </param>
+            <param name="mediator"> Mediator. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.MessageCommandHandler.Handle(ThursdayMeetingBot.Web.MediatR.Commands.MessageCommand,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1">
             <summary>
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.NotificationConfiguration},ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.NotificationConfiguration},ThursdayMeetingBot.Web.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -273,7 +319,7 @@
             <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
             <param name="botService"> Bot service. </param>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler.Handle(ThursdayMeetingBot.Web.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.Handle(ThursdayMeetingBot.Web.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
             <summary>
                 Handle command.
             </summary>
@@ -286,7 +332,7 @@
                 Command "/stop" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler},ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler},ThursdayMeetingBot.Web.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -300,6 +346,23 @@
             <param name="request"> Command. </param>
             <param name="cancellationToken"> Cancellation token. </param>
             <returns> A task with representation of the void type. </returns>
+        </member>
+        <member name="T:ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler`1">
+            <summary>
+                Handler for each incoming update.
+            </summary>
+        </member>
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler{`0}},ThursdayMeetingBot.Libraries.Core.Services.IUserService{`0},AutoMapper.IMapper,MediatR.IMediator)">
+            <summary>
+                Handler for writing update in database via user service.
+            </summary>
+            <param name="logger"> Logger. </param>
+            <param name="userService"> Service for managing users. </param>
+            <param name="mapper"> Mapper. </param>
+            <param name="mediator"> Mediator. </param>
+        </member>
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler`1.Handle(ThursdayMeetingBot.Web.MediatR.Commands.UpdateCommand,System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="T:ThursdayMeetingBot.Web.Models.NotificationDateTime">
             <summary>
@@ -400,19 +463,6 @@
             </summary>
             <param name="args"> Application argiments. </param>
             <returns> Application configuration object. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Services.BotMessageService">
-            <inheritdoc />
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.BotMessageService.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Services.BotMessageService},MediatR.IMediator)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="logger"> Logger. </param>
-            <param name="mediator"> Mediator. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.BotMessageService.ProcessAsync(Telegram.Bot.Types.Update)">
-            <inheritdoc />
         </member>
         <member name="T:ThursdayMeetingBot.Web.Services.BotService">
             <inheritdoc />

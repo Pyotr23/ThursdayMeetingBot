@@ -9,9 +9,14 @@ namespace ThursdayMeetingBot.Web.MediatR.Commands
     public abstract record BaseBotCommand<T> : IRequest<T>
     {
         /// <summary>
+        ///     Incoming update.   
+        /// </summary>
+        public Update Update { get; }
+
+        /// <summary>
         ///     Message.
         /// </summary>
-        private Message Message { get; }
+        public Message Message => Update.Message;
 
         /// <summary>
         ///     Chat.
@@ -19,9 +24,19 @@ namespace ThursdayMeetingBot.Web.MediatR.Commands
         public Chat Chat => Message.Chat;
 
         /// <summary>
+        ///     Sender.
+        /// </summary>
+        public User Sender => Message.From;
+
+        /// <summary>
+        ///     Update's unique identifier.
+        /// </summary>
+        public int Id => Update.Id;
+
+        /// <summary>
         ///     Constructor.
         /// </summary>
-        /// <param name="message"> Message. </param>
-        protected BaseBotCommand(Message message) => Message = message;
+        /// <param name="update"> Incoming update. </param>
+        protected BaseBotCommand(Update update) => Update = update;
     }
 }

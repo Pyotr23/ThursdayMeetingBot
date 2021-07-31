@@ -12,6 +12,9 @@ using ThursdayMeetingBot.Libraries.Data.Models;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
 using ThursdayMeetingBot.Web.Interfaces;
+using ThursdayMeetingBot.Web.MapperProfiles;
+using ThursdayMeetingBot.Web.MediatR.Commands;
+using ThursdayMeetingBot.Web.MediatR.Handlers;
 using ThursdayMeetingBot.Web.Services;
 
 namespace ThursdayMeetingBot.Web
@@ -41,11 +44,13 @@ namespace ThursdayMeetingBot.Web
             services
                 .AddConfigurationSections(Configuration)
                 .AddDbContexts<BotDbContext>(Configuration)
-                .AddServices<BotDbContext, UserDto<int>, User, int>();
+                .AddServices<BotDbContext, UserDto, User>();
 
             services.AddAutoMapper(config =>
             {
-                config.AddProfile<UserMapperProfile<User, UserDto<int>, int>>();
+                config.AddProfile<UserMapperProfile<User, UserDto>>();
+                
+                config.AddProfile<TelegramMapperProfile<UserDto>>();
             });
             
             services.AddHttpClient(HttpClientConstant.Name, 
@@ -53,7 +58,7 @@ namespace ThursdayMeetingBot.Web
          
             services
                 .AddSingleton<IBotService, BotService>()
-                .AddScoped<IBotMessageService, BotMessageService>()
+                .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler<UserDto>>()
                 .AddMediatR(typeof(Startup));
 
             services

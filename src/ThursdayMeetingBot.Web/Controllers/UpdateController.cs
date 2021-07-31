@@ -1,7 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
-using ThursdayMeetingBot.Web.Interfaces;
+using ThursdayMeetingBot.Web.Extensions;
+using ThursdayMeetingBot.Web.MediatR.Commands;
 
 namespace ThursdayMeetingBot.Web.Controllers
 {
@@ -12,15 +16,19 @@ namespace ThursdayMeetingBot.Web.Controllers
     [Route("api/[controller]")]
     public class UpdateController : Controller
     {
-        private readonly IBotMessageService _botMessageService;
+        private readonly ILogger<UpdateController> _logger;
+        private readonly IMediator _mediator;
 
         /// <summary>
         ///     Constructor.
         /// </summary>
-        /// <param name="botMessageService"> Service for manage bot messages. </param>
-        public UpdateController(IBotMessageService botMessageService)
+        /// <param name="logger"> Logger. </param>
+        /// <param name="mediator"> Mediator. </param>
+        public UpdateController(ILogger<UpdateController> logger,
+            IMediator mediator)
         {
-            _botMessageService = botMessageService;
+            _logger = logger;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -31,7 +39,18 @@ namespace ThursdayMeetingBot.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Update update)
         {
-            await _botMessageService.ProcessAsync(update);
+            _logger.LogInformation($"[{update.Id}] Start to handle update: {update.GetInfo()}");
+            
+            try
+            {
+                await _mediator.Send(new UpdateCommand(update));
+                _logger.LogInformation($"[{update.Id}] Update processed");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"[{update.Id}] Error when handle update{Environment.NewLine}{ex}");
+            }
+            
             return Ok();
         }
     }

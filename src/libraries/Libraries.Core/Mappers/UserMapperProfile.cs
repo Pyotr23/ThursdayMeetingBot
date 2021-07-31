@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Models.Entities;
 
@@ -10,11 +9,9 @@ namespace ThursdayMeetingBot.Libraries.Core.Mappers
     /// </summary>
     /// <typeparam name="TUser"> User. </typeparam>
     /// <typeparam name="TUserDto"> User DTO. </typeparam>
-    /// <typeparam name="TKey"> Unique key. </typeparam>
-    public class UserMapperProfile<TUser, TUserDto, TKey> : Profile
-        where TUser : UserBase<TKey>
-        where TUserDto : UserDto<TKey>
-        where TKey : IEquatable<TKey>
+    public class UserMapperProfile<TUser, TUserDto> : Profile
+        where TUser : UserBase
+        where TUserDto : UserDto
     {
         /// <summary>
         ///     Constructor.

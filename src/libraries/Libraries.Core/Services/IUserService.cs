@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 
 namespace ThursdayMeetingBot.Libraries.Core.Services
@@ -7,10 +8,16 @@ namespace ThursdayMeetingBot.Libraries.Core.Services
     ///     Service for manage users.
     /// </summary>
     /// <typeparam name="TDto"> User DTO for add or update. </typeparam>
-    /// <typeparam name="TKey"> Parameter with unique identifier of entry. </typeparam>
-    public interface IUserService<TDto, TKey> 
-        : IService<TDto, TKey> 
-        where TDto : UserDto<TKey>
-        where TKey : IEquatable<TKey>
-    { }
+    public interface IUserService<TDto>
+        : IService<TDto, int>
+        where TDto : UserDto
+    {
+        /// <summary>
+        ///     Add if not exists or update if need.
+        /// </summary>
+        /// <param name="dto"> User DTO. </param>
+        /// <param name="cancellationToken"> Cancellation token. </param>
+        /// <returns> Task. </returns>
+        Task RegisterAsync(TDto dto, CancellationToken cancellationToken);
+    }
 }
