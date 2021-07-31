@@ -21,7 +21,7 @@ namespace ThursdayMeetingBot.Libraries.Core.Services
         /// <param name="id"> Unique identifier. </param>
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns> One entry result. </returns>
-        Task<TDto> GetByIdAsync(TKey id, CancellationToken cancellationToken = default);
+        Task<TDto?> GetByIdAsync(TKey id, CancellationToken cancellationToken = default);
         
         /// <summary>
         ///     Create new entry.
