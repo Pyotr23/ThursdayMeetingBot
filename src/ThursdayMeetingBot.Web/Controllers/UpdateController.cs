@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
 using ThursdayMeetingBot.Web.Extensions;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 
 namespace ThursdayMeetingBot.Web.Controllers
@@ -17,21 +16,17 @@ namespace ThursdayMeetingBot.Web.Controllers
     [Route("api/[controller]")]
     public class UpdateController : Controller
     {
-        private readonly IBotMessageService _botMessageService;
         private readonly ILogger<UpdateController> _logger;
         private readonly IMediator _mediator;
 
         /// <summary>
         ///     Constructor.
         /// </summary>
-        /// <param name="botMessageService"> Service for manage bot messages. </param>
         /// <param name="logger"> Logger. </param>
         /// <param name="mediator"> Mediator. </param>
-        public UpdateController(IBotMessageService botMessageService, 
-            ILogger<UpdateController> logger,
+        public UpdateController(ILogger<UpdateController> logger,
             IMediator mediator)
         {
-            _botMessageService = botMessageService;
             _logger = logger;
             _mediator = mediator;
         }

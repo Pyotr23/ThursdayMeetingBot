@@ -58,7 +58,6 @@ namespace ThursdayMeetingBot.Web
          
             services
                 .AddSingleton<IBotService, BotService>()
-                .AddScoped<IBotMessageService, BotMessageService>()
                 .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler<UserDto>>()
                 .AddMediatR(typeof(Startup));
 

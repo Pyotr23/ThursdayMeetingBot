@@ -78,11 +78,10 @@
                 Update controller.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Controllers.UpdateController.#ctor(ThursdayMeetingBot.Web.Interfaces.IBotMessageService,Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Controllers.UpdateController},MediatR.IMediator)">
+        <member name="M:ThursdayMeetingBot.Web.Controllers.UpdateController.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Controllers.UpdateController},MediatR.IMediator)">
             <summary>
                 Constructor.
             </summary>
-            <param name="botMessageService"> Service for manage bot messages. </param>
             <param name="logger"> Logger. </param>
             <param name="mediator"> Mediator. </param>
         </member>
@@ -186,17 +185,6 @@
                 Is the environment Development.
             </summary>
             <returns> Check result. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Interfaces.IBotMessageService">
-            <summary>
-                Service for processing messages received from the bot.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Interfaces.IBotMessageService.ProcessAsync(Telegram.Bot.Types.Update)">
-            <summary>
-                Processing a message.
-            </summary>
-            <param name="update"> Incoming update. </param>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Interfaces.IBotService">
             <summary>
@@ -475,19 +463,6 @@
             </summary>
             <param name="args"> Application argiments. </param>
             <returns> Application configuration object. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Services.BotMessageService">
-            <inheritdoc />
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.BotMessageService.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Services.BotMessageService},MediatR.IMediator)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="logger"> Logger. </param>
-            <param name="mediator"> Mediator. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.BotMessageService.ProcessAsync(Telegram.Bot.Types.Update)">
-            <inheritdoc />
         </member>
         <member name="T:ThursdayMeetingBot.Web.Services.BotService">
             <inheritdoc />
