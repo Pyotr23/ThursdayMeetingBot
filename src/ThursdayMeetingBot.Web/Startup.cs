@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ThursdayMeetingBot.Libraries.Core.Mappers;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
+using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
 using ThursdayMeetingBot.Libraries.Data.Models;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
@@ -44,7 +44,7 @@ namespace ThursdayMeetingBot.Web
             services
                 .AddConfigurationSections(Configuration)
                 .AddDbContexts<BotDbContext>(Configuration)
-                .AddServices<BotDbContext, UserDto, User>();
+                .AddServices<BotDbContext>();
 
             services.AddAutoMapper(config =>
             {
@@ -58,7 +58,7 @@ namespace ThursdayMeetingBot.Web
          
             services
                 .AddSingleton<IBotService, BotService>()
-                .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler<UserDto>>()
+                .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler>()
                 .AddMediatR(typeof(Startup));
 
             services

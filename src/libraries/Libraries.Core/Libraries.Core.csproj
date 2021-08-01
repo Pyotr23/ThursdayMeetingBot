@@ -4,6 +4,7 @@
         <TargetFramework>net5.0</TargetFramework>
         <AssemblyName>ThursdayMeetingBot.Libraries.Core</AssemblyName>
         <RootNamespace>ThursdayMeetingBot.Libraries.Core</RootNamespace>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

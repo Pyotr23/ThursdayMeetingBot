@@ -8,8 +8,8 @@
         /// <summary>
         ///     Username that starts with "@".
         /// </summary>
-        public string Username { get; set; }
-        
+        public string Username { get; set; } 
+
         /// <summary>
         ///     User first name.
         /// </summary>

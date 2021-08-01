@@ -3,9 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
-using ThursdayMeetingBot.Libraries.Core.Models.BaseEntities;
-using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Libraries.Core.Models.Entities;
 using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Libraries.Data.Configurations;
 using ThursdayMeetingBot.Libraries.Service.Services;
@@ -62,18 +59,13 @@ namespace ThursdayMeetingBot.Web.Extensions
         ///     Add services for working with database.
         /// </summary>
         /// <typeparam name="TDbContext"> Db context type. </typeparam>
-        /// <typeparam name="TDto">  User DTO type. </typeparam>
-        /// <typeparam name="TEntity"> User type. </typeparam>
         /// <param name="services"> IServiceCollection instance. </param>
         /// <returns> Service collection. </returns>
-        internal static IServiceCollection AddServices<TDbContext, TDto, TEntity>(
+        internal static IServiceCollection AddServices<TDbContext>(
             this IServiceCollection services)
             where TDbContext : DbContext
-            where TDto : UserDto
-            where TEntity : UserBase
         {
-            services.TryAddScoped<IUserService<TDto>,
-                UserService<TDbContext, TDto, TEntity>>();
+            services.TryAddScoped<IUserService, UserService<TDbContext>>();
 
             return services;
         }

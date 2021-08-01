@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ThursdayMeetingBot.Libraries.Core.Models.BaseEntities.Common
+namespace ThursdayMeetingBot.Libraries.Core.Models.Common
 {
     /// <summary>
     ///     Base model for aggregated entities.
