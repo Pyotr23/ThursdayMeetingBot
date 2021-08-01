@@ -1,6 +1,4 @@
-﻿using Telegram.Bot.Types;
-
-namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
+﻿namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
 {
     /// <summary>
     ///     User DTO.

@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using ThursdayMeetingBot.Libraries.Core.Models.BaseEntities.Common;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Libraries.Core.Models.Entities.Base;
 using ThursdayMeetingBot.Libraries.Core.Services;
 
 namespace ThursdayMeetingBot.Libraries.Service.Services

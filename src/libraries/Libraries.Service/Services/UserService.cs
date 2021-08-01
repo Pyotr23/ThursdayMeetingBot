@@ -4,8 +4,8 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Extensions;
+using ThursdayMeetingBot.Libraries.Core.Models.BaseEntities;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Libraries.Core.Models.Entities;
 using ThursdayMeetingBot.Libraries.Core.Services;
 
 namespace ThursdayMeetingBot.Libraries.Service.Services
@@ -19,7 +19,7 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
             IUserService<TDto>
         where TDbContext : DbContext
         where TDto : UserDto
-        where TEntity : UserBase
+        where TEntity : UserBase<int>
     {
         /// <summary>
         ///     Constructor.
