@@ -194,13 +194,12 @@
                 Telegram bot client.
             </summary>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.MapperProfiles.TelegramMapperProfile`1">
+        <member name="T:ThursdayMeetingBot.Web.MapperProfiles.TelegramMapperProfile">
             <summary>
                 Profile for mapping of telegram entities to DTO.
             </summary>
-            <typeparam name="TUserDto"></typeparam>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MapperProfiles.TelegramMapperProfile`1.#ctor">
+        <member name="M:ThursdayMeetingBot.Web.MapperProfiles.TelegramMapperProfile.#ctor">
             <summary>
                 Constructor.
             </summary>
@@ -350,12 +349,13 @@
                 Handler for each incoming update.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler},ThursdayMeetingBot.Libraries.Core.Services.IUserService,AutoMapper.IMapper,MediatR.IMediator)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler},ThursdayMeetingBot.Libraries.Core.Services.IUserService,ThursdayMeetingBot.Libraries.Core.Services.IChatService,AutoMapper.IMapper,MediatR.IMediator)">
             <summary>
                 Handler for writing update in database via user service.
             </summary>
             <param name="logger"> Logger. </param>
             <param name="userService"> Service for managing users. </param>
+            <param name="chatService"> Service for managing chats. </param>
             <param name="mapper"> Mapper. </param>
             <param name="mediator"> Mediator. </param>
         </member>

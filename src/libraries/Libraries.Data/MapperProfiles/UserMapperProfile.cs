@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
+using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
+using ThursdayMeetingBot.Libraries.Data.Models;
 
 namespace ThursdayMeetingBot.Libraries.Data.MapperProfiles
 {
     /// <summary>
     ///     Profile class for mapper user models.
     /// </summary>
-    /// <typeparam name="TUser"> User. </typeparam>
-    /// <typeparam name="TUserDto"> User DTO. </typeparam>
-    public class UserMapperProfile<TUser, TUserDto> : Profile
+    public class UserMapperProfile : Profile
     {
         /// <summary>
         ///     Constructor.
         /// </summary>
         public UserMapperProfile()
         {
-            CreateMap<TUser, TUserDto>(MemberList.Destination)
+            CreateMap<User, UserDto>(MemberList.Destination)
                 .ReverseMap();
         }
     }

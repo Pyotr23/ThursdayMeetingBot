@@ -29,6 +29,11 @@ namespace ThursdayMeetingBot.Libraries.Data.Contexts
         public DbSet<ChatType> ChatTypes { get; set; }
         
         /// <summary>
+        ///     Table with chats.
+        /// </summary>
+        public DbSet<Chat> Chats { get; set; }
+        
+        /// <summary>
         ///     Method executing while models creating.
         /// </summary>
         /// <param name="modelBuilder"> Model builder. </param>

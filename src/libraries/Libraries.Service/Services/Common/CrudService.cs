@@ -8,16 +8,17 @@ using ThursdayMeetingBot.Libraries.Core.Models.Common;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Services;
 
-namespace ThursdayMeetingBot.Libraries.Service.Services
+namespace ThursdayMeetingBot.Libraries.Service.Services.Common
 {
     /// <summary>
-    ///     Base service.
+    ///     Service with simple CRUD operations.
     /// </summary>
     /// <typeparam name="TDbContext"> DbContext. </typeparam>
     /// <typeparam name="TDto"> DTO model. </typeparam>
     /// <typeparam name="TEntity"> The entity with which the basic operations will be performed on the table. </typeparam>
     /// <typeparam name="TKey"> Type of entry unique identifier. </typeparam>
-    public abstract class BaseService<TDbContext, TDto, TEntity,TKey> : IService<TDto,TKey>
+    public abstract class CrudService<TDbContext, TDto, TEntity,TKey> 
+        : BaseService<TDbContext>, IService<TDto,TKey>
     where TDbContext : DbContext
     where TDto : DtoBase<TKey>
     where TEntity : AggregatedEntity<TKey>
@@ -25,18 +26,15 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
     {
         private readonly string _typeName = typeof(TEntity).Name;
         
-        protected readonly DbSet<TEntity> _dbSet;
-        protected readonly IMapper _mapper;
-        protected readonly DbContext _context;
-        protected readonly ILogger<BaseService<TDbContext, TDto, TEntity, TKey>> _logger;
+        private readonly DbSet<TEntity> _dbSet;
+        protected readonly ILogger<CrudService<TDbContext, TDto, TEntity, TKey>> _logger;
 
-        protected BaseService(TDbContext context, 
+        protected CrudService(TDbContext context, 
             IMapper mapper, 
-            ILogger<BaseService<TDbContext, TDto, TEntity, TKey>> logger)
+            ILogger<CrudService<TDbContext, TDto, TEntity, TKey>> logger)
+            : base(context, mapper)
         {
-            _context = context;
-            _dbSet = context.Set<TEntity>();
-            _mapper = mapper;
+            _dbSet = DbContext.Set<TEntity>();
             _logger = logger;
         }
         
@@ -54,7 +52,7 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
                 return null;
             }
                 
-            var result = _mapper.Map<TDto>(entity);
+            var result = Mapper.Map<TDto>(entity);
             return result;
         }
 
@@ -62,13 +60,13 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         public async Task<TKey> CreateAsync(TDto dtoToAdd, CancellationToken cancellationToken = default)
         {
             _logger.LogDebug($"Start creating new {_typeName}");
-            var entity = _mapper.Map<TEntity>(dtoToAdd);
+            var entity = Mapper.Map<TEntity>(dtoToAdd);
             await _dbSet
                 .AddAsync(entity, cancellationToken)
                 .ConfigureAwait(false);
             
             _logger.LogDebug($"Creating new {_typeName} save changes");
-            var commitStatus = await _context
+            var commitStatus = await DbContext
                 .SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
             
@@ -83,11 +81,11 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         {
             _logger.LogDebug($"Start updating {_typeName}");
 
-            _context
+            DbContext
                 .ChangeTracker
                 .Clear();
             
-            var entity = _mapper.Map<TEntity>(dtoToUpdate);
+            var entity = Mapper.Map<TEntity>(dtoToUpdate);
 
             _dbSet
                 .Update(entity)
@@ -95,7 +93,7 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
                 .IsModified = false;
             
             _logger.LogDebug($"Updating {_typeName} save changes");
-            var commitStatus = await _context
+            var commitStatus = await DbContext
                 .SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
             
@@ -120,7 +118,7 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
             _dbSet.Remove(entity);
             
             _logger.LogDebug($"Delete {_typeName} save changes");
-            var commitStatus = await _context
+            var commitStatus = await DbContext
                 .SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
             

@@ -19,10 +19,5 @@ namespace ThursdayMeetingBot.Libraries.Data.Models
         ///     Alias.
         /// </summary>
         public string Alias { get; set; }
-        
-        /// <summary>
-        ///     Chats.
-        /// </summary>
-        public List<Chat> Chats { get; set; }
     }
 }

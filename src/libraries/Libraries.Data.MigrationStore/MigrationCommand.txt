@@ -1,5 +1,5 @@
 Create initial migration:
-dotnet ef migrations add CreateChatTypes -c BotDbContext -p .\src\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj -s .\src\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj
+dotnet ef migrations add DeleteChatsFromChatType -c BotDbContext -p .\src\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj -s .\src\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj
 
 Update database
 dotnet ef database update -c BotDbContext -p .\src\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj -s .\src\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj

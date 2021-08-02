@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
 using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
-using ThursdayMeetingBot.Libraries.Data.Models;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
 using ThursdayMeetingBot.Web.Interfaces;
@@ -48,9 +46,10 @@ namespace ThursdayMeetingBot.Web
 
             services.AddAutoMapper(config =>
             {
-                config.AddProfile<UserMapperProfile<User, UserDto>>();
+                config.AddProfile<UserMapperProfile>();
+                config.AddProfile<ChatMapperProfile>();
                 
-                config.AddProfile<TelegramMapperProfile<UserDto>>();
+                config.AddProfile<TelegramMapperProfile>();
             });
             
             services.AddHttpClient(HttpClientConstant.Name, 

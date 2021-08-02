@@ -7,12 +7,14 @@ using ThursdayMeetingBot.Libraries.Core.Extensions;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Libraries.Data.Models;
+using ThursdayMeetingBot.Libraries.Service.Services.Common;
 
 namespace ThursdayMeetingBot.Libraries.Service.Services
 {
+    /// <inheritdoc cref="IUserService"/>
     /// <typeparam name="TDbContext"> DbContext. </typeparam>
     public class UserService<TDbContext> 
-        : BaseService<TDbContext, UserDto, User, int>, IUserService
+        : CrudService<TDbContext, UserDto, User, int>, IUserService
         where TDbContext : DbContext
     {
         /// <summary>
