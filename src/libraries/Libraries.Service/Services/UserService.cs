@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ThursdayMeetingBot.Libraries.Core.Extensions;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Libraries.Data.Models;
@@ -12,9 +11,7 @@ using ThursdayMeetingBot.Libraries.Service.Services.Common;
 namespace ThursdayMeetingBot.Libraries.Service.Services
 {
     /// <inheritdoc cref="IUserService"/>
-    /// <typeparam name="TDbContext"> DbContext. </typeparam>
-    public class UserService<TDbContext> 
-        : CrudService<TDbContext, UserDto, User, int>, IUserService
+    public class UserService<TDbContext> : BaseService<TDbContext, User, int>, IUserService
         where TDbContext : DbContext
     {
         /// <summary>
@@ -27,23 +24,56 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
             IMapper mapper, 
             ILogger<UserService<TDbContext>> logger)
             : base(context, mapper, logger)
-        {
-        }
+        { }
 
         /// <inheritdoc />
         public async Task RegisterAsync(UserDto dto, CancellationToken cancellationToken = default)
         {
-            _logger.LogDebug($"Start register user with Id={dto.Id}");
-            var existingUserDto = await GetByIdAsync(dto.Id, cancellationToken);
+            Logger.LogInformation($"Start register user with Id={dto.Id}");
 
-            if (existingUserDto is null)
+            var dbUser = await DbSet.FindAsync(dto.Id);
+            var user = Mapper.Map<User>(dto);
+
+            if (dbUser is null)
             {
-                await CreateAsync(dto, cancellationToken);
+                Logger.LogInformation($"Creating new user");
+                
+                await DbSet
+                    .AddAsync(user, cancellationToken)
+                    .ConfigureAwait(false);
+                
+                var commitStatus = await DbContext
+                    .SaveChangesAsync(cancellationToken)
+                    .ConfigureAwait(false);
+
+                if (commitStatus.Equals(0))
+                    throw new DbUpdateException("Some error occurred white saving changes");
+
                 return;
             }
 
-            if (!dto.IsEqual(existingUserDto))
-                await UpdateAsync(dto, cancellationToken);
+            var dbUserDto = Mapper.Map<UserDto>(dbUser);
+            
+            if (dto != dbUserDto)
+            {
+                Logger.LogInformation($"Updating user");
+                
+                DbContext
+                    .ChangeTracker
+                    .Clear();
+                
+                DbSet
+                    .Update(user)
+                    .Property(u => u.CreatedDate)
+                    .IsModified = false;
+                
+                var commitStatus = await DbContext
+                    .SaveChangesAsync(cancellationToken)
+                    .ConfigureAwait(false);
+
+                if (commitStatus.Equals(0))
+                    throw new DbUpdateException("Some error occurred white saving changes");
+            }
         }
     }
 }

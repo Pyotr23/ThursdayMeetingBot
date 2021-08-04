@@ -39,14 +39,6 @@ namespace ThursdayMeetingBot.Libraries.Data.Contexts
         /// <param name="modelBuilder"> Model builder. </param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ChatType>().HasData(new List<ChatType>
-            {
-              new() { Id = 1, Alias = "Private" },
-              new() { Id = 2, Alias = "Group" },
-              new() { Id = 3, Alias = "Channel" },
-              new() { Id = 4, Alias = "Supergroup" }
-            });
-            
             base.OnModelCreating(modelBuilder);
             
             Func<string, string> nameChangeRule = StringHelper.ToSnakeCase;
