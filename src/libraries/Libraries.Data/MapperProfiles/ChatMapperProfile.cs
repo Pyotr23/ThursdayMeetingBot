@@ -17,7 +17,7 @@ namespace ThursdayMeetingBot.Libraries.Data.MapperProfiles
             CreateMap<Chat, ChatDto>(MemberList.Destination)
                 .ForPath(dest => dest.ChatType.Alias,
                     opt => opt.MapFrom(src => src.ChatType.Alias))
-                .ForMember(dest => dest.Users,
+                .ForMember(dest => dest.SenderId,
                     opt => opt.Ignore());
             
             CreateMap<ChatDto, Chat>(MemberList.Destination)

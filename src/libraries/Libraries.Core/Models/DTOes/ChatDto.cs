@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
+﻿namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
 {
     /// <summary>
     ///     DTO of chat.
@@ -33,8 +31,8 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
         public ChatTypeDto ChatType { get; set; }
         
         /// <summary>
-        ///     User collection.
+        ///     Id of the person of the update in chat.
         /// </summary>
-        public ICollection<UserDto> Users { get; set; }
+        public int SenderId { get; set; }
     }
 }
