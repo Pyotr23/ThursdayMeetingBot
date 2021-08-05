@@ -20,8 +20,8 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         /// <param name="context"> DbContext. </param>
         /// <param name="mapper"> Mapper. </param>
         /// <param name="logger"> Logger. </param>
-        public ChatTypeService(TDbContext context, 
-            IMapper mapper, 
+        public ChatTypeService(TDbContext context,
+            IMapper mapper,
             ILogger<ChatTypeService<TDbContext>> logger)
             : base(context, mapper, logger)
         { }
@@ -31,20 +31,11 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         {
             Logger.LogInformation($"Start register chat type with Id={dto.Id}");
 
-            var dbUser = await DbSet.FindAsync(dto.Id);
+            var dbChatType = await DbSet.FindAsync(dto.Id);
 
-            if (dbUser is null)
-            {
+            if (dbChatType is null)
                 await CreateAsync(dto, cancellationToken);
-                return;
-            }
-
-            var dbUserDto = Mapper.Map<UserDto>(dbUser);
-            
-            if (dto != dbUserDto)
-                await UpdateAsync(dto, cancellationToken);
         }
-
         
         /// <inheritdoc />
         /// <exception cref="DbUpdateException"> Exception when saving failed. </exception>
@@ -53,8 +44,8 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
             Logger.LogInformation($"Creating new chat type");
             
             var chatType = Mapper.Map<ChatType>(dto);
-                
-             await DbSet
+
+            await DbSet
                 .AddAsync(chatType, cancellationToken)
                 .ConfigureAwait(false);
                 

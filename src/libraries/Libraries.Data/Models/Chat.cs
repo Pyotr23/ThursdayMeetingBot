@@ -44,10 +44,10 @@ namespace ThursdayMeetingBot.Libraries.Data.Models
         ///     Chat type.
         /// </summary>
         public ChatType ChatType { get; set; }
-        
+
         /// <summary>
         ///     User collection.
         /// </summary>
-        public ICollection<User> Users { get; set; }
+        public ICollection<User> Users { get; set; } = new List<User>();
     }
 }

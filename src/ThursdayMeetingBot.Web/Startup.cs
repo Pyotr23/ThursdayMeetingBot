@@ -48,6 +48,7 @@ namespace ThursdayMeetingBot.Web
             {
                 config.AddProfile<UserMapperProfile>();
                 config.AddProfile<ChatMapperProfile>();
+                config.AddProfile<ChatTypeMapperProfile>();
                 
                 config.AddProfile<TelegramMapperProfile>();
             });

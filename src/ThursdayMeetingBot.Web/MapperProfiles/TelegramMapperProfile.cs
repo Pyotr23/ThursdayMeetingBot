@@ -20,7 +20,7 @@ namespace ThursdayMeetingBot.Web.MapperProfiles
             CreateMap<ChatType, ChatTypeDto>(MemberList.Destination)
                 .ForMember(dest => dest.Id,
                     opt => opt.MapFrom(src => (int) src))
-                .ForMember(dest => dest,
+                .ForMember(dest => dest.Alias,
                     opt => opt.MapFrom(src => src.ToString()));
 
             CreateMap<Update, ChatDto>(MemberList.Destination)

@@ -12,6 +12,7 @@ namespace ThursdayMeetingBot.Libraries.Data.Models
     {
         /// <inheritdoc cref="AggregatedEntity{TKey}"/>
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override int Id { get; set; }
         
         /// <summary>
