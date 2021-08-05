@@ -28,5 +28,15 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<long> CreateAsync(ChatDto dto, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateAsync(ChatDto dto, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

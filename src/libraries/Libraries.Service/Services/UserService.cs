@@ -32,48 +32,65 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
             Logger.LogInformation($"Start register user with Id={dto.Id}");
 
             var dbUser = await DbSet.FindAsync(dto.Id);
-            var user = Mapper.Map<User>(dto);
 
             if (dbUser is null)
             {
-                Logger.LogInformation($"Creating new user");
-                
-                await DbSet
-                    .AddAsync(user, cancellationToken)
-                    .ConfigureAwait(false);
-                
-                var commitStatus = await DbContext
-                    .SaveChangesAsync(cancellationToken)
-                    .ConfigureAwait(false);
-
-                if (commitStatus.Equals(0))
-                    throw new DbUpdateException("Some error occurred white saving changes");
-
+                await CreateAsync(dto, cancellationToken);
                 return;
             }
 
             var dbUserDto = Mapper.Map<UserDto>(dbUser);
             
             if (dto != dbUserDto)
-            {
-                Logger.LogInformation($"Updating user");
-                
-                DbContext
-                    .ChangeTracker
-                    .Clear();
-                
-                DbSet
-                    .Update(user)
-                    .Property(u => u.CreatedDate)
-                    .IsModified = false;
-                
-                var commitStatus = await DbContext
-                    .SaveChangesAsync(cancellationToken)
-                    .ConfigureAwait(false);
+                await UpdateAsync(dto, cancellationToken);
+        }
 
-                if (commitStatus.Equals(0))
-                    throw new DbUpdateException("Some error occurred white saving changes");
-            }
+        
+        /// <inheritdoc />
+        /// <exception cref="DbUpdateException"> Exception when saving failed. </exception>
+        public async Task<int> CreateAsync(UserDto dto, CancellationToken cancellationToken)
+        {
+            Logger.LogInformation($"Creating new user");
+            
+            var user = Mapper.Map<User>(dto);
+                
+             await DbSet
+                .AddAsync(user, cancellationToken)
+                .ConfigureAwait(false);
+                
+            var commitStatus = await DbContext
+                .SaveChangesAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            if (commitStatus.Equals(0))
+                throw new DbUpdateException("Some error occurred while creating new user");
+
+            return user.Id;
+        }
+
+        /// <inheritdoc />
+        /// <exception cref="DbUpdateException"> Exception when saving failed. </exception>
+        public async Task UpdateAsync(UserDto dto, CancellationToken cancellationToken)
+        {
+            Logger.LogInformation($"Updating user");
+                
+            var user = Mapper.Map<User>(dto);
+            
+            DbContext
+                .ChangeTracker
+                .Clear();
+                
+            DbSet
+                .Update(user)
+                .Property(u => u.CreatedDate)
+                .IsModified = false;
+                
+            var commitStatus = await DbContext
+                .SaveChangesAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            if (commitStatus.Equals(0))
+                throw new DbUpdateException($"Some error occurred white updating user with Id={user.Id}");
         }
     }
 }

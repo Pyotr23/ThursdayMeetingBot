@@ -21,5 +21,20 @@ namespace ThursdayMeetingBot.Libraries.Core.Services.Common
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns></returns>
         Task RegisterAsync(TDto dto, CancellationToken cancellationToken);
+
+        /// <summary>
+        ///     Create new entity.
+        /// </summary>
+        /// <param name="dto"> DTO. </param>
+        /// <param name="cancellationToken"> Cancellation token. </param>
+        /// <returns> Unique identificator of new entity. </returns>
+        Task<TKey> CreateAsync(TDto dto, CancellationToken cancellationToken);
+
+        /// <summary>
+        ///     Update entity.
+        /// </summary>
+        /// <param name="dto"> DTO. </param>
+        /// <param name="cancellationToken"> Cancellation token. </param>
+        Task UpdateAsync(TDto dto, CancellationToken cancellationToken);
     }
 }
