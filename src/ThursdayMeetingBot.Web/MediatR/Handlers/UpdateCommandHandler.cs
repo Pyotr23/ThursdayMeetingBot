@@ -17,6 +17,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         private readonly ILogger<UpdateCommandHandler> _logger;
         private readonly IUserService _userService;
         private readonly IChatService _chatService;
+        private readonly IChatTypeService _chatTypeService;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
@@ -31,12 +32,14 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         public UpdateCommandHandler(ILogger<UpdateCommandHandler> logger,
             IUserService userService,
             IChatService chatService,
+            IChatTypeService chatTypeService,
             IMapper mapper,
             IMediator mediator)
         {
             _logger = logger;
             _userService = userService;
             _chatService = chatService;
+            _chatTypeService = chatTypeService;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -48,6 +51,9 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
             
             var userDto = _mapper.Map<UserDto>(request.Sender);
             await _userService.RegisterAsync(userDto, cancellationToken);
+
+            var chatTypeDto = _mapper.Map<ChatTypeDto>(request.Chat.Type);
+            await _chatTypeService.RegisterAsync(chatTypeDto, cancellationToken); 
 
             // var chatDto = _mapper.Map<ChatDto>(request.Update);
             // await _chatService.RegisterAsync(chatDto, cancellationToken);

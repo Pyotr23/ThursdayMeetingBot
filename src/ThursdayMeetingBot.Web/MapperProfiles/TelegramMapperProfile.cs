@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 
 namespace ThursdayMeetingBot.Web.MapperProfiles
@@ -15,6 +16,12 @@ namespace ThursdayMeetingBot.Web.MapperProfiles
         public TelegramMapperProfile()
         {
             CreateMap<User, UserDto>(MemberList.Destination);
+
+            CreateMap<ChatType, ChatTypeDto>(MemberList.Destination)
+                .ForMember(dest => dest.Id,
+                    opt => opt.MapFrom(src => (int) src))
+                .ForMember(dest => dest,
+                    opt => opt.MapFrom(src => src.ToString()));
 
             CreateMap<Update, ChatDto>(MemberList.Destination)
                 .ForMember(dest => dest.Id,
