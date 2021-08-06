@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ThursdayMeetingBot.Libraries.Core.Mappers;
-using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
-using ThursdayMeetingBot.Libraries.Data.Models;
+using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
 using ThursdayMeetingBot.Web.Interfaces;
@@ -44,13 +42,15 @@ namespace ThursdayMeetingBot.Web
             services
                 .AddConfigurationSections(Configuration)
                 .AddDbContexts<BotDbContext>(Configuration)
-                .AddServices<BotDbContext, UserDto, User>();
+                .AddServices<BotDbContext>();
 
             services.AddAutoMapper(config =>
             {
-                config.AddProfile<UserMapperProfile<User, UserDto>>();
+                config.AddProfile<UserMapperProfile>();
+                config.AddProfile<ChatMapperProfile>();
+                config.AddProfile<ChatTypeMapperProfile>();
                 
-                config.AddProfile<TelegramMapperProfile<UserDto>>();
+                config.AddProfile<TelegramMapperProfile>();
             });
             
             services.AddHttpClient(HttpClientConstant.Name, 
@@ -58,7 +58,7 @@ namespace ThursdayMeetingBot.Web
          
             services
                 .AddSingleton<IBotService, BotService>()
-                .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler<UserDto>>()
+                .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler>()
                 .AddMediatR(typeof(Startup));
 
             services

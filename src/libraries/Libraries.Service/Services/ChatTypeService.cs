@@ -10,8 +10,8 @@ using ThursdayMeetingBot.Libraries.Service.Services.Common;
 
 namespace ThursdayMeetingBot.Libraries.Service.Services
 {
-    /// <inheritdoc cref="IUserService"/>
-    public class UserService<TDbContext> : BaseService<TDbContext, User, int>, IUserService
+    /// <inheritdoc cref="IChatTypeService"/>
+    public class ChatTypeService<TDbContext> : BaseService<TDbContext, ChatType, int>, IChatTypeService
         where TDbContext : DbContext
     {
         /// <summary>
@@ -20,42 +20,33 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         /// <param name="context"> DbContext. </param>
         /// <param name="mapper"> Mapper. </param>
         /// <param name="logger"> Logger. </param>
-        public UserService(TDbContext context, 
-            IMapper mapper, 
-            ILogger<UserService<TDbContext>> logger)
+        public ChatTypeService(TDbContext context,
+            IMapper mapper,
+            ILogger<ChatTypeService<TDbContext>> logger)
             : base(context, mapper, logger)
         { }
 
         /// <inheritdoc />
-        public async Task RegisterAsync(UserDto dto, CancellationToken cancellationToken = default)
+        public async Task RegisterAsync(ChatTypeDto dto, CancellationToken cancellationToken = default)
         {
-            Logger.LogInformation($"Start register user with Id={dto.Id}");
+            Logger.LogInformation($"Start register chat type with Id={dto.Id}");
 
-            var dbUser = await DbSet.FindAsync(dto.Id);
+            var dbChatType = await DbSet.FindAsync(dto.Id);
 
-            if (dbUser is null)
-            {
+            if (dbChatType is null)
                 await CreateAsync(dto, cancellationToken);
-                return;
-            }
-
-            var dbUserDto = Mapper.Map<UserDto>(dbUser);
-            
-            if (dto != dbUserDto)
-                await UpdateAsync(dto, cancellationToken);
         }
-
         
         /// <inheritdoc />
         /// <exception cref="DbUpdateException"> Exception when saving failed. </exception>
-        public async Task<int> CreateAsync(UserDto dto, CancellationToken cancellationToken)
+        public async Task<int> CreateAsync(ChatTypeDto dto, CancellationToken cancellationToken)
         {
-            Logger.LogInformation($"Creating new user");
+            Logger.LogInformation($"Creating new chat type");
             
-            var user = Mapper.Map<User>(dto);
-                
-             await DbSet
-                .AddAsync(user, cancellationToken)
+            var chatType = Mapper.Map<ChatType>(dto);
+
+            await DbSet
+                .AddAsync(chatType, cancellationToken)
                 .ConfigureAwait(false);
                 
             var commitStatus = await DbContext
@@ -63,25 +54,25 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
                 .ConfigureAwait(false);
 
             if (commitStatus.Equals(0))
-                throw new DbUpdateException("Some error occurred while creating new user");
+                throw new DbUpdateException("Some error occurred while creating new chat type");
 
-            return user.Id;
+            return chatType.Id;
         }
 
         /// <inheritdoc />
         /// <exception cref="DbUpdateException"> Exception when saving failed. </exception>
-        public async Task UpdateAsync(UserDto dto, CancellationToken cancellationToken)
+        public async Task UpdateAsync(ChatTypeDto dto, CancellationToken cancellationToken)
         {
-            Logger.LogInformation($"Updating user");
+            Logger.LogInformation("Updating chat type");
                 
-            var user = Mapper.Map<User>(dto);
+            var chatTypeDto = Mapper.Map<ChatType>(dto);
             
             DbContext
                 .ChangeTracker
                 .Clear();
                 
             DbSet
-                .Update(user)
+                .Update(chatTypeDto)
                 .Property(u => u.CreatedDate)
                 .IsModified = false;
                 
@@ -90,7 +81,8 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
                 .ConfigureAwait(false);
 
             if (commitStatus.Equals(0))
-                throw new DbUpdateException($"Some error occurred white updating user with Id={user.Id}");
+                throw new DbUpdateException(
+                    $"Some error occurred white updating chat type with Id={chatTypeDto.Id}");
         }
     }
 }

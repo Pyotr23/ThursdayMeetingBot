@@ -1,6 +1,4 @@
-﻿using Telegram.Bot.Types;
-
-namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
+﻿namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
 {
     /// <summary>
     ///     User DTO.
@@ -10,8 +8,8 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.DTOes
         /// <summary>
         ///     Username that starts with "@".
         /// </summary>
-        public string Username { get; set; }
-        
+        public string Username { get; set; } 
+
         /// <summary>
         ///     User first name.
         /// </summary>

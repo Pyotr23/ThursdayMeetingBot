@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
@@ -9,9 +10,10 @@ using ThursdayMeetingBot.Libraries.Data.Contexts;
 namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
 {
     [DbContext(typeof(BotDbContext))]
-    partial class BotDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210801204808_CreateChats")]
+    partial class CreateChats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,19 +75,21 @@ namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
                         .HasColumnName("username");
 
                     b.HasKey("Id")
-                        .HasName("pk_chats");
+                        .HasName("pk_chat");
 
                     b.HasIndex("ChatTypeId")
-                        .HasDatabaseName("ix_chats_chat_type_id");
+                        .HasDatabaseName("ix_chat_chat_type_id");
 
-                    b.ToTable("chats");
+                    b.ToTable("chat");
                 });
 
             modelBuilder.Entity("ThursdayMeetingBot.Libraries.Data.Models.ChatType", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Alias")
                         .HasColumnType("text")
@@ -103,6 +107,36 @@ namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
                         .HasName("pk_chat_types");
 
                     b.ToTable("chat_types");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Alias = "Private",
+                            CreatedDate = new DateTime(2021, 8, 1, 20, 48, 7, 637, DateTimeKind.Utc).AddTicks(4053),
+                            UpdatedDate = new DateTime(2021, 8, 1, 20, 48, 7, 637, DateTimeKind.Utc).AddTicks(4069)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Alias = "Group",
+                            CreatedDate = new DateTime(2021, 8, 1, 20, 48, 7, 637, DateTimeKind.Utc).AddTicks(6205),
+                            UpdatedDate = new DateTime(2021, 8, 1, 20, 48, 7, 637, DateTimeKind.Utc).AddTicks(6210)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Alias = "Channel",
+                            CreatedDate = new DateTime(2021, 8, 1, 20, 48, 7, 637, DateTimeKind.Utc).AddTicks(6214),
+                            UpdatedDate = new DateTime(2021, 8, 1, 20, 48, 7, 637, DateTimeKind.Utc).AddTicks(6216)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Alias = "Supergroup",
+                            CreatedDate = new DateTime(2021, 8, 1, 20, 48, 7, 637, DateTimeKind.Utc).AddTicks(6219),
+                            UpdatedDate = new DateTime(2021, 8, 1, 20, 48, 7, 637, DateTimeKind.Utc).AddTicks(6221)
+                        });
                 });
 
             modelBuilder.Entity("ThursdayMeetingBot.Libraries.Data.Models.User", b =>
@@ -155,12 +189,17 @@ namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
             modelBuilder.Entity("ThursdayMeetingBot.Libraries.Data.Models.Chat", b =>
                 {
                     b.HasOne("ThursdayMeetingBot.Libraries.Data.Models.ChatType", "ChatType")
-                        .WithMany()
+                        .WithMany("Chats")
                         .HasForeignKey("ChatTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ChatType");
+                });
+
+            modelBuilder.Entity("ThursdayMeetingBot.Libraries.Data.Models.ChatType", b =>
+                {
+                    b.Navigation("Chats");
                 });
 #pragma warning restore 612, 618
         }

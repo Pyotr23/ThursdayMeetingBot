@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ThursdayMeetingBot.Libraries.Data.Helpers;
 using ThursdayMeetingBot.Libraries.Data.Models;
@@ -21,6 +22,16 @@ namespace ThursdayMeetingBot.Libraries.Data.Contexts
         ///     Table with users.
         /// </summary>
         public DbSet<User> Users { get; set; }
+        
+        /// <summary>
+        ///     Table with types of chats.
+        /// </summary>
+        public DbSet<ChatType> ChatTypes { get; set; }
+        
+        /// <summary>
+        ///     Table with chats.
+        /// </summary>
+        public DbSet<Chat> Chats { get; set; }
         
         /// <summary>
         ///     Method executing while models creating.

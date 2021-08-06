@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
@@ -9,9 +10,10 @@ using ThursdayMeetingBot.Libraries.Data.Contexts;
 namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
 {
     [DbContext(typeof(BotDbContext))]
-    partial class BotDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210802194050_DeleteChatsFromChatType")]
+    partial class DeleteChatsFromChatType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,8 +86,10 @@ namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
             modelBuilder.Entity("ThursdayMeetingBot.Libraries.Data.Models.ChatType", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Alias")
                         .HasColumnType("text")
@@ -103,6 +107,36 @@ namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
                         .HasName("pk_chat_types");
 
                     b.ToTable("chat_types");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Alias = "Private",
+                            CreatedDate = new DateTime(2021, 8, 2, 19, 40, 50, 48, DateTimeKind.Utc).AddTicks(2412),
+                            UpdatedDate = new DateTime(2021, 8, 2, 19, 40, 50, 48, DateTimeKind.Utc).AddTicks(2425)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Alias = "Group",
+                            CreatedDate = new DateTime(2021, 8, 2, 19, 40, 50, 48, DateTimeKind.Utc).AddTicks(3519),
+                            UpdatedDate = new DateTime(2021, 8, 2, 19, 40, 50, 48, DateTimeKind.Utc).AddTicks(3521)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Alias = "Channel",
+                            CreatedDate = new DateTime(2021, 8, 2, 19, 40, 50, 48, DateTimeKind.Utc).AddTicks(3524),
+                            UpdatedDate = new DateTime(2021, 8, 2, 19, 40, 50, 48, DateTimeKind.Utc).AddTicks(3524)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Alias = "Supergroup",
+                            CreatedDate = new DateTime(2021, 8, 2, 19, 40, 50, 48, DateTimeKind.Utc).AddTicks(3526),
+                            UpdatedDate = new DateTime(2021, 8, 2, 19, 40, 50, 48, DateTimeKind.Utc).AddTicks(3527)
+                        });
                 });
 
             modelBuilder.Entity("ThursdayMeetingBot.Libraries.Data.Models.User", b =>

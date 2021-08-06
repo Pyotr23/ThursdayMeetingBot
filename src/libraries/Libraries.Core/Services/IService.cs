@@ -1,8 +1,8 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Libraries.Core.Models.Entities.Base;
 
 namespace ThursdayMeetingBot.Libraries.Core.Services
 {

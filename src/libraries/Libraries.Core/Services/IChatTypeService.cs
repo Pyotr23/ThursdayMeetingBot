@@ -4,8 +4,8 @@ using ThursdayMeetingBot.Libraries.Core.Services.Common;
 namespace ThursdayMeetingBot.Libraries.Core.Services
 {
     /// <summary>
-    ///     Service for manage users.
+    ///     Service for manage types of chats.
     /// </summary>
-    public interface IUserService : IRegister<UserDto, int>
+    public interface IChatTypeService : IRegister<ChatTypeDto, int>
     { }
 }

@@ -1,21 +1,17 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ThursdayMeetingBot.Libraries.Core.Models.Entities.Base
+namespace ThursdayMeetingBot.Libraries.Core.Models.Common
 {
     /// <summary>
     ///     Base model for aggregated entities.
     /// </summary>
     /// <typeparam name="TKey"> Type of entity unique index. </typeparam>
-    public record AggregatedEntity<TKey> where TKey : IEquatable<TKey>
+    public abstract record AggregatedEntity<TKey> where TKey : IEquatable<TKey>
     {
         /// <summary>
         ///     Unique identifier.
         /// </summary>
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public TKey Id { get; set; }
+        public abstract TKey Id { get; set; }
         
         /// <summary>
         ///     Created date.
