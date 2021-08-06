@@ -56,7 +56,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
             await _chatTypeService.RegisterAsync(chatTypeDto, cancellationToken); 
 
             var chatDto = _mapper.Map<ChatDto>(request.Update);
-            await _chatService.CreateAsync(chatDto, cancellationToken);
+            await _chatService.RegisterAsync(chatDto, cancellationToken);
             
             await _mediator.Send(new MessageCommand(request.Update), cancellationToken);
             return Unit.Value;

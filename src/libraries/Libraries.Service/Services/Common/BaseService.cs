@@ -27,6 +27,7 @@ namespace ThursdayMeetingBot.Libraries.Service.Services.Common
         /// </summary>
         /// <param name="dbContext"> DbContext. </param>
         /// <param name="mapper"> Mapper. </param>
+        /// <param name="logger"> Logger. </param>
         protected BaseService(TDbContext dbContext, 
             IMapper mapper, 
             ILogger<BaseService<TDbContext, TEntity, TKey>> logger)

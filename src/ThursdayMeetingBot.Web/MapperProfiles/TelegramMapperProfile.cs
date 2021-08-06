@@ -36,6 +36,8 @@ namespace ThursdayMeetingBot.Web.MapperProfiles
                     opt => opt.MapFrom(src => src.Message.Chat.Username))
                 .ForMember(dest => dest.SenderId,
                     opt => opt.MapFrom(src => src.Message.From.Id))
+                .ForPath(dest => dest.ChatType.Id,
+                    opt => opt.MapFrom(src => (int) src.Message.Chat.Type))
                 .ForPath(dest => dest.ChatType.Alias,
                     opt => opt.MapFrom(src => src.Message.Chat.Type.ToString()));
         }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -17,9 +17,8 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
     {
         private readonly DbSet<User> _users;
         private readonly DbSet<ChatType> _chatTypes;
-
+        
         /// <inheritdoc />
-        /// <param name="logger"> Logger. </param>
         public ChatService(TDbContext context,
             IMapper mapper,
             ILogger<ChatService<TDbContext>> logger)
@@ -30,18 +29,38 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         }
 
         /// <inheritdoc />
-        public Task RegisterAsync(ChatDto dto, CancellationToken cancellationToken)
+        public async Task RegisterAsync(ChatDto dto, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Logger.LogInformation($"Start register user with Id={dto.Id}");
+
+            var dbChat = await DbSet
+                .Include(c => c.Users)
+                .FirstOrDefaultAsync(c => c.Id == dto.Id, cancellationToken);
+
+            if (dbChat is null)
+            {
+                await CreateAsync(dto, cancellationToken);
+                return;
+            }
+            
+            if (!(dto.Title == dbChat.Title
+                  && dto.Username == dbChat.Username
+                  && dto.FirstName == dbChat.FirstName
+                  && dto.LastName == dbChat.LastName))
+                await UpdateAsync(dto, cancellationToken);
+
+            if (!dbChat.Users.Select(u => u.Id).Contains(dto.SenderId))
+                await AddUserAsync(dto, cancellationToken);
         }
 
+        /// <inheritdoc />
         public async Task<long> CreateAsync(ChatDto dto, CancellationToken cancellationToken)
         {
-            Logger.LogInformation($"Creating new chat");
+            Logger.LogInformation("Creating new chat");
             
             var chat = Mapper.Map<Chat>(dto);
-            chat.ChatType = await _chatTypes.FindAsync(dto.ChatType.Id);
-            var user = await _users.FindAsync(dto.SenderId);
+            chat.ChatType = await _chatTypes.FindAsync(dto.ChatType.Id, cancellationToken);
+            var user = await _users.FindAsync(dto.SenderId, cancellationToken);
             chat.Users.Add(user);
 
             await DbSet
@@ -53,14 +72,57 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
                 .ConfigureAwait(false);
 
             if (commitStatus.Equals(0))
-                throw new DbUpdateException("Some error occurred while creating new user");
+                throw new DbUpdateException("Some error occurred while creating new chat");
 
             return chat.Id;
         }
 
         public async Task UpdateAsync(ChatDto dto, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Logger.LogInformation("Updating chat");
+                
+            var chat = Mapper.Map<Chat>(dto);
+
+            DbContext
+                .ChangeTracker
+                .Clear();
+
+            DbSet
+                .Update(chat)
+                .Property(u => u.CreatedDate)
+                .IsModified = false;
+                
+            var commitStatus = await DbContext
+                .SaveChangesAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            if (commitStatus.Equals(0))
+                throw new DbUpdateException($"Some error occurred while updating chat with Id={chat.Id}");
+        }
+
+        private async Task AddUserAsync(ChatDto dto, CancellationToken cancellationToken)
+        {
+            Logger.LogInformation("Adding user to chat");
+                
+            var chat = Mapper.Map<Chat>(dto);
+            var user = await _users.FindAsync(dto.SenderId, cancellationToken);
+            chat.Users.Add(user);
+
+            DbContext
+                .ChangeTracker
+                .Clear();
+
+            DbSet
+                .Update(chat)
+                .Property(u => u.CreatedDate)
+                .IsModified = false;
+                
+            var commitStatus = await DbContext
+                .SaveChangesAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            if (commitStatus.Equals(0))
+                throw new DbUpdateException($"Some error occurred while adding user to chat with Id={chat.Id}");
         }
     }
 }
