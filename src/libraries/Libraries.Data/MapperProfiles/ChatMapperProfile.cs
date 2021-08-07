@@ -29,12 +29,6 @@ namespace ThursdayMeetingBot.Libraries.Data.MapperProfiles
                     opt => opt.MapFrom(src => src.ChatType.Alias))
                 .ForMember(dest => dest.Users,
                     opt => opt.Ignore())
-                // .ForMember(dest => dest.Users,
-                //     opt => opt.MapFrom(src 
-                //         => new List<User>
-                //         {
-                //             new User{ Id = src.SenderId }
-                //         }))
                 .ForMember(dest => dest.ChatTypeId,
                     opt => opt.Ignore());
         }

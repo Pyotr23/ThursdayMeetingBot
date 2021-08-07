@@ -17,6 +17,17 @@ namespace ThursdayMeetingBot.Web.MapperProfiles
         {
             CreateMap<User, UserDto>(MemberList.Destination);
 
+            CreateMap<Update, MessageDto>(MemberList.Destination)
+                .ForMember(dest => dest.MessageId,
+                    opt => opt.MapFrom(src => src.Message.MessageId))
+                .ForMember(dest => dest.Text,
+                    opt => opt.MapFrom(src => src.Message.Text))
+                .ForMember(dest => dest.ChatId,
+                    opt => opt.MapFrom(src => src.Message.Chat.Id))
+                .ForMember(dest => dest.UserId,
+                    opt => opt.MapFrom(src => src.Message.From.Id));
+
+
             CreateMap<ChatType, ChatTypeDto>(MemberList.Destination)
                 .ForMember(dest => dest.Id,
                     opt => opt.MapFrom(src => (int) src))
