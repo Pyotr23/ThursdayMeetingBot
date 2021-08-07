@@ -1,5 +1,5 @@
 Create initial migration:
-dotnet ef migrations add NoneIdentityForChatTypes -c BotDbContext -p .\src\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj -s .\src\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj
+dotnet ef migrations add CreateMessages -c BotDbContext -p .\src\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj -s .\src\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj
 
 Update database
 dotnet ef database update -c BotDbContext -p .\src\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj -s .\src\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj

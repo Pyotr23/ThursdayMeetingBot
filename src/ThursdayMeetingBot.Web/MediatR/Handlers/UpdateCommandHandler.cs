@@ -18,6 +18,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         private readonly IUserService _userService;
         private readonly IChatService _chatService;
         private readonly IChatTypeService _chatTypeService;
+        private readonly IMessageService _messageService;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
@@ -33,6 +34,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
             IUserService userService,
             IChatService chatService,
             IChatTypeService chatTypeService,
+            IMessageService messageService,
             IMapper mapper,
             IMediator mediator)
         {
@@ -40,6 +42,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
             _userService = userService;
             _chatService = chatService;
             _chatTypeService = chatTypeService;
+            _messageService = messageService;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -57,6 +60,14 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
 
             var chatDto = _mapper.Map<ChatDto>(request.Update);
             await _chatService.RegisterAsync(chatDto, cancellationToken);
+
+            var messageDto = _mapper.Map<MessageDto>(request.Update);
+            if (!await _messageService.IsNewAsync(messageDto, cancellationToken))
+            {
+                _logger.LogInformation($"[{request.Id}] Repeat command");
+                return Unit.Value;
+            }
+            await _messageService.CreateAsync(messageDto, cancellationToken);
             
             await _mediator.Send(new MessageCommand(request.Update), cancellationToken);
             return Unit.Value;

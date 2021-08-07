@@ -31,7 +31,7 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
         {
             Logger.LogInformation($"Start register chat type with Id={dto.Id}");
 
-            var dbChatType = await DbSet.FindAsync(dto.Id);
+            var dbChatType = await DbSet.FindAsync(new object[] { dto.Id }, cancellationToken);
 
             if (dbChatType is null)
                 await CreateAsync(dto, cancellationToken);
