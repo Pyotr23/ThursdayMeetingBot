@@ -59,8 +59,8 @@ namespace ThursdayMeetingBot.Libraries.Service.Services
             Logger.LogInformation("Creating new chat");
             
             var chat = Mapper.Map<Chat>(dto);
-            chat.ChatType = await _chatTypes.FindAsync(dto.ChatType.Id, cancellationToken);
-            var user = await _users.FindAsync(dto.SenderId, cancellationToken);
+            chat.ChatType = await _chatTypes.FindAsync(new object[] { dto.ChatType.Id }, cancellationToken);
+            var user = await _users.FindAsync(new object[] { dto.SenderId }, cancellationToken);
             chat.Users.Add(user);
 
             await DbSet

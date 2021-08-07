@@ -4,8 +4,12 @@ using ThursdayMeetingBot.Libraries.Data.Models;
 
 namespace ThursdayMeetingBot.Libraries.Data.MapperProfiles
 {
+    /// <summary>
+    ///     Profile class for mapper message models.
+    /// </summary>
     public class MessageMapperProfile : Profile
     {
+        /// <inheritdoc cref="Profile"/>
         public MessageMapperProfile()
         {
             CreateMap<MessageDto, Message>(MemberList.Source)
