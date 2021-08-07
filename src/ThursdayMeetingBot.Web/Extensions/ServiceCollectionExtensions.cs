@@ -68,6 +68,7 @@ namespace ThursdayMeetingBot.Web.Extensions
             services.TryAddScoped<IUserService, UserService<TDbContext>>();
             services.TryAddScoped<IChatService, ChatService<TDbContext>>();
             services.TryAddScoped<IChatTypeService, ChatTypeService<TDbContext>>();
+            services.TryAddScoped<IMessageService, MessageService<TDbContext>>();
 
             return services;
         }

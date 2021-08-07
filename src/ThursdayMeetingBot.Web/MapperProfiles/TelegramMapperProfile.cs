@@ -18,6 +18,8 @@ namespace ThursdayMeetingBot.Web.MapperProfiles
             CreateMap<User, UserDto>(MemberList.Destination);
 
             CreateMap<Update, MessageDto>(MemberList.Destination)
+                .ForMember(dest => dest.Id,
+                    opt => opt.Ignore())
                 .ForMember(dest => dest.MessageId,
                     opt => opt.MapFrom(src => src.Message.MessageId))
                 .ForMember(dest => dest.Text,

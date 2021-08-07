@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using AutoMapper.Configuration.Conventions;
 using Microsoft.EntityFrameworkCore;
 using ThursdayMeetingBot.Libraries.Core.Models.Common;
 
