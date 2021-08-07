@@ -40,6 +40,12 @@ namespace ThursdayMeetingBot.Web.Controllers
         public async Task<IActionResult> Post([FromBody]Update update)
         {
             _logger.LogInformation($"[{update.Id}] Start to handle update: {update.GetInfo()}");
+
+            if (!update.IsBotCommand())
+            {
+                _logger.LogInformation($"[{update.Id}] Update is not bot command");
+                return Ok();
+            }
             
             try
             {
