@@ -32,19 +32,10 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         public async Task<Unit> Handle(MessageCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"[{request.Id}] Start message handler");
-            
-            var firstEntityType = request
-                .Message
-                .Entities
-                .FirstOrDefault()?
-                .Type;
 
             var update = request.Update;
-
-            if (firstEntityType != MessageEntityType.BotCommand) 
-                return Unit.Value;
-            
             BaseBotCommand<Unit> command;
+            
             switch (request.Message.Text)
             {
                 case BotCommand.Start:
