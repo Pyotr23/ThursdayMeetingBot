@@ -63,6 +63,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
                 BotAnswer.NotificationMessage,
                 DateTime.UtcNow.AddSeconds(10));
 
+            await _quartzService.StartAsync(cancellationToken);
             await _quartzService.CreateJobAsync(info, cancellationToken);
             
             // var firstNotificationDateTime = _dateTimeHelper.GetFirstNotificationDateTime();

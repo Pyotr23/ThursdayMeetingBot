@@ -543,7 +543,7 @@
             <param name="schedulerFactory"> Scheduler factory. </param>
         </member>
         <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.StartAsync(System.Threading.CancellationToken)">
-            <inheritdoc cref="!:IQuartzHostedService.StartAsync"/>
+            <inheritdoc cref="M:ThursdayMeetingBot.Web.Interfaces.IQuartzHostedService.StartAsync(System.Threading.CancellationToken)"/>
         </member>
         <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.StopAsync(System.Threading.CancellationToken)">
             <inheritdoc cref="!:IQuartzHostedService.StopAsync"/>

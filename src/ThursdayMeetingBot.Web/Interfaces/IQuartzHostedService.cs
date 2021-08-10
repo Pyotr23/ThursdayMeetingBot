@@ -9,7 +9,7 @@ namespace ThursdayMeetingBot.Web.Interfaces
     /// <summary>
     ///     Hosted service using Quartz library.
     /// </summary>
-    public interface IQuartzHostedService : IHostedService
+    public interface IQuartzHostedService
     {
         /// <summary>
         ///     Get detail of job instance.
@@ -26,5 +26,7 @@ namespace ThursdayMeetingBot.Web.Interfaces
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns> Task. </returns>
         Task CreateJobAsync(NotificationInfo info, CancellationToken cancellationToken);
+
+        Task StartAsync(CancellationToken cancellationToken);
     }
 }

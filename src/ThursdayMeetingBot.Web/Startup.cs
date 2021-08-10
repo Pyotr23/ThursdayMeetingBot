@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Quartz;
+using Quartz.Impl;
+using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
 using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
 using ThursdayMeetingBot.Web.Constants;
@@ -61,11 +64,11 @@ namespace ThursdayMeetingBot.Web
             services
                 .AddSingleton<IBotService, BotService>()
                 .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler>()
+                .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto>>()
                 .AddMediatR(typeof(Startup))
+                .AddSingleton<ISchedulerFactory, StdSchedulerFactory>()
                 .AddSingleton<IQuartzHostedService, QuartzHostedService>();
             
-            services.AddHostedService<QuartzHostedService>();
-
             services
                 .AddControllers()
                 .AddNewtonsoftJson();
