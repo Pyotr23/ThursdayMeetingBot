@@ -13,6 +13,7 @@ using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MapperProfiles;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 using ThursdayMeetingBot.Web.MediatR.Handlers;
+using ThursdayMeetingBot.Web.Quartz;
 using ThursdayMeetingBot.Web.Services;
 
 namespace ThursdayMeetingBot.Web
@@ -60,7 +61,10 @@ namespace ThursdayMeetingBot.Web
             services
                 .AddSingleton<IBotService, BotService>()
                 .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler>()
-                .AddMediatR(typeof(Startup));
+                .AddMediatR(typeof(Startup))
+                .AddSingleton<IQuartzHostedService, QuartzHostedService>();
+            
+            services.AddHostedService<QuartzHostedService>();
 
             services
                 .AddControllers()

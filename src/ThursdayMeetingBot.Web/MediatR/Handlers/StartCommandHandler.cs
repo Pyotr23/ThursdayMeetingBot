@@ -11,6 +11,7 @@ using ThursdayMeetingBot.Web.Dictionaries;
 using ThursdayMeetingBot.Web.Helpers;
 using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MediatR.Commands;
+using ThursdayMeetingBot.Web.Models;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers
 {
@@ -22,19 +23,22 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
     {
         private readonly ILogger<StartCommandHandler<TUserDto>> _logger;
         private readonly DateTimeHelper _dateTimeHelper;
+        private readonly IQuartzHostedService _quartzService;
+        
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
         /// <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
-        /// <param name="botService"> Bot service. </param>
         public StartCommandHandler(ILogger<StartCommandHandler<TUserDto>> logger,
             IOptions<NotificationConfiguration> notificationConfigurationOptions, 
-            IBotService botService)
+            IBotService botService,
+            IQuartzHostedService quartzService)
             : base(botService)
         {
             _logger = logger;
             _dateTimeHelper = new DateTimeHelper(notificationConfigurationOptions);
+            _quartzService = quartzService;
         }
 
         /// <summary>
@@ -54,32 +58,39 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
 
             _logger.LogInformation($"[{request.Id}] Handle of start command");
 
-            var firstNotificationDateTime = _dateTimeHelper.GetFirstNotificationDateTime();
-            var timer = new Timer(
-                async _ => await BotService
-                    .Client
-                    .SendTextMessageAsync(chatId, BotAnswer.NotificationMessage,  cancellationToken:cancellationToken),
-                null,
-                firstNotificationDateTime.DueTime,
-                TimeSpan.FromSeconds(30)
-            );
 
-            await TimerDictionary.AddAsync(chatId, timer);
+            var info = new NotificationInfo(chatId,
+                BotAnswer.NotificationMessage,
+                DateTime.UtcNow.AddSeconds(10));
 
-            _logger.LogInformation(firstNotificationDateTime.LogMessage);
+            await _quartzService.CreateJobAsync(info, cancellationToken);
+            
+            // var firstNotificationDateTime = _dateTimeHelper.GetFirstNotificationDateTime();
+            // var timer = new Timer(
+            //     async _ => await BotService
+            //         .Client
+            //         .SendTextMessageAsync(chatId, BotAnswer.NotificationMessage,  cancellationToken:cancellationToken),
+            //     null,
+            //     firstNotificationDateTime.DueTime,
+            //     TimeSpan.FromSeconds(30)
+            // );
+            //
+            // await TimerDictionary.AddAsync(chatId, timer);
 
-            var userDto = new TUserDto();
-            var telegramUser = request.Message.From;
-            userDto.Id = telegramUser.Id;
-            userDto.FirstName = telegramUser.FirstName;
-            userDto.LastName = telegramUser.LastName;
-            userDto.Username = telegramUser.Username;
-           
-            await BotService
-                .Client
-                .SendTextMessageAsync(chatId,
-                    firstNotificationDateTime.BotMessage,
-                    cancellationToken: cancellationToken);
+            // _logger.LogInformation(firstNotificationDateTime.LogMessage);
+            //
+            // var userDto = new TUserDto();
+            // var telegramUser = request.Message.From;
+            // userDto.Id = telegramUser.Id;
+            // userDto.FirstName = telegramUser.FirstName;
+            // userDto.LastName = telegramUser.LastName;
+            // userDto.Username = telegramUser.Username;
+            //
+            // await BotService
+            //     .Client
+            //     .SendTextMessageAsync(chatId,
+            //         firstNotificationDateTime.BotMessage,
+            //         cancellationToken: cancellationToken);
 
             return Unit.Value;
         }
