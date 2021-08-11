@@ -508,7 +508,7 @@
                 Notification text message.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Quartz.TextNotificationJob.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Quartz.TextNotificationJob},ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.Quartz.TextNotificationJob.#ctor">
             <summary>
                 Constructor.
             </summary>
@@ -536,7 +536,7 @@
         <member name="T:ThursdayMeetingBot.Web.Services.QuartzHostedService">
             <inheritdoc cref="T:ThursdayMeetingBot.Web.Interfaces.IQuartzHostedService"/>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.#ctor(Quartz.ISchedulerFactory)">
+        <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.#ctor(Quartz.IScheduler,Quartz.Spi.IJobFactory)">
             <summary>
                 Constructor.
             </summary>

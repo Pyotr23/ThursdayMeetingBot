@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Quartz;
+using Quartz.Spi;
 using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.Models;
 using ThursdayMeetingBot.Web.Quartz;
@@ -11,22 +13,27 @@ namespace ThursdayMeetingBot.Web.Services
     /// <inheritdoc cref="IQuartzHostedService"/>
     public class QuartzHostedService : IQuartzHostedService
     {
-        private readonly ISchedulerFactory _schedulerFactory;
-        private IScheduler _scheduler;
+        private readonly IScheduler _scheduler;
+        private readonly IJobFactory _jobFactory;
         
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="schedulerFactory"> Scheduler factory. </param>
-        public QuartzHostedService(ISchedulerFactory schedulerFactory)
+        public QuartzHostedService(IScheduler scheduler, IJobFactory jobFactory)
         {
-            _schedulerFactory = schedulerFactory;
+            _scheduler = scheduler;
+            _jobFactory = jobFactory;
         }
         
         /// <inheritdoc cref="IQuartzHostedService.StartAsync"/>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            _scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
+            // _scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
+            // _scheduler = await SchedulerBuilder
+            //     .Create()
+            //     .BuildScheduler();
+            _scheduler.JobFactory = _jobFactory;
             await _scheduler.Start(cancellationToken);
         }
 
@@ -46,6 +53,9 @@ namespace ThursdayMeetingBot.Web.Services
         /// <inheritdoc cref="IQuartzHostedService.CreateJobAsync"/>
         public async Task CreateJobAsync(NotificationInfo info, CancellationToken cancellationToken)
         {
+            var sdf = await _scheduler.GetJobDetail(new JobKey(info.ChatId.ToString()), cancellationToken);
+            var tr = await _scheduler.GetTrigger(new TriggerKey(info.ChatId.ToString()), cancellationToken);
+            
             var (chatId, notificationMessage, dateTime) = info;
             
             var job = JobBuilder
@@ -56,14 +66,16 @@ namespace ThursdayMeetingBot.Web.Services
 
             var trigger = TriggerBuilder
                 .Create()
-                .StartAt(new DateTimeOffset(dateTime))
+                .WithIdentity(chatId.ToString())
+                .StartNow()
+                // .StartAt(new DateTimeOffset(dateTime))
                 .WithSimpleSchedule(builder 
                     => builder
                         .WithIntervalInSeconds(5)
                         .RepeatForever())
                 .Build();
 
-            await _scheduler.ScheduleJob(job, trigger, cancellationToken);
+            await _scheduler.ScheduleJob(job, trigger);
         }
     }
 }

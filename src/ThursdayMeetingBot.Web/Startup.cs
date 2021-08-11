@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Impl;
+using Quartz.Spi;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
 using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
@@ -61,13 +62,26 @@ namespace ThursdayMeetingBot.Web
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));
          
+            var scheduler = StdSchedulerFactory
+                .GetDefaultScheduler()
+                .GetAwaiter()
+                .GetResult();
+            
             services
                 .AddSingleton<IBotService, BotService>()
                 .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler>()
-                .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto>>()
-                .AddMediatR(typeof(Startup))
-                .AddSingleton<ISchedulerFactory, StdSchedulerFactory>()
+                .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto>>();
+                
+            services
+                // .AddQuartz(q => q.UseMicrosoftDependencyInjectionJobFactory())
+                .AddTransient<TextNotificationJob>()
+                .AddTransient<IJobFactory, JobFactory>()
+                .AddSingleton(scheduler)
                 .AddSingleton<IQuartzHostedService, QuartzHostedService>();
+
+
+
+            services.AddMediatR(typeof(Startup));
             
             services
                 .AddControllers()

@@ -8,6 +8,7 @@ namespace ThursdayMeetingBot.Web.Quartz
     /// <summary>
     ///     Job for notify telegram chat.
     /// </summary>
+    [DisallowConcurrentExecution]
     public class TextNotificationJob : IJob
     {
         private readonly ILogger<TextNotificationJob> _logger;
@@ -23,10 +24,12 @@ namespace ThursdayMeetingBot.Web.Quartz
         /// </summary>
         /// <param name="logger"> Logger. </param>
         /// <param name="botService"> Bot service. </param>
-        public TextNotificationJob(ILogger<TextNotificationJob> logger, IBotService botService)
+        public TextNotificationJob(
+            // ILogger<TextNotificationJob> logger, IBotService botService
+            )
         {
-            _logger = logger;
-            _botService = botService;
+            // _logger = logger;
+            // _botService = botService;
         }
         
         /// <summary>
