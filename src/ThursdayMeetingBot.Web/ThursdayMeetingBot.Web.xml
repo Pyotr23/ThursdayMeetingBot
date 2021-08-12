@@ -536,7 +536,7 @@
         <member name="T:ThursdayMeetingBot.Web.Services.QuartzHostedService">
             <inheritdoc cref="T:ThursdayMeetingBot.Web.Interfaces.IQuartzHostedService"/>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.#ctor(Quartz.IScheduler,Quartz.Spi.IJobFactory)">
+        <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.#ctor(Quartz.IScheduler)">
             <summary>
                 Constructor.
             </summary>

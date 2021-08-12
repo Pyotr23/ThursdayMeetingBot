@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Impl;
@@ -73,11 +74,28 @@ namespace ThursdayMeetingBot.Web
                 .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto>>();
                 
             services
-                // .AddQuartz(q => q.UseMicrosoftDependencyInjectionJobFactory())
-                .AddTransient<TextNotificationJob>()
-                .AddTransient<IJobFactory, JobFactory>()
-                .AddSingleton(scheduler)
-                .AddSingleton<IQuartzHostedService, QuartzHostedService>();
+                .AddQuartz(q => q.UseMicrosoftDependencyInjectionJobFactory())
+                // .AddTransient<TextNotificationJob>()
+                // .AddSingleton<IJobFactory>(sp => new JobFactory(sp))
+                .AddScoped<TextNotificationJob>()
+                .AddSingleton<IJobFactory, JobFactory>()
+                .AddSingleton<IScheduler>(sp =>
+                {
+                    var stdScheduler = new StdSchedulerFactory()
+                        .GetScheduler()
+                        .GetAwaiter()
+                        .GetResult();
+
+                    stdScheduler.JobFactory = sp.GetService<IJobFactory>(); // new JobFactory(sp);
+                    
+                    stdScheduler
+                        .Start()
+                        .GetAwaiter()
+                        .GetResult();
+
+                    return stdScheduler;
+                })
+                .TryAddSingleton<IQuartzHostedService, QuartzHostedService>();
 
 
 

@@ -8,7 +8,6 @@ namespace ThursdayMeetingBot.Web.Quartz
     /// <summary>
     ///     Job for notify telegram chat.
     /// </summary>
-    [DisallowConcurrentExecution]
     public class TextNotificationJob : IJob
     {
         private readonly ILogger<TextNotificationJob> _logger;

@@ -20,10 +20,10 @@ namespace ThursdayMeetingBot.Web.Services
         ///     Constructor.
         /// </summary>
         /// <param name="schedulerFactory"> Scheduler factory. </param>
-        public QuartzHostedService(IScheduler scheduler, IJobFactory jobFactory)
+        public QuartzHostedService(IScheduler scheduler)
         {
             _scheduler = scheduler;
-            _jobFactory = jobFactory;
+            // _jobFactory = jobFactory;
         }
         
         /// <inheritdoc cref="IQuartzHostedService.StartAsync"/>
