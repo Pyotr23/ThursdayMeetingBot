@@ -14,7 +14,6 @@ namespace ThursdayMeetingBot.Web.Services
     public class QuartzHostedService : IQuartzHostedService
     {
         private readonly IScheduler _scheduler;
-        private readonly IJobFactory _jobFactory;
         
         /// <summary>
         ///     Constructor.
@@ -23,33 +22,8 @@ namespace ThursdayMeetingBot.Web.Services
         public QuartzHostedService(IScheduler scheduler)
         {
             _scheduler = scheduler;
-            // _jobFactory = jobFactory;
-        }
-        
-        /// <inheritdoc cref="IQuartzHostedService.StartAsync"/>
-        public async Task StartAsync(CancellationToken cancellationToken)
-        {
-            // _scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
-            // _scheduler = await SchedulerBuilder
-            //     .Create()
-            //     .BuildScheduler();
-            _scheduler.JobFactory = _jobFactory;
-            await _scheduler.Start(cancellationToken);
         }
 
-        /// <inheritdoc cref="IQuartzHostedService.StopAsync"/>
-        public async Task StopAsync(CancellationToken cancellationToken)
-        {
-            await _scheduler?.Shutdown(cancellationToken);
-        }
-
-        /// <inheritdoc cref="IQuartzHostedService.GetJobDetailAsync"/>
-        public async Task<IJobDetail> GetJobDetailAsync(string jobName, CancellationToken cancellationToken)
-        {
-            var jobKey = new JobKey(jobName);
-            return await _scheduler.GetJobDetail(jobKey, cancellationToken);
-        }
-        
         /// <inheritdoc cref="IQuartzHostedService.CreateJobAsync"/>
         public async Task CreateJobAsync(NotificationInfo info, CancellationToken cancellationToken)
         {
@@ -61,7 +35,7 @@ namespace ThursdayMeetingBot.Web.Services
             var job = JobBuilder
                 .Create<TextNotificationJob>()
                 .WithIdentity(chatId.ToString())
-                .UsingJobData(nameof(notificationMessage), notificationMessage)
+                .UsingJobData("NotificationMessage", notificationMessage)
                 .Build();
 
             var trigger = TriggerBuilder
@@ -75,7 +49,7 @@ namespace ThursdayMeetingBot.Web.Services
                         .RepeatForever())
                 .Build();
 
-            await _scheduler.ScheduleJob(job, trigger);
+            await _scheduler.ScheduleJob(job, trigger, cancellationToken);
         }
     }
 }

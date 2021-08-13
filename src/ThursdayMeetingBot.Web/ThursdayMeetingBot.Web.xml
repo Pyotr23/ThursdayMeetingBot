@@ -199,14 +199,6 @@
                 Hosted service using Quartz library.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Interfaces.IQuartzHostedService.GetJobDetailAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-                Get detail of job instance.
-            </summary>
-            <param name="jobName"> Job name. </param>
-            <param name="cancellationToken"> Cancellation token. </param>
-            <returns> Task with job detail example. </returns>
-        </member>
         <member name="M:ThursdayMeetingBot.Web.Interfaces.IQuartzHostedService.CreateJobAsync(ThursdayMeetingBot.Web.Models.NotificationInfo,System.Threading.CancellationToken)">
             <summary>
                 Create job.
@@ -508,7 +500,7 @@
                 Notification text message.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Quartz.TextNotificationJob.#ctor">
+        <member name="M:ThursdayMeetingBot.Web.Quartz.TextNotificationJob.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Quartz.TextNotificationJob},ThursdayMeetingBot.Web.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -541,15 +533,6 @@
                 Constructor.
             </summary>
             <param name="schedulerFactory"> Scheduler factory. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.StartAsync(System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ThursdayMeetingBot.Web.Interfaces.IQuartzHostedService.StartAsync(System.Threading.CancellationToken)"/>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.StopAsync(System.Threading.CancellationToken)">
-            <inheritdoc cref="!:IQuartzHostedService.StopAsync"/>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.GetJobDetailAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ThursdayMeetingBot.Web.Interfaces.IQuartzHostedService.GetJobDetailAsync(System.String,System.Threading.CancellationToken)"/>
         </member>
         <member name="M:ThursdayMeetingBot.Web.Services.QuartzHostedService.CreateJobAsync(ThursdayMeetingBot.Web.Models.NotificationInfo,System.Threading.CancellationToken)">
             <inheritdoc cref="M:ThursdayMeetingBot.Web.Interfaces.IQuartzHostedService.CreateJobAsync(ThursdayMeetingBot.Web.Models.NotificationInfo,System.Threading.CancellationToken)"/>

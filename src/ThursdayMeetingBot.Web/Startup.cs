@@ -77,17 +77,16 @@ namespace ThursdayMeetingBot.Web
                 .AddQuartz(q => q.UseMicrosoftDependencyInjectionJobFactory())
                 // .AddTransient<TextNotificationJob>()
                 // .AddSingleton<IJobFactory>(sp => new JobFactory(sp))
-                .AddScoped<TextNotificationJob>()
                 .AddSingleton<IJobFactory, JobFactory>()
-                .AddSingleton<IScheduler>(sp =>
+                .AddSingleton(provider =>
                 {
                     var stdScheduler = new StdSchedulerFactory()
                         .GetScheduler()
                         .GetAwaiter()
                         .GetResult();
 
-                    stdScheduler.JobFactory = sp.GetService<IJobFactory>(); // new JobFactory(sp);
-                    
+                    stdScheduler.JobFactory = provider.GetService<IJobFactory>(); // new JobFactory(sp);
+                     
                     stdScheduler
                         .Start()
                         .GetAwaiter()
@@ -95,6 +94,7 @@ namespace ThursdayMeetingBot.Web
 
                     return stdScheduler;
                 })
+                .AddTransient<TextNotificationJob>()
                 .TryAddSingleton<IQuartzHostedService, QuartzHostedService>();
 
 

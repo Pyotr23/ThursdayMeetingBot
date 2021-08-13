@@ -16,8 +16,11 @@ namespace ThursdayMeetingBot.Web.Quartz
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            var job = _serviceProvider.GetRequiredService(bundle.JobDetail.JobType) as IJob;
-            return job;
+            var jobType = bundle
+                .JobDetail
+                .JobType;
+            
+            return _serviceProvider.GetService(jobType) as IJob;
         }
 
         public void ReturnJob(IJob job)

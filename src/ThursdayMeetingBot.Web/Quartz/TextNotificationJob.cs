@@ -24,11 +24,10 @@ namespace ThursdayMeetingBot.Web.Quartz
         /// <param name="logger"> Logger. </param>
         /// <param name="botService"> Bot service. </param>
         public TextNotificationJob(
-            // ILogger<TextNotificationJob> logger, IBotService botService
-            )
+            ILogger<TextNotificationJob> logger, IBotService botService)
         {
-            // _logger = logger;
-            // _botService = botService;
+            _logger = logger;
+            _botService = botService;
         }
         
         /// <summary>
@@ -37,6 +36,10 @@ namespace ThursdayMeetingBot.Web.Quartz
         /// <param name="context"> IJobExecutionContext. </param>
         public async Task Execute(IJobExecutionContext context)
         {
+            var dataMap = context.MergedJobDataMap;
+
+            NotificationMessage = dataMap.GetString("notificationMessage");
+            
             var keyName = context
                 .JobDetail
                 .Key
