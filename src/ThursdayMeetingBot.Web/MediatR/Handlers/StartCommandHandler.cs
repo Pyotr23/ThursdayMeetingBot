@@ -7,12 +7,11 @@ using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
+using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
+using ThursdayMeetingBot.Libraries.Quartz.Models;
 using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Dictionaries;
 using ThursdayMeetingBot.Web.Helpers;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MediatR.Commands;
-using ThursdayMeetingBot.Web.Models;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers
 {

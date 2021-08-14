@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,20 +8,21 @@ using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
+using System;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
 using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
+using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
+using ThursdayMeetingBot.Libraries.Quartz.Jobs;
+using ThursdayMeetingBot.Libraries.Quartz.Jobs.Factory;
+using ThursdayMeetingBot.Libraries.Services.Quartz;
 using ThursdayMeetingBot.Libraries.Services.Telegram;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MapperProfiles;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 using ThursdayMeetingBot.Web.MediatR.Handlers;
-using ThursdayMeetingBot.Web.Quartz;
-using ThursdayMeetingBot.Web.Quartz.Jobs;
-using ThursdayMeetingBot.Web.Services;
 
 namespace ThursdayMeetingBot.Web
 {

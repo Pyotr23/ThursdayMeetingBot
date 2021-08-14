@@ -2,9 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Quartz;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
-using ThursdayMeetingBot.Web.Interfaces;
 
-namespace ThursdayMeetingBot.Web.Quartz.Jobs
+namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
 {
     /// <summary>
     ///     Job for notify telegram chat.
@@ -17,7 +16,7 @@ namespace ThursdayMeetingBot.Web.Quartz.Jobs
         /// <summary>
         ///     Notification text message.
         /// </summary>
-        public string NotificationMessage { private get; set; }
+        public string? NotificationMessage { private get; set; }
 
         /// <summary>
         ///     Constructor.

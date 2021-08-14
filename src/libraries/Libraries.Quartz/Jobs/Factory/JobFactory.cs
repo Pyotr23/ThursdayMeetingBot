@@ -1,9 +1,8 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using Quartz.Spi;
 
-namespace ThursdayMeetingBot.Web.Quartz
+namespace ThursdayMeetingBot.Libraries.Quartz.Jobs.Factory
 {
     public class JobFactory : IJobFactory
     {
@@ -14,7 +13,7 @@ namespace ThursdayMeetingBot.Web.Quartz
             _serviceProvider = serviceProvider;
         }
 
-        public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
+        public IJob? NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
             var jobType = bundle
                 .JobDetail

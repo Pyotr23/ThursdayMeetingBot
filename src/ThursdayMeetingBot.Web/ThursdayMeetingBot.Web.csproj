@@ -37,4 +37,10 @@
       <ProjectReference Include="..\libraries\Libraries.Services\Libraries.Services.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Interfaces" />
+      <Folder Include="Quartz\Jobs" />
+      <Folder Include="Services" />
+    </ItemGroup>
+
 </Project>

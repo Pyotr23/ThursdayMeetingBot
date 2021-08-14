@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Quartz;
-using ThursdayMeetingBot.Web.Interfaces;
-using ThursdayMeetingBot.Web.Models;
-using ThursdayMeetingBot.Web.Quartz.Jobs;
+using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
+using ThursdayMeetingBot.Libraries.Quartz.Jobs;
+using ThursdayMeetingBot.Libraries.Quartz.Models;
 
-namespace ThursdayMeetingBot.Web.Services
+namespace ThursdayMeetingBot.Libraries.Services.Quartz
 {
     /// <inheritdoc cref="IQuartzService"/>
     public class QuartzService : IQuartzService

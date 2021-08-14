@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using ThursdayMeetingBot.Web.Models;
+using ThursdayMeetingBot.Libraries.Quartz.Models;
 
-namespace ThursdayMeetingBot.Web.Interfaces
+namespace ThursdayMeetingBot.Libraries.Quartz.Interfaces
 {
     /// <summary>
     ///     Hosted service using Quartz library.

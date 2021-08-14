@@ -137,19 +137,6 @@
             <param name="dateTime"> Date with time. </param>
             <returns> Day of the week in Russian in the parent plural case. </returns>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Interfaces.IQuartzService">
-            <summary>
-                Hosted service using Quartz library.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Interfaces.IQuartzService.CreateJobAsync(ThursdayMeetingBot.Web.Models.NotificationInfo,System.Threading.CancellationToken)">
-            <summary>
-                Create job.
-            </summary>
-            <param name="info"> Information for creating job. </param>
-            <param name="cancellationToken"> Cancellation token. </param>
-            <returns> Task. </returns>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.MapperProfiles.TelegramMapperProfile">
             <summary>
                 Profile for mapping of telegram entities to DTO.
@@ -264,7 +251,7 @@
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService,ThursdayMeetingBot.Web.Interfaces.IQuartzService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService,ThursdayMeetingBot.Libraries.Quartz.Interfaces.IQuartzService)">
             <summary>
                 Constructor.
             </summary>
@@ -368,22 +355,6 @@
             </summary>
             <param name="dateTime"> The date and time to create the entity for. </param>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Models.NotificationInfo">
-            <summary>
-                Information for creating a notification.
-            </summary>
-            <param name="ChatId"> Telegram chat id. </param>
-            <param name="NotificationMessage"> Notification message. </param>
-            <param name="UpcomingNotificationDateTime"> Nearest notification date. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Models.NotificationInfo.#ctor(System.Int64,System.String,System.DateTime)">
-            <summary>
-                Information for creating a notification.
-            </summary>
-            <param name="ChatId"> Telegram chat id. </param>
-            <param name="NotificationMessage"> Notification message. </param>
-            <param name="UpcomingNotificationDateTime"> Nearest notification date. </param>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.Models.WebHook.WebHookSettingInputModel">
             <summary>
                 Input model for set web hook action
@@ -432,41 +403,6 @@
             </summary>
             <param name="args"> Application argiments. </param>
             <returns> Application configuration object. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob">
-            <summary>
-                Job for notify telegram chat.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob.NotificationMessage">
-            <summary>
-                Notification text message.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob},ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="logger"> Logger. </param>
-            <param name="botService"> Bot service. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob.Execute(Quartz.IJobExecutionContext)">
-            <summary>
-                Send a text message to the channel.
-            </summary>
-            <param name="context"> IJobExecutionContext. </param>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Services.QuartzService">
-            <inheritdoc cref="T:ThursdayMeetingBot.Web.Interfaces.IQuartzService"/>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.QuartzService.#ctor(Quartz.IScheduler)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="schedulerFactory"> Scheduler factory. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.QuartzService.CreateJobAsync(ThursdayMeetingBot.Web.Models.NotificationInfo,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ThursdayMeetingBot.Web.Interfaces.IQuartzService.CreateJobAsync(ThursdayMeetingBot.Web.Models.NotificationInfo,System.Threading.CancellationToken)"/>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Startup">
             <summary>

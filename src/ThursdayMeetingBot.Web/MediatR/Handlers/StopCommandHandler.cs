@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Dictionaries;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers

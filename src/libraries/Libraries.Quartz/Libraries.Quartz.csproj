@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>ThursdayMeetingBot.Libraries.Quartz</AssemblyName>
+        <RootNamespace>ThursdayMeetingBot.Libraries.Quartz</RootNamespace>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Libraries.Core\Libraries.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+      <PackageReference Include="Quartz" Version="3.3.3" />
+    </ItemGroup>
+
+</Project>
