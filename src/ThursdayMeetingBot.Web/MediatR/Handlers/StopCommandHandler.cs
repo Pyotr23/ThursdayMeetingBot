@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
+using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
 using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Dictionaries;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers
@@ -13,20 +13,25 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
     /// <summary>
     ///     Command "/stop" handler.
     /// </summary>
-    public class StopCommandHandler : BotCommandHandler, IRequestHandler<StopCommand, Unit>
+    public class StopCommandHandler : IRequestHandler<StopCommand, Unit>
     {
         private readonly ILogger<StopCommandHandler> _logger;
+        private readonly IQuartzService _quartzService;
+        private readonly IBotService _botService;
 
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
+        /// <param name="quartzService"> Service for work with Quartz library. </param>
         /// <param name="botService"> Bot service. </param>
         public StopCommandHandler(ILogger<StopCommandHandler> logger,
+            IQuartzService quartzService,
             IBotService botService)
-            : base(botService)
         {
             _logger = logger;
+            _quartzService = quartzService;
+            _botService = botService;
         }
 
         /// <summary>
@@ -40,22 +45,21 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
-            var chatId = request
-                .Chat
-                .Id;
-
             _logger.LogInformation($"[{request.Id}] Handle of stop command");
 
-            await TimerDictionary.DeleteAsync(chatId);
+            var isSuccess = await _quartzService.DeleteJobAsync(request.ChatId.ToString(), cancellationToken);
 
-            _logger.LogInformation($"[{request.Id}] Meeting notifications are disabled.");
-
-            await BotService
-                .Client
-                .SendTextMessageAsync(chatId,
-                    BotAnswer.NotificationsAreDisabled,
-                    cancellationToken: cancellationToken);
-
+            if (isSuccess)
+            {
+                await _botService
+                    .Client
+                    .SendTextMessageAsync(request.ChatId,
+                        BotAnswer.NotificationsAreDisabled,
+                        cancellationToken: cancellationToken);
+                return Unit.Value;
+            }
+            
+            _logger.LogWarning($"[{request.Id}] Failed when delete job");
             return Unit.Value;
         }
     }

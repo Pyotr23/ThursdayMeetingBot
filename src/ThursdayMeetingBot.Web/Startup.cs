@@ -5,15 +5,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
-using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
-using ThursdayMeetingBot.Web.Interfaces;
-using ThursdayMeetingBot.Web.MapperProfiles;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 using ThursdayMeetingBot.Web.MediatR.Handlers;
-using ThursdayMeetingBot.Web.Services;
 
 namespace ThursdayMeetingBot.Web
 {
@@ -42,27 +39,19 @@ namespace ThursdayMeetingBot.Web
             services
                 .AddConfigurationSections(Configuration)
                 .AddDbContexts<BotDbContext>(Configuration)
-                .AddServices<BotDbContext>();
-
-            services.AddAutoMapper(config =>
-            {
-                config.AddProfile<UserMapperProfile>();
-                config.AddProfile<ChatMapperProfile>();
-                config.AddProfile<ChatTypeMapperProfile>();
-                config.AddProfile<MessageMapperProfile>();
-                
-                config.AddProfile<TelegramMapperProfile>();
-            });
+                .AddServices<BotDbContext>()
+                .AddAutoMapperProfiles();
             
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));
          
             services
-                .AddSingleton<IBotService, BotService>()
                 .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler>()
-                .AddMediatR(typeof(Startup));
+                .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto>>();
 
             services
+                .AddQuartz()
+                .AddMediatR(typeof(Startup))
                 .AddControllers()
                 .AddNewtonsoftJson();
         }
@@ -77,9 +66,11 @@ namespace ThursdayMeetingBot.Web
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseRouting();
-            app.UseCors();
-            app.UseEndpoints(erp => erp.MapControllers());
+            app
+                .UseRouting()
+                .UseCors()
+                .UseEndpoints(erp => erp.MapControllers())
+                .StartScheduler();
         }
     }
 }

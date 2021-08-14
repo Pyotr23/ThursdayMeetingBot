@@ -16,9 +16,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.ThursdayMeetingBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Core", "src\libraries\Libraries.Core\Libraries.Core.csproj", "{323B00B9-A02A-44E1-962A-B65F3E2936B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Service", "src\libraries\Libraries.Service\Libraries.Service.csproj", "{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Services", "src\libraries\Libraries.Services\Libraries.Services.csproj", "{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Data.MigrationStore", "src\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj", "{02E3461E-8406-40BD-8927-46DE4BAE3707}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Quartz", "src\libraries\Libraries.Quartz\Libraries.Quartz.csproj", "{02751B6F-B9FA-49F2-83D0-9E0A0BBC07B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{02E3461E-8406-40BD-8927-46DE4BAE3707}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02E3461E-8406-40BD-8927-46DE4BAE3707}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02E3461E-8406-40BD-8927-46DE4BAE3707}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02751B6F-B9FA-49F2-83D0-9E0A0BBC07B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02751B6F-B9FA-49F2-83D0-9E0A0BBC07B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02751B6F-B9FA-49F2-83D0-9E0A0BBC07B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02751B6F-B9FA-49F2-83D0-9E0A0BBC07B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F76CAF43-4AA0-4841-9505-0CD3ACC9A9CC} = {5EBF896F-D8F3-437E-9984-8519A311B90E}
@@ -62,5 +68,6 @@ Global
 		{323B00B9-A02A-44E1-962A-B65F3E2936B5} = {0F0EECD6-3F25-4258-B892-17E53801A9D8}
 		{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E} = {0F0EECD6-3F25-4258-B892-17E53801A9D8}
 		{02E3461E-8406-40BD-8927-46DE4BAE3707} = {0F0EECD6-3F25-4258-B892-17E53801A9D8}
+		{02751B6F-B9FA-49F2-83D0-9E0A0BBC07B8} = {0F0EECD6-3F25-4258-B892-17E53801A9D8}
 	EndGlobalSection
 EndGlobal

@@ -4,37 +4,44 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Web.Configurations;
+using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
+using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
+using ThursdayMeetingBot.Libraries.Quartz.Models;
 using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Dictionaries;
-using ThursdayMeetingBot.Web.Helpers;
-using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.MediatR.Commands;
+using ThursdayMeetingBot.Web.Models.Notification;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers
 {
     /// <summary>
     ///     Command "/start" handler.
     /// </summary>
-    public class StartCommandHandler<TUserDto> : BotCommandHandler, IRequestHandler<StartCommand, Unit>
+    public class StartCommandHandler<TUserDto> : IRequestHandler<StartCommand, Unit>
         where TUserDto : UserDto, new()
     {
         private readonly ILogger<StartCommandHandler<TUserDto>> _logger;
-        private readonly DateTimeHelper _dateTimeHelper;
+        private readonly NotificationConfiguration _configuration;
+        private readonly IQuartzService _quartzService;
+        private readonly IBotService _botService;
+
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
-        /// <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
-        /// <param name="botService"> Bot service. </param>
+        /// <param name="options"> Notification settings from appsettings. </param>
+        /// <param name="quartzService"> Service for working with Quartz library. </param>
+        /// <param name="botService"> Bot service for answer. </param>
         public StartCommandHandler(ILogger<StartCommandHandler<TUserDto>> logger,
-            IOptions<NotificationConfiguration> notificationConfigurationOptions, 
+            IOptions<NotificationConfiguration> options, 
+            IQuartzService quartzService,
             IBotService botService)
-            : base(botService)
         {
             _logger = logger;
-            _dateTimeHelper = new DateTimeHelper(notificationConfigurationOptions);
+            _configuration = options.Value;
+            _quartzService = quartzService;
+            _botService = botService;
         }
 
         /// <summary>
@@ -48,38 +55,21 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
-            var chatId = request
-                .Chat
-                .Id;
-
             _logger.LogInformation($"[{request.Id}] Handle of start command");
 
-            var firstNotificationDateTime = _dateTimeHelper.GetFirstNotificationDateTime();
-            var timer = new Timer(
-                async _ => await BotService
-                    .Client
-                    .SendTextMessageAsync(chatId, BotAnswer.NotificationMessage,  cancellationToken:cancellationToken),
-                null,
-                firstNotificationDateTime.DueTime,
-                TimeSpan.FromSeconds(30)
-            );
+            var info = new NotificationInfo(request.ChatId, BotAnswer.NotificationMessage);
 
-            await TimerDictionary.AddAsync(chatId, timer);
+            await _quartzService.ScheduleJobAsync(info, cancellationToken);
 
-            _logger.LogInformation(firstNotificationDateTime.LogMessage);
+            var notificationDateTime = new NotificationDateTime(_configuration);
 
-            var userDto = new TUserDto();
-            var telegramUser = request.Message.From;
-            userDto.Id = telegramUser.Id;
-            userDto.FirstName = telegramUser.FirstName;
-            userDto.LastName = telegramUser.LastName;
-            userDto.Username = telegramUser.Username;
-           
-            await BotService
+            var answer = string.Format(BotAnswer.NotificationsAreEnabled,
+                notificationDateTime.RussianDayOfWeekName,
+                notificationDateTime.MoscowShortTime);
+            
+            await _botService
                 .Client
-                .SendTextMessageAsync(chatId,
-                    firstNotificationDateTime.BotMessage,
-                    cancellationToken: cancellationToken);
+                .SendTextMessageAsync(request.ChatId, answer, cancellationToken: cancellationToken);
 
             return Unit.Value;
         }

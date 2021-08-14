@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>ThursdayMeetingBot.Libraries.Services</AssemblyName>
+        <RootNamespace>ThursdayMeetingBot.Libraries.Services</RootNamespace>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Libraries.Core\Libraries.Core.csproj" />
+      <ProjectReference Include="..\Libraries.Data\Libraries.Data.csproj" />
+      <ProjectReference Include="..\Libraries.Quartz\Libraries.Quartz.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+      <PackageReference Include="Quartz" Version="3.3.3" />
+    </ItemGroup>
+
+</Project>
