@@ -270,11 +270,6 @@
                 Value.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.DayOfWeek">
-            <summary>
-                Day of week.
-            </summary>
-        </member>
         <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.RussianDayOfWeekName">
             <summary>
                 Russian description of day of week.
@@ -284,27 +279,6 @@
             <summary>
                 Value in Moscow time zone.
             </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.DueTime">
-            <summary>
-                Time until notification.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.FormattedDueTime">
-            <summary>
-                Formatted time until notification.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.LogMessage">
-            <summary>
-                Message for logging.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.#ctor(System.DateTime)">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="dateTime"> The date and time to create the entity for. </param>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Models.WebHook.WebHookSettingInputModel">
             <summary>
@@ -347,13 +321,6 @@
             </summary>
             <param name="args"> Application arguments. </param>
             <returns> Web app host object. </returns>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Program.BuildConfiguration(System.String[])">
-            <summary>
-                Create application configuration.
-            </summary>
-            <param name="args"> Application argiments. </param>
-            <returns> Application configuration object. </returns>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Startup">
             <summary>
