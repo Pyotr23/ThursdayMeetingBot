@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Services;
+using ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity;
 using ThursdayMeetingBot.Libraries.Data.Models;
 using ThursdayMeetingBot.Libraries.Services.Common;
 

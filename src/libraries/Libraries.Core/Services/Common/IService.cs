@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 
-namespace ThursdayMeetingBot.Libraries.Core.Services
+namespace ThursdayMeetingBot.Libraries.Core.Services.Common
 {
     /// <summary>
     ///     Base service for manage entries.

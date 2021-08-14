@@ -361,7 +361,7 @@
                 Handler for each incoming update.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler},ThursdayMeetingBot.Libraries.Core.Services.IUserService,ThursdayMeetingBot.Libraries.Core.Services.IChatService,ThursdayMeetingBot.Libraries.Core.Services.IChatTypeService,ThursdayMeetingBot.Libraries.Core.Services.IMessageService,AutoMapper.IMapper,MediatR.IMediator)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler},ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity.IUserService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity.IChatService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity.IChatTypeService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity.IMessageService,AutoMapper.IMapper,MediatR.IMediator)">
             <summary>
                 Handler for writing update in database via user service.
             </summary>

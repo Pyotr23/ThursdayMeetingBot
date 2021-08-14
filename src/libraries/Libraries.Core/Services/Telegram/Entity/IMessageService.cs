@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 
-namespace ThursdayMeetingBot.Libraries.Core.Services
+namespace ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity
 {
     /// <summary>
     ///     Service for manage messages.
