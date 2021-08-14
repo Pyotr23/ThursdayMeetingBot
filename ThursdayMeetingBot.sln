@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.ThursdayMeetingBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Core", "src\libraries\Libraries.Core\Libraries.Core.csproj", "{323B00B9-A02A-44E1-962A-B65F3E2936B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Service", "src\libraries\Libraries.Service\Libraries.Service.csproj", "{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Services", "src\libraries\Libraries.Services\Libraries.Services.csproj", "{DBD0AF3D-9EDA-46C1-842D-7FA99A946E7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries.Data.MigrationStore", "src\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj", "{02E3461E-8406-40BD-8927-46DE4BAE3707}"
 EndProject

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Models.Common;
 
-namespace ThursdayMeetingBot.Libraries.Service.Services.Common
+namespace ThursdayMeetingBot.Libraries.Services.Common
 {
     /// <summary>
     ///     Base service with context and database set.

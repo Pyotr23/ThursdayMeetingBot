@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Libraries.Data.Models;
-using ThursdayMeetingBot.Libraries.Service.Services.Common;
+using ThursdayMeetingBot.Libraries.Services.Common;
 
-namespace ThursdayMeetingBot.Libraries.Service.Services
+namespace ThursdayMeetingBot.Libraries.Services.Telegram.Entity
 {
     /// <inheritdoc cref="IChatTypeService"/>
     public class ChatTypeService<TDbContext> : BaseService<TDbContext, ChatType, int>, IChatTypeService

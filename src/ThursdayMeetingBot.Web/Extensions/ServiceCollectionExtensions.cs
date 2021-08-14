@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Libraries.Data.Configurations;
-using ThursdayMeetingBot.Libraries.Service.Services;
+using ThursdayMeetingBot.Libraries.Services.Telegram.Entity;
 using ThursdayMeetingBot.Web.Configurations;
 using ThursdayMeetingBot.Web.Constants;
 

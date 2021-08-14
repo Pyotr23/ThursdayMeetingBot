@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <AssemblyName>ThursdayMeetingBot.Libraries.Service</AssemblyName>
-        <RootNamespace>ThursdayMeetingBot.Libraries.Service</RootNamespace>
+        <AssemblyName>ThursdayMeetingBot.Libraries.Services</AssemblyName>
+        <RootNamespace>ThursdayMeetingBot.Libraries.Services</RootNamespace>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
