@@ -4,7 +4,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Libraries.Core.Services;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 
@@ -29,6 +28,8 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         /// <param name="logger"> Logger. </param>
         /// <param name="userService"> Service for managing users. </param>
         /// <param name="chatService"> Service for managing chats. </param>
+        /// <param name="chatTypeService"> Service for managing chat types. </param>
+        /// <param name="messageService"> Service for managing messages. </param>
         /// <param name="mapper"> Mapper. </param>
         /// <param name="mediator"> Mediator. </param>
         public UpdateCommandHandler(ILogger<UpdateCommandHandler> logger,

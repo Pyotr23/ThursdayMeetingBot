@@ -24,6 +24,11 @@ namespace ThursdayMeetingBot.Web.MediatR.Commands
         public Chat Chat => Message.Chat;
 
         /// <summary>
+        ///     Chat identificator.
+        /// </summary>
+        public long ChatId => Chat.Id;
+
+        /// <summary>
         ///     Sender.
         /// </summary>
         public User Sender => Message.From;

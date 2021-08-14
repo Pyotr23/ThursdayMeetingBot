@@ -11,11 +11,11 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
     public class QuartzService : IQuartzService
     {
         private readonly IScheduler _scheduler;
-        
+
         /// <summary>
         ///     Constructor.
         /// </summary>
-        /// <param name="schedulerFactory"> Scheduler factory. </param>
+        /// <param name="scheduler"> IScheduler instance. </param>
         public QuartzService(IScheduler scheduler)
         {
             _scheduler = scheduler;
@@ -24,10 +24,7 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
         /// <inheritdoc cref="IQuartzService.CreateJobAsync"/>
         public async Task CreateJobAsync(NotificationInfo info, CancellationToken cancellationToken)
         {
-            var sdf = await _scheduler.GetJobDetail(new JobKey(info.ChatId.ToString()), cancellationToken);
-            var tr = await _scheduler.GetTrigger(new TriggerKey(info.ChatId.ToString()), cancellationToken);
-            
-            var (chatId, notificationMessage, dateTime) = info;
+            var (chatId, notificationMessage) = info;
             
             var job = JobBuilder
                 .Create<TextNotificationJob>()
@@ -42,11 +39,18 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
                 // .StartAt(new DateTimeOffset(dateTime))
                 .WithSimpleSchedule(builder 
                     => builder
-                        .WithIntervalInSeconds(5)
+                        .WithIntervalInSeconds(60)
                         .RepeatForever())
                 .Build();
 
             await _scheduler.ScheduleJob(job, trigger, cancellationToken);
+        }
+
+        /// <inheritdoc cref="IQuartzService.DeleteJobAsync"/>
+        public async Task<bool> DeleteJobAsync(string jobKeyName, CancellationToken cancellationToken)
+        {
+            var jobKey = new JobKey(jobKeyName);
+            return await _scheduler.DeleteJob(jobKey, cancellationToken);
         }
     }
 }

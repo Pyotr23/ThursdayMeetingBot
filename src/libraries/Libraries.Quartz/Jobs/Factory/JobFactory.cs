@@ -13,19 +13,21 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs.Factory
             _serviceProvider = serviceProvider;
         }
 
-        public IJob? NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
+        public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
             var jobType = bundle
                 .JobDetail
                 .JobType;
-            
-            return _serviceProvider.GetService(jobType) as IJob;
+
+            if (_serviceProvider.GetService(jobType) is IJob job)
+                return job;
+
+            return null!;
         }
 
         public void ReturnJob(IJob job)
         {
-            // i couldn't find a way to release services with your preferred DI, 
-            // its up to you to google such things
+            throw new NotImplementedException();
         }
     }
 }
