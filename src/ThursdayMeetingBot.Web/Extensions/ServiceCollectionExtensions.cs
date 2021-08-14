@@ -3,26 +3,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
+using Quartz.Spi;
 using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
-using ThursdayMeetingBot.Libraries.Core.Services;
+using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity;
-using ThursdayMeetingBot.Libraries.Data.Configurations;
+using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
+using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
+using ThursdayMeetingBot.Libraries.Quartz.Jobs;
+using ThursdayMeetingBot.Libraries.Quartz.Jobs.Factory;
+using ThursdayMeetingBot.Libraries.Services.Quartz;
+using ThursdayMeetingBot.Libraries.Services.Telegram;
 using ThursdayMeetingBot.Libraries.Services.Telegram.Entity;
 using ThursdayMeetingBot.Web.Constants;
+using ThursdayMeetingBot.Web.Helpers;
+using ThursdayMeetingBot.Web.MapperProfiles;
 
 namespace ThursdayMeetingBot.Web.Extensions
 {
-    /// <summary>
-    ///     Extensions for IServiceCollection instance.
-    /// </summary>
     internal static class ServiceCollectionExtensions
     {
-        /// <summary>
-        ///     Add configuration sections.
-        /// </summary>
-        /// <param name="services"> Service collection. </param>
-        /// <param name="configuration"> Configuration. </param>
-        /// <returns> Configurated service collection. </returns>
         internal static IServiceCollection AddConfigurationSections(
             this IServiceCollection services, 
             IConfiguration configuration)
@@ -56,12 +55,6 @@ namespace ThursdayMeetingBot.Web.Extensions
             return services.AddDbContext<T>(DbContextOptionsAction);
         }
 
-        /// <summary>
-        ///     Add services for working with database.
-        /// </summary>
-        /// <typeparam name="TDbContext"> Db context type. </typeparam>
-        /// <param name="services"> IServiceCollection instance. </param>
-        /// <returns> Service collection. </returns>
         internal static IServiceCollection AddServices<TDbContext>(
             this IServiceCollection services)
             where TDbContext : DbContext
@@ -70,8 +63,33 @@ namespace ThursdayMeetingBot.Web.Extensions
             services.TryAddScoped<IChatService, ChatService<TDbContext>>();
             services.TryAddScoped<IChatTypeService, ChatTypeService<TDbContext>>();
             services.TryAddScoped<IMessageService, MessageService<TDbContext>>();
+            
+            services.TryAddSingleton<IBotService, BotService>();
+            services.TryAddSingleton<IQuartzService, QuartzService>();
 
             return services;
+        }
+        
+        internal static IServiceCollection AddQuartz(this IServiceCollection services)
+        {
+            return services
+                .AddSingleton<IJobFactory, JobFactory>()
+                .AddSingleton(StdSchedulerHelper.GetScheduler)
+                .AddTransient<TextNotificationJob>();
+        }
+        
+        internal static void AddAutoMapperProfiles(this IServiceCollection services)
+        {
+            services
+                .AddAutoMapper(configuration =>
+                {
+                    configuration.AddProfile<UserMapperProfile>();
+                    configuration.AddProfile<ChatMapperProfile>();
+                    configuration.AddProfile<ChatTypeMapperProfile>();
+                    configuration.AddProfile<MessageMapperProfile>();
+
+                    configuration.AddProfile<TelegramMapperProfile>();
+                });
         }
     }
 }

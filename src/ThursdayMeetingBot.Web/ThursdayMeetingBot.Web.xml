@@ -92,27 +92,6 @@
             <param name="utcDateTime"> UTC time. </param>
             <returns> Moscow time. </returns>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions">
-            <summary>
-                Extensions for IServiceCollection instance.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions.AddConfigurationSections(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
-            <summary>
-                Add configuration sections.
-            </summary>
-            <param name="services"> Service collection. </param>
-            <param name="configuration"> Configuration. </param>
-            <returns> Configurated service collection. </returns>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Extensions.ServiceCollectionExtensions.AddServices``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-                Add services for working with database.
-            </summary>
-            <typeparam name="TDbContext"> Db context type. </typeparam>
-            <param name="services"> IServiceCollection instance. </param>
-            <returns> Service collection. </returns>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.Helpers.DateTimeHelper">
             <summary>
                 DateTime helper.

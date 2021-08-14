@@ -1,4 +1,4 @@
-﻿namespace ThursdayMeetingBot.Libraries.Data.Configurations
+﻿namespace ThursdayMeetingBot.Libraries.Core.Models.Configurations
 {
     /// <summary>
     /// Configurations for db connection

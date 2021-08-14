@@ -1,26 +1,14 @@
+using System;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Quartz;
-using Quartz.Impl;
-using Quartz.Spi;
-using System;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
-using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Libraries.Data.Contexts;
-using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
-using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
-using ThursdayMeetingBot.Libraries.Quartz.Jobs;
-using ThursdayMeetingBot.Libraries.Quartz.Jobs.Factory;
-using ThursdayMeetingBot.Libraries.Services.Quartz;
-using ThursdayMeetingBot.Libraries.Services.Telegram;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Extensions;
-using ThursdayMeetingBot.Web.MapperProfiles;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 using ThursdayMeetingBot.Web.MediatR.Handlers;
 
@@ -51,58 +39,19 @@ namespace ThursdayMeetingBot.Web
             services
                 .AddConfigurationSections(Configuration)
                 .AddDbContexts<BotDbContext>(Configuration)
-                .AddServices<BotDbContext>();
-
-            services.AddAutoMapper(config =>
-            {
-                config.AddProfile<UserMapperProfile>();
-                config.AddProfile<ChatMapperProfile>();
-                config.AddProfile<ChatTypeMapperProfile>();
-                config.AddProfile<MessageMapperProfile>();
-                
-                config.AddProfile<TelegramMapperProfile>();
-            });
+                .AddServices<BotDbContext>()
+                .AddAutoMapperProfiles();
             
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));
          
-            var scheduler = StdSchedulerFactory
-                .GetDefaultScheduler()
-                .GetAwaiter()
-                .GetResult();
-            
             services
-                .AddSingleton<IBotService, BotService>()
                 .AddScoped<IRequestHandler<UpdateCommand, Unit>, UpdateCommandHandler>()
                 .AddScoped<IRequestHandler<StartCommand, Unit>, StartCommandHandler<UserDto>>();
-                
+
             services
-                .AddQuartz(q => q.UseMicrosoftDependencyInjectionJobFactory())
-                .AddSingleton<IJobFactory, JobFactory>()
-                .AddSingleton(provider =>
-                {
-                    var stdScheduler = new StdSchedulerFactory()
-                        .GetScheduler()
-                        .GetAwaiter()
-                        .GetResult();
-
-                    stdScheduler.JobFactory = provider.GetService<IJobFactory>();
-                     
-                    stdScheduler
-                        .Start()
-                        .GetAwaiter()
-                        .GetResult();
-
-                    return stdScheduler;
-                })
-                .AddTransient<TextNotificationJob>()
-                .TryAddSingleton<IQuartzService, QuartzService>();
-
-
-
-            services.AddMediatR(typeof(Startup));
-            
-            services
+                .AddQuartz()
+                .AddMediatR(typeof(Startup))
                 .AddControllers()
                 .AddNewtonsoftJson();
         }
@@ -117,9 +66,11 @@ namespace ThursdayMeetingBot.Web
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseRouting();
-            app.UseCors();
-            app.UseEndpoints(erp => erp.MapControllers());
+            app
+                .UseRouting()
+                .UseCors()
+                .UseEndpoints(erp => erp.MapControllers())
+                .StartScheduler();
         }
     }
 }

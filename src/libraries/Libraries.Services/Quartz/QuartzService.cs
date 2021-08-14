@@ -39,7 +39,7 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
                 // .StartAt(new DateTimeOffset(dateTime))
                 .WithSimpleSchedule(builder 
                     => builder
-                        .WithIntervalInSeconds(60)
+                        .WithIntervalInSeconds(30)
                         .RepeatForever())
                 .Build();
 
