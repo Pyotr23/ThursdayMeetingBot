@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Quartz;
 using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
 using ThursdayMeetingBot.Libraries.Quartz.Jobs;
@@ -10,20 +11,24 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
     /// <inheritdoc cref="IQuartzService"/>
     public class QuartzService : IQuartzService
     {
+        private readonly ILogger<QuartzService> _logger; 
         private readonly IScheduler _scheduler;
 
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="scheduler"> IScheduler instance. </param>
-        public QuartzService(IScheduler scheduler)
+        public QuartzService(ILogger<QuartzService> logger, IScheduler scheduler)
         {
+            _logger = logger;
             _scheduler = scheduler;
         }
 
-        /// <inheritdoc cref="IQuartzService.CreateJobAsync"/>
-        public async Task CreateJobAsync(NotificationInfo info, CancellationToken cancellationToken)
+        /// <inheritdoc cref="IQuartzService.ScheduleJobAsync"/>
+        public async Task ScheduleJobAsync(NotificationInfo info, CancellationToken cancellationToken)
         {
+            _logger.LogInformation($"Start schedule job ({info})");
+            
             var (chatId, notificationMessage) = info;
             
             var job = JobBuilder

@@ -6,10 +6,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
+using ThursdayMeetingBot.Libraries.Core.Models.Notification;
+using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
 using ThursdayMeetingBot.Libraries.Quartz.Models;
 using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Helpers;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers
@@ -21,22 +22,26 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         where TUserDto : UserDto, new()
     {
         private readonly ILogger<StartCommandHandler<TUserDto>> _logger;
-        private readonly DateTimeHelper _dateTimeHelper;
+        private readonly IOptions<NotificationConfiguration> _options;
         private readonly IQuartzService _quartzService;
+        private readonly IBotService _botService;
 
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
-        /// <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
+        /// <param name="options"> Notification settings from appsettings. </param>
         /// <param name="quartzService"> Service for working with Quartz library. </param>
+        /// <param name="botService"> Bot service for answer. </param>
         public StartCommandHandler(ILogger<StartCommandHandler<TUserDto>> logger,
-            IOptions<NotificationConfiguration> notificationConfigurationOptions, 
-            IQuartzService quartzService)
+            IOptions<NotificationConfiguration> options, 
+            IQuartzService quartzService,
+            IBotService botService)
         {
             _logger = logger;
-            _dateTimeHelper = new DateTimeHelper(notificationConfigurationOptions);
+            _options = options;
             _quartzService = quartzService;
+            _botService = botService;
         }
 
         /// <summary>
@@ -54,7 +59,14 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
 
             var info = new NotificationInfo(request.ChatId, BotAnswer.NotificationMessage);
 
-            await _quartzService.CreateJobAsync(info, cancellationToken);
+            await _quartzService.ScheduleJobAsync(info, cancellationToken);
+            
+            var notificationDateTime = new NotificationDateTime()
+            
+            await _botService
+                .Client
+                .SendTextMessageAsync(request.ChatId, NotificationMessage, cancellationToken: context.CancellationToken);
+
 
             return Unit.Value;
         }

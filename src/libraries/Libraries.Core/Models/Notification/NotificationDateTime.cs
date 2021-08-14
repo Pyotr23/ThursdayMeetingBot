@@ -1,14 +1,14 @@
 ﻿using System;
-using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Extensions;
-using ThursdayMeetingBot.Web.Helpers;
+using ThursdayMeetingBot.Libraries.Core.Extensions;
+using ThursdayMeetingBot.Libraries.Core.Helpers;
+using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
 
-namespace ThursdayMeetingBot.Web.Models
+namespace ThursdayMeetingBot.Libraries.Core.Models.Notification
 {
     /// <summary>
     ///     Notification time class.
     /// </summary>
-    internal record NotificationDateTime
+    public record NotificationDateTime
     {
         /// <summary>
         ///     Value.
@@ -23,7 +23,7 @@ namespace ThursdayMeetingBot.Web.Models
         /// <summary>
         ///     Russian description of day of week.
         /// </summary>
-        private string RussianDayOfWeekName => DateTimeHelper.GetDayOfWeekRussianDescription(Value);
+        private string RussianDayOfWeekName => Value.ToDayOfWeekRussianDescription();
         
         /// <summary>
         ///     Value in Moscow time zone.
@@ -40,13 +40,13 @@ namespace ThursdayMeetingBot.Web.Models
         /// </summary>
         private string FormattedDueTime => DueTime.ToString(@"d\.hh\:mm");
 
-        /// <summary>
-        ///     Bot answer.
-        /// </summary>
-        public string BotMessage => 
-            string.Format(BotAnswer.NotificationsAreEnabled,
-                RussianDayOfWeekName,
-                MoscowShortTime);
+        // /// <summary>
+        // ///     Bot answer.
+        // /// </summary>
+        // public string BotMessage => 
+        //     string.Format(BotAnswer.NotificationsAreEnabled,
+        //         RussianDayOfWeekName,
+        //         MoscowShortTime);
         
         /// <summary>
         ///     Message for logging.
@@ -61,6 +61,11 @@ namespace ThursdayMeetingBot.Web.Models
         public NotificationDateTime(DateTime dateTime)
         {
             Value = dateTime;
+        }
+
+        public NotificationDateTime(NotificationConfiguration configuration)
+        {
+            Value = DateTimeHelper.GetCurrentWeekNotificationDateTime(configuration);
         }
     }
 }

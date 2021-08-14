@@ -54,11 +54,11 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
 
             if (result is null)
             {
-                _logger.LogInformation($"Send a text message to the chat {chatId}");
+                _logger.LogError($"Chat {chatId} isn't notified");
                 return;
             }
             
-            _logger.LogError($"Chat {chatId} isn't notified");
+            _logger.LogInformation($"Send a text message to the chat {chatId}");
         }
     }
 }

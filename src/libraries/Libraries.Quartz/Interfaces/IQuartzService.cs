@@ -15,7 +15,7 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Interfaces
         /// <param name="info"> Information for creating job. </param>
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns> Task. </returns>
-        Task CreateJobAsync(NotificationInfo info, CancellationToken cancellationToken);
+        Task ScheduleJobAsync(NotificationInfo info, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Delete job (stop notification).
