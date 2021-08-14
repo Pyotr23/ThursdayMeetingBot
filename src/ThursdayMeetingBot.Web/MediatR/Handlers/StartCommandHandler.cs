@@ -23,7 +23,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
     {
         private readonly ILogger<StartCommandHandler<TUserDto>> _logger;
         private readonly DateTimeHelper _dateTimeHelper;
-        private readonly IQuartzHostedService _quartzService;
+        private readonly IQuartzService _quartzService;
         
         /// <summary>
         ///     Constructor.
@@ -33,7 +33,7 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
         public StartCommandHandler(ILogger<StartCommandHandler<TUserDto>> logger,
             IOptions<NotificationConfiguration> notificationConfigurationOptions, 
             IBotService botService,
-            IQuartzHostedService quartzService)
+            IQuartzService quartzService)
             : base(botService)
         {
             _logger = logger;

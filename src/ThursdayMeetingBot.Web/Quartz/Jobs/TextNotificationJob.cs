@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Quartz;
 using ThursdayMeetingBot.Web.Interfaces;
 
-namespace ThursdayMeetingBot.Web.Quartz
+namespace ThursdayMeetingBot.Web.Quartz.Jobs
 {
     /// <summary>
     ///     Job for notify telegram chat.
@@ -38,7 +38,7 @@ namespace ThursdayMeetingBot.Web.Quartz
         {
             var dataMap = context.MergedJobDataMap;
 
-            NotificationMessage = dataMap.GetString("notificationMessage");
+            NotificationMessage = dataMap.GetString(nameof(NotificationMessage));
             
             var keyName = context
                 .JobDetail

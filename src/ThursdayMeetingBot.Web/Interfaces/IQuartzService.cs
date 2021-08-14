@@ -1,7 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using Quartz;
 using ThursdayMeetingBot.Web.Models;
 
 namespace ThursdayMeetingBot.Web.Interfaces
@@ -9,7 +7,7 @@ namespace ThursdayMeetingBot.Web.Interfaces
     /// <summary>
     ///     Hosted service using Quartz library.
     /// </summary>
-    public interface IQuartzHostedService
+    public interface IQuartzService
     {
         /// <summary>
         ///     Create job.

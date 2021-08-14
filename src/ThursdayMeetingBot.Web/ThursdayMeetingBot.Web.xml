@@ -490,24 +490,24 @@
             <param name="args"> Application argiments. </param>
             <returns> Application configuration object. </returns>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Quartz.TextNotificationJob">
+        <member name="T:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob">
             <summary>
                 Job for notify telegram chat.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Quartz.TextNotificationJob.NotificationMessage">
+        <member name="P:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob.NotificationMessage">
             <summary>
                 Notification text message.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Quartz.TextNotificationJob.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Quartz.TextNotificationJob},ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob},ThursdayMeetingBot.Web.Interfaces.IBotService)">
             <summary>
                 Constructor.
             </summary>
             <param name="logger"> Logger. </param>
             <param name="botService"> Bot service. </param>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Quartz.TextNotificationJob.Execute(Quartz.IJobExecutionContext)">
+        <member name="M:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob.Execute(Quartz.IJobExecutionContext)">
             <summary>
                 Send a text message to the channel.
             </summary>

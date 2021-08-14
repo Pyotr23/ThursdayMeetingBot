@@ -1,17 +1,14 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Quartz;
-using Quartz.Spi;
 using ThursdayMeetingBot.Web.Interfaces;
 using ThursdayMeetingBot.Web.Models;
-using ThursdayMeetingBot.Web.Quartz;
+using ThursdayMeetingBot.Web.Quartz.Jobs;
 
 namespace ThursdayMeetingBot.Web.Services
 {
-    /// <inheritdoc cref="IQuartzHostedService"/>
-    public class QuartzHostedService : IQuartzHostedService
+    /// <inheritdoc cref="IQuartzService"/>
+    public class QuartzService : IQuartzService
     {
         private readonly IScheduler _scheduler;
         
@@ -19,12 +16,12 @@ namespace ThursdayMeetingBot.Web.Services
         ///     Constructor.
         /// </summary>
         /// <param name="schedulerFactory"> Scheduler factory. </param>
-        public QuartzHostedService(IScheduler scheduler)
+        public QuartzService(IScheduler scheduler)
         {
             _scheduler = scheduler;
         }
 
-        /// <inheritdoc cref="IQuartzHostedService.CreateJobAsync"/>
+        /// <inheritdoc cref="IQuartzService.CreateJobAsync"/>
         public async Task CreateJobAsync(NotificationInfo info, CancellationToken cancellationToken)
         {
             var sdf = await _scheduler.GetJobDetail(new JobKey(info.ChatId.ToString()), cancellationToken);
@@ -35,7 +32,7 @@ namespace ThursdayMeetingBot.Web.Services
             var job = JobBuilder
                 .Create<TextNotificationJob>()
                 .WithIdentity(chatId.ToString())
-                .UsingJobData("NotificationMessage", notificationMessage)
+                .UsingJobData(nameof(TextNotificationJob.NotificationMessage), notificationMessage)
                 .Build();
 
             var trigger = TriggerBuilder
