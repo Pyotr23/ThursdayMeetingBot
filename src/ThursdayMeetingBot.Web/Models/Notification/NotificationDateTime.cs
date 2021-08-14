@@ -1,14 +1,14 @@
 ﻿using System;
-using ThursdayMeetingBot.Libraries.Core.Extensions;
-using ThursdayMeetingBot.Libraries.Core.Helpers;
 using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
+using ThursdayMeetingBot.Web.Extensions;
+using ThursdayMeetingBot.Web.Helpers;
 
-namespace ThursdayMeetingBot.Libraries.Core.Models.Notification
+namespace ThursdayMeetingBot.Web.Models.Notification
 {
     /// <summary>
     ///     Notification time class.
     /// </summary>
-    public record NotificationDateTime
+    internal record NotificationDateTime
     {
         /// <summary>
         ///     Value.
@@ -23,12 +23,12 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.Notification
         /// <summary>
         ///     Russian description of day of week.
         /// </summary>
-        private string RussianDayOfWeekName => Value.ToDayOfWeekRussianDescription();
+        internal string RussianDayOfWeekName => Value.ToDayOfWeekRussianDescription();
         
         /// <summary>
         ///     Value in Moscow time zone.
         /// </summary>
-        private string MoscowShortTime => Value.ToMoscowTime().ToShortTimeString();
+        internal string MoscowShortTime => Value.ToMoscowTime().ToShortTimeString();
         
         /// <summary>
         ///     Time until notification.

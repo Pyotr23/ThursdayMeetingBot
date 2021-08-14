@@ -2,7 +2,7 @@
 using System.Linq;
 using ThursdayMeetingBot.Web.Constants;
 
-namespace ThursdayMeetingBot.Libraries.Core.Extensions
+namespace ThursdayMeetingBot.Web.Extensions
 {
     /// <summary>
     ///     Date and time extensions.

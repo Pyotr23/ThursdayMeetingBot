@@ -92,24 +92,7 @@
             <param name="utcDateTime"> UTC time. </param>
             <returns> Moscow time. </returns>
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Helpers.DateTimeHelper">
-            <summary>
-                DateTime helper.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.DateTimeHelper.#ctor(Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration})">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="notificationConfigurationOptions"> Notification configuration. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.DateTimeHelper.GetFirstNotificationDateTime">
-            <summary>
-                Get the date and the time of the first notification.
-            </summary>
-            <returns> Class containing the necessary information about the notification time. </returns>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.DateTimeHelper.GetDayOfWeekRussianDescription(System.DateTime)">
+        <member name="M:ThursdayMeetingBot.Web.Extensions.DateTimeExtensions.ToDayOfWeekRussianDescription(System.DateTime)">
             <summary>
                 Get the day of the week in Russian in the parent plural case.
             </summary>
@@ -219,13 +202,14 @@
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Quartz.Interfaces.IQuartzService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Quartz.Interfaces.IQuartzService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
             <summary>
                 Constructor.
             </summary>
             <param name="logger"> Logger. </param>
-            <param name="notificationConfigurationOptions"> Notification settings from appsettings. </param>
+            <param name="options"> Notification settings from appsettings. </param>
             <param name="quartzService"> Service for working with Quartz library. </param>
+            <param name="botService"> Bot service for answer. </param>
         </member>
         <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.Handle(ThursdayMeetingBot.Web.MediatR.Commands.StartCommand,System.Threading.CancellationToken)">
             <summary>
@@ -240,12 +224,13 @@
                 Command "/stop" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler},ThursdayMeetingBot.Libraries.Quartz.Interfaces.IQuartzService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler},ThursdayMeetingBot.Libraries.Quartz.Interfaces.IQuartzService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
             <summary>
                 Constructor.
             </summary>
             <param name="logger"> Logger. </param>
             <param name="quartzService"> Service for work with Quartz library. </param>
+            <param name="botService"> Bot service. </param>
         </member>
         <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.Handle(ThursdayMeetingBot.Web.MediatR.Commands.StopCommand,System.Threading.CancellationToken)">
             <summary>
@@ -275,52 +260,47 @@
         <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.UpdateCommandHandler.Handle(ThursdayMeetingBot.Web.MediatR.Commands.UpdateCommand,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="T:ThursdayMeetingBot.Web.Models.NotificationDateTime">
+        <member name="T:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime">
             <summary>
                 Notification time class.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.Value">
+        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.Value">
             <summary>
                 Value.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.DayOfWeek">
+        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.DayOfWeek">
             <summary>
                 Day of week.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.RussianDayOfWeekName">
+        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.RussianDayOfWeekName">
             <summary>
                 Russian description of day of week.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.MoscowShortTime">
+        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.MoscowShortTime">
             <summary>
                 Value in Moscow time zone.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.DueTime">
+        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.DueTime">
             <summary>
                 Time until notification.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.FormattedDueTime">
+        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.FormattedDueTime">
             <summary>
                 Formatted time until notification.
             </summary>
         </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.BotMessage">
-            <summary>
-                Bot answer.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Models.NotificationDateTime.LogMessage">
+        <member name="P:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.LogMessage">
             <summary>
                 Message for logging.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Models.NotificationDateTime.#ctor(System.DateTime)">
+        <member name="M:ThursdayMeetingBot.Web.Models.Notification.NotificationDateTime.#ctor(System.DateTime)">
             <summary>
                 Constructor.
             </summary>

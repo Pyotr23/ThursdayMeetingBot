@@ -19,17 +19,21 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
     {
         private readonly ILogger<StopCommandHandler> _logger;
         private readonly IQuartzService _quartzService;
+        private readonly IBotService _botService;
 
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
         /// <param name="quartzService"> Service for work with Quartz library. </param>
+        /// <param name="botService"> Bot service. </param>
         public StopCommandHandler(ILogger<StopCommandHandler> logger,
-            IQuartzService quartzService)
+            IQuartzService quartzService,
+            IBotService botService)
         {
             _logger = logger;
             _quartzService = quartzService;
+            _botService = botService;
         }
 
         /// <summary>
@@ -45,8 +49,19 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
 
             _logger.LogInformation($"[{request.Id}] Handle of stop command");
 
-            var result = await _quartzService.DeleteJobAsync(request.ChatId.ToString(), cancellationToken);
+            var isSuccess = await _quartzService.DeleteJobAsync(request.ChatId.ToString(), cancellationToken);
 
+            if (isSuccess)
+            {
+                await _botService
+                    .Client
+                    .SendTextMessageAsync(request.ChatId,
+                        BotAnswer.NotificationsAreDisabled,
+                        cancellationToken: cancellationToken);
+                return Unit.Value;
+            }
+            
+            _logger.LogWarning($"[{request.Id}] Failed when delete job");
             return Unit.Value;
         }
     }
