@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Dictionaries;
 using ThursdayMeetingBot.Web.Interfaces;

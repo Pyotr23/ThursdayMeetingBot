@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Quartz;
+using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Web.Interfaces;
 
 namespace ThursdayMeetingBot.Web.Quartz.Jobs

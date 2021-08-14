@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
-using ThursdayMeetingBot.Web.Configurations;
+using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Models;
 

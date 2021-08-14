@@ -1,6 +1,6 @@
 ﻿using Telegram.Bot;
 
-namespace ThursdayMeetingBot.Web.Interfaces
+namespace ThursdayMeetingBot.Libraries.Core.Services.Telegram
 {
     /// <summary>
     ///     Service for managing telegram bot client.

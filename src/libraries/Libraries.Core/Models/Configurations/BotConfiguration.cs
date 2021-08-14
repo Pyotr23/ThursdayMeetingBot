@@ -1,4 +1,4 @@
-﻿namespace ThursdayMeetingBot.Web.Configurations
+﻿namespace ThursdayMeetingBot.Libraries.Core.Models.Configurations
 {
     /// <summary>
     ///     Configuration for bot.

@@ -1,4 +1,5 @@
-﻿using ThursdayMeetingBot.Web.Interfaces;
+﻿using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
+using ThursdayMeetingBot.Web.Interfaces;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers
 {

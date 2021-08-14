@@ -4,36 +4,6 @@
         <name>ThursdayMeetingBot.Web</name>
     </assembly>
     <members>
-        <member name="T:ThursdayMeetingBot.Web.Configurations.BotConfiguration">
-            <summary>
-                Configuration for bot.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Configurations.BotConfiguration.AccessToken">
-            <summary>
-                Access token.    
-            </summary>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Configurations.NotificationConfiguration">
-            <summary>
-                Configuration for an notification.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Configurations.NotificationConfiguration.DayOfWeek">
-            <summary>
-                The day of the week on which the notification will occur.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Configurations.NotificationConfiguration.Hour">
-            <summary>
-                Notification UTC hour.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Configurations.NotificationConfiguration.Minute">
-            <summary>
-                Minute of notification.
-            </summary>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.Constants.DateTimeConstant">
             <summary>
                 Date and time constants.
@@ -59,7 +29,7 @@
                 Controller for manage bot configuration.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Controllers.BotConfigurationController.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.BotConfiguration},Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Controllers.BotConfigurationController})">
+        <member name="M:ThursdayMeetingBot.Web.Controllers.BotConfigurationController.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.BotConfiguration},Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Controllers.BotConfigurationController})">
             <summary>
                 Constructor.
             </summary>
@@ -148,7 +118,7 @@
                 DateTime helper.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.DateTimeHelper.#ctor(Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.NotificationConfiguration})">
+        <member name="M:ThursdayMeetingBot.Web.Helpers.DateTimeHelper.#ctor(Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration})">
             <summary>
                 Constructor.
             </summary>
@@ -166,33 +136,6 @@
             </summary>
             <param name="dateTime"> Date with time. </param>
             <returns> Day of the week in Russian in the parent plural case. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Helpers.EnvironmentHelper">
-            <summary>
-                A helper for working with the environment.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.EnvironmentHelper.GetEnvironment">
-            <summary>
-                Get the environment.
-            </summary>
-            <returns> Environment (Development, Production and etc.). </returns>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Helpers.EnvironmentHelper.IsDevelopment">
-            <summary>
-                Is the environment Development.
-            </summary>
-            <returns> Check result. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Interfaces.IBotService">
-            <summary>
-                Service for managing telegram bot client.
-            </summary>
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Interfaces.IBotService.Client">
-            <summary>
-                Telegram bot client.
-            </summary>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Interfaces.IQuartzService">
             <summary>
@@ -295,7 +238,7 @@
                 Bot service
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.BotCommandHandler.#ctor(ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.BotCommandHandler.#ctor(ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -321,7 +264,7 @@
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.NotificationConfiguration},ThursdayMeetingBot.Web.Interfaces.IBotService,ThursdayMeetingBot.Web.Interfaces.IQuartzService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService,ThursdayMeetingBot.Web.Interfaces.IQuartzService)">
             <summary>
                 Constructor.
             </summary>
@@ -341,7 +284,7 @@
                 Command "/stop" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler},ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler},ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -500,7 +443,7 @@
                 Notification text message.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob},ThursdayMeetingBot.Web.Interfaces.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.Quartz.Jobs.TextNotificationJob},ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -512,18 +455,6 @@
                 Send a text message to the channel.
             </summary>
             <param name="context"> IJobExecutionContext. </param>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Services.BotService">
-            <inheritdoc />
-        </member>
-        <member name="P:ThursdayMeetingBot.Web.Services.BotService.Client">
-            <inheritdoc />
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Services.BotService.#ctor(Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Web.Configurations.BotConfiguration})">
-            <summary>
-                Constructor.
-            </summary>
-            <param name="config"> Bot configuration options. </param>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Services.QuartzService">
             <inheritdoc cref="T:ThursdayMeetingBot.Web.Interfaces.IQuartzService"/>

@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using ThursdayMeetingBot.Libraries.Core.Helpers;
 using ThursdayMeetingBot.Web.Helpers;
 
 namespace ThursdayMeetingBot.Web
@@ -29,8 +30,8 @@ namespace ThursdayMeetingBot.Web
         {
             return Host
                 .CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((_, builder)
-                    => builder.AddConfiguration(BuildConfiguration(args)))
+                // .ConfigureAppConfiguration((_, builder)
+                //     => builder.AddConfiguration(BuildConfiguration(args)))
                 .ConfigureWebHostDefaults(webHostBuilder => webHostBuilder.UseStartup<Startup>());
         }
         
@@ -43,9 +44,9 @@ namespace ThursdayMeetingBot.Web
         {
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{EnvironmentHelper.GetEnvironment()}.json", 
-                    true, 
-                    true)
+                // .AddJsonFile($"appsettings.{EnvironmentHelper.GetEnvironment()}.json", 
+                //     true, 
+                //     true)
                 .AddEnvironmentVariables();
 
             if(EnvironmentHelper.IsDevelopment())

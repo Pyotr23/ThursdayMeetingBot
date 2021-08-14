@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
-using ThursdayMeetingBot.Web.Configurations;
-using ThursdayMeetingBot.Web.Constants;
-using ThursdayMeetingBot.Web.Helpers;
-using ThursdayMeetingBot.Web.Interfaces;
+using ThursdayMeetingBot.Libraries.Core.Constants;
+using ThursdayMeetingBot.Libraries.Core.Helpers;
+using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
+using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 
-namespace ThursdayMeetingBot.Web.Services
+namespace ThursdayMeetingBot.Libraries.Services.Telegram
 {
     /// <inheritdoc />
     public class BotService : IBotService
