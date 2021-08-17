@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Quartz;
-using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
+using ThursdayMeetingBot.Libraries.Core.Models.Quartz;
+using ThursdayMeetingBot.Libraries.Core.Services.Quartz;
 using ThursdayMeetingBot.Libraries.Quartz.Jobs;
-using ThursdayMeetingBot.Libraries.Quartz.Models;
 
 namespace ThursdayMeetingBot.Libraries.Services.Quartz
 {
