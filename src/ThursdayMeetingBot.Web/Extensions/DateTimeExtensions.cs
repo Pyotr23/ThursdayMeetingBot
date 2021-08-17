@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using ThursdayMeetingBot.Web.Constants;
+using ThursdayMeetingBot.Libraries.Core.Constants;
 
 namespace ThursdayMeetingBot.Web.Extensions
 {

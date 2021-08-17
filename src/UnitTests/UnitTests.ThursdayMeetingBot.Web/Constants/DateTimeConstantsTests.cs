@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using ThursdayMeetingBot.Libraries.Core.Constants;
 using ThursdayMeetingBot.Web.Constants;
 
 namespace UnitTests.ThursdayMeetingBot.Web.Constants
