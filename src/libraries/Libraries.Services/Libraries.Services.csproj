@@ -20,4 +20,8 @@
       <PackageReference Include="Quartz" Version="3.3.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Wikipedia\Helpers" />
+    </ItemGroup>
+
 </Project>

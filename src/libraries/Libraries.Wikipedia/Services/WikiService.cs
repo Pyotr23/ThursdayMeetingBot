@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Policy;
+using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
-using ThursdayMeetingBot.Libraries.Core.Constants;
 using ThursdayMeetingBot.Libraries.Core.Services.Wikipedia;
-using ThursdayMeetingBot.Libraries.Services.Wikipedia.Helpers;
+using ThursdayMeetingBot.Libraries.Wikipedia.Constants;
+using ThursdayMeetingBot.Libraries.Wikipedia.Helpers;
 
-namespace ThursdayMeetingBot.Libraries.Services.Wikipedia
+namespace ThursdayMeetingBot.Libraries.Wikipedia.Services
 {
     /// <summary>
     /// <inheritdoc cref="IWikiService"/>
@@ -27,9 +26,17 @@ namespace ThursdayMeetingBot.Libraries.Services.Wikipedia
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public string GetHoliday()
+        public async Task<string> GetHoliday()
         {
             var url = UrlHelper.CreateWikiDayFullAddress();
+            var document = await _htmlWeb.LoadFromWebAsync(url);
+
+            var contentNodes = document
+                .GetElementbyId(CssName.ContentId)
+                .FirstChild
+                .ChildNodes;
+            
+            
         }
     }
 }

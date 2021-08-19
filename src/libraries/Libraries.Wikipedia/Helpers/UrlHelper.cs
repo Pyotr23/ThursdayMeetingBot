@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using ThursdayMeetingBot.Libraries.Core.Constants;
+using ThursdayMeetingBot.Libraries.Wikipedia.Constants;
 
-namespace ThursdayMeetingBot.Libraries.Services.Wikipedia.Helpers
+namespace ThursdayMeetingBot.Libraries.Wikipedia.Helpers
 {
     internal static class UrlHelper
     {

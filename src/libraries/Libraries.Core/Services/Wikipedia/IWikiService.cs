@@ -1,7 +1,7 @@
 ﻿namespace ThursdayMeetingBot.Libraries.Core.Services.Wikipedia
 {
     /// <summary>
-    ///     Service for getting info from Wikipedia. 
+    ///     Service for getting info from Libraries.Wikipedia. 
     /// </summary>
     public interface IWikiService
     {
