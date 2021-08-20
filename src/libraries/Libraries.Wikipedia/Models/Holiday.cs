@@ -1,14 +1,20 @@
-﻿namespace ThursdayMeetingBot.Libraries.Wikipedia.Models
+﻿using System.Text.RegularExpressions;
+
+namespace ThursdayMeetingBot.Libraries.Wikipedia.Models
 {
-    internal sealed record Holiday
+    internal class Holiday
     {
-        internal string? Country { get; private set; }
+        private const string Pattern 
+            = @"(\(англ.\)|русск.|\d?&#\d{2,3};|См\.\s.*|источник не указан.*|\[en\]|\(порт.\)|\(эст.\))";
+
+        internal string Text { get; }
         
-        internal string Description { get; private set; }
-        
-        internal Holiday(string text)
+        internal Holiday(string rawText)
         {
-            
+            Text = new Regex(Pattern)
+                .Replace(rawText, " ")
+                .Trim()
+                .TrimEnd('.');;
         }
     }
 }
