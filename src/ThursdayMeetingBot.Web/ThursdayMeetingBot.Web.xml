@@ -4,26 +4,6 @@
         <name>ThursdayMeetingBot.Web</name>
     </assembly>
     <members>
-        <member name="T:ThursdayMeetingBot.Web.Constants.DateTimeConstant">
-            <summary>
-                Date and time constants.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.DaysInWeek">
-            <summary>
-                The number of days in a week.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.DayOfWeekRussianDescriptions">
-            <summary>
-                Names of days of the week in Russian in the plural in the genitive case.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.MoscowTimeZone">
-            <summary>
-                Moscow time zone.
-            </summary>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.Controllers.BotConfigurationController">
             <summary>
                 Controller for manage bot configuration.

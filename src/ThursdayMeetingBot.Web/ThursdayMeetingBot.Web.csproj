@@ -35,6 +35,7 @@
       <ProjectReference Include="..\libraries\Libraries.Data.MigrationStore\Libraries.Data.MigrationStore.csproj" />
       <ProjectReference Include="..\libraries\Libraries.Data\Libraries.Data.csproj" />
       <ProjectReference Include="..\libraries\Libraries.Services\Libraries.Services.csproj" />
+      <ProjectReference Include="..\libraries\Libraries.Wikipedia\Libraries.Wikipedia.csproj" />
     </ItemGroup>
 
 </Project>
