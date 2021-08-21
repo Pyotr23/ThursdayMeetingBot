@@ -55,7 +55,7 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
             if (!long.TryParse(keyName, out var chatId))
                 _logger.LogError($"Can't convert {keyName} to chat id");
 
-            var holiday = await _wikiService.GetHolidayText();
+            var holiday = await _wikiService.GetHolidayTextAsync();
             
             await _botService
                 .Client

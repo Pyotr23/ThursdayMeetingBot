@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using ThursdayMeetingBot.Libraries.Core.Services.Wikipedia;
-using ThursdayMeetingBot.Libraries.Wikipedia.Constants;
 using ThursdayMeetingBot.Libraries.Wikipedia.Helpers;
-using ThursdayMeetingBot.Libraries.Wikipedia.Parsers;
+using ThursdayMeetingBot.Libraries.Wikipedia.Models;
+using ThursdayMeetingBot.Libraries.Wikipedia.Utils;
 
 namespace ThursdayMeetingBot.Libraries.Wikipedia.Services
 {
@@ -16,34 +17,42 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Services
     public class WikiService : IWikiService
     {
         private readonly ILogger<WikiService> _logger;
-        private readonly HtmlWeb _htmlWeb = new HtmlWeb();
-        
+
         public WikiService(ILogger<WikiService> logger)
         {
             _logger = logger;
         }
         
         /// <summary>
-        /// <inheritdoc cref="IWikiService.GetHoliday"/>
+        /// <inheritdoc cref="IWikiService.GetHolidayTextAsync"/>
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task<string> GetHolidayText()
+        public async Task<string> GetHolidayTextAsync()
+        {
+            _logger.LogInformation("Get holiday text");
+            var holidays = await GetHolidaysAsync();
+            var text = GetRandomHolidayText(holidays);
+            _logger.LogInformation($"Holiday text: {text}");
+            return text;
+        }
+
+        private async Task<IEnumerable<Holiday>> GetHolidaysAsync()
         {
             var url = UrlHelper.CreateWikiDayFullAddress();
-            var document = await _htmlWeb.LoadFromWebAsync(url);
-
-            var contentNodes = document
-                .GetElementbyId(CssConstant.ContentId)
-                .FirstChild
-                .ChildNodes;
-
-            var parser = new HolidayParser(contentNodes);
+            _logger.LogInformation($"Site page is loaded at \"{url}\"");
+            var document = await new HtmlWeb().LoadFromWebAsync(url);
+            _logger.LogInformation("Document is loaded");
+            var parser = new HolidayParser(document);
             parser.Parse();
-            var holidays = parser.AllHolidays;
+            return parser.AllHolidays.ToList();
+        }
+
+        private static string GetRandomHolidayText(IEnumerable<Holiday> holidays)
+        {
+            var holidayArray = holidays.ToArray();
             var random = new Random();
-            var index = random.Next(holidays.Count);
-            return holidays.ElementAtOrDefault(index)?.Text 
+            var index = random.Next(holidayArray.Length);
+            return holidayArray.ElementAtOrDefault(index)?.Text 
                    ?? string.Empty;
         }
     }

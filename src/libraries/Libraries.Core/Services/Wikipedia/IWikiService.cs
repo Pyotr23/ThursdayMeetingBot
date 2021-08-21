@@ -11,6 +11,6 @@ namespace ThursdayMeetingBot.Libraries.Core.Services.Wikipedia
         ///     Get holiday info.
         /// </summary>
         /// <returns> String with date and description of holiday. </returns>
-        Task<string> GetHolidayText();
+        Task<string> GetHolidayTextAsync();
     }
 }

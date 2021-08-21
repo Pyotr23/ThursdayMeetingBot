@@ -44,8 +44,7 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
                 // .StartAt(new DateTimeOffset(dateTime))
                 .WithSimpleSchedule(builder 
                     => builder
-                        .WithIntervalInSeconds(30)
-                        .RepeatForever())
+                        .WithIntervalInSeconds(30))
                 .Build();
 
             await _scheduler.ScheduleJob(job, trigger, cancellationToken);
