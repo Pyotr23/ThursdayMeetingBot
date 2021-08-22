@@ -25,16 +25,14 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
         }
 
         /// <inheritdoc cref="IQuartzService.ScheduleJobAsync"/>
-        public async Task ScheduleJobAsync(NotificationInfo info, CancellationToken cancellationToken)
+        public async Task ScheduleJobAsync(long chatId, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Start schedule job ({info})");
+            _logger.LogInformation($"Start schedule job for chat {chatId}");
             
-            var (chatId, notificationMessage) = info;
             
             var job = JobBuilder
                 .Create<TextNotificationJob>()
                 .WithIdentity(chatId.ToString())
-                .UsingJobData(nameof(TextNotificationJob.NotificationMessage), notificationMessage)
                 .Build();
 
             var trigger = TriggerBuilder

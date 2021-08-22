@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Quartz;
+using ThursdayMeetingBot.Libraries.Core.Constants;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Libraries.Core.Services.Wikipedia;
 
@@ -14,21 +15,16 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
         private readonly ILogger<TextNotificationJob> _logger;
         private readonly IBotService _botService;
         private readonly IWikiService _wikiService;
-        
-        /// <summary>
-        ///     Notification text message.
-        /// </summary>
-        public string? NotificationMessage { private get; set; }
 
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
         /// <param name="botService"> Bot service. </param>
+        /// <param name="wikiService"> Service for Wikipedia parsing. </param>
         public TextNotificationJob(
             ILogger<TextNotificationJob> logger, 
-            IBotService botService
-            ,
+            IBotService botService,
             IWikiService wikiService
             )
         {
@@ -43,10 +39,6 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
         /// <param name="context"> IJobExecutionContext. </param>
         public async Task Execute(IJobExecutionContext context)
         {
-            var dataMap = context.MergedJobDataMap;
-
-            NotificationMessage = dataMap.GetString(nameof(NotificationMessage));
-            
             var keyName = context
                 .JobDetail
                 .Key
@@ -56,14 +48,14 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
                 _logger.LogError($"Can't convert {keyName} to chat id");
 
             var holiday = await _wikiService.GetHolidayTextAsync();
-            
-            await _botService
-                .Client
-                .SendTextMessageAsync(chatId, holiday, cancellationToken: context.CancellationToken);
-            
+
+            var notificationText = string.IsNullOrEmpty(holiday)
+                ? BotAnswer.NotificationMessageWithoutReason
+                : BotAnswer.NotificationMessageWithReason + holiday;
+
             var result = await _botService
                 .Client
-                .SendTextMessageAsync(chatId, NotificationMessage, cancellationToken: context.CancellationToken);
+                .SendTextMessageAsync(chatId, notificationText, cancellationToken: context.CancellationToken);
 
             if (result is null)
             {
