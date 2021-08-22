@@ -4,6 +4,9 @@ using HtmlAgilityPack;
 
 namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
 {
+    /// <summary>
+    ///     Class for working with DOM nodes.
+    /// </summary>
     internal class NodeExtractor
     {
         private const string Ul = "ul";
@@ -13,6 +16,10 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
         private readonly HtmlNode[]? _ulNodes;
         private int _skipNodesCount = 0;
         
+        /// <summary>
+        ///     Constructor.
+        /// </summary>
+        /// <param name="nodes"> Collection of nodes from which need to extract information. </param>
         internal NodeExtractor(HtmlNodeCollection nodes)
         {
             _nodes = nodes;
@@ -21,6 +28,11 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
                 .ToArray();
         }
         
+        /// <summary>
+        ///     Verify that the node exists.
+        /// </summary>
+        /// <param name="innerTextBeginning"> Beginning of the inner text. </param>
+        /// <returns> True if node exists. </returns>
         internal bool IsNodeExists(string innerTextBeginning)
         {
             return _nodes.Any(htmlNode 
@@ -29,6 +41,10 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
                     .StartsWith(innerTextBeginning));
         }
         
+        /// <summary>
+        ///     Get collection of "li" HTML elements.
+        /// </summary>
+        /// <returns></returns>
         internal IEnumerable<HtmlNode> GetLiNodes()
         {
             var ulNode = _ulNodes?

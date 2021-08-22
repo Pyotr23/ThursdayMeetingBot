@@ -5,6 +5,9 @@ using ThursdayMeetingBot.Libraries.Wikipedia.Models;
 
 namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
 {
+    /// <summary>
+    ///     Class for extracting holidays from a HTML document.
+    /// </summary>
     internal sealed class HolidayParser
     {
         private const string InternationalNodeInnerTextBeginning = "Международные";
@@ -21,6 +24,9 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
         private readonly List<Holiday> _publicHolidays = new(ListCapacity);
         private readonly List<Holiday> _nationalHolidays = new(ListCapacity);
 
+        /// <summary>
+        ///     Collection of extracted holidays.
+        /// </summary>
         internal IEnumerable<Holiday> AllHolidays
         {
             get
@@ -36,6 +42,10 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
             }
         }
 
+        /// <summary>
+        ///     Constructor.
+        /// </summary>
+        /// <param name="document"> HTML document. </param>
         internal HolidayParser(HtmlDocument document)
         {
             var holidayNodes = document
@@ -46,6 +56,9 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
             _nodeExtractor = new NodeExtractor(holidayNodes);
         }
 
+        /// <summary>
+        ///     Parse the HTML document.
+        /// </summary>
         internal void Parse()
         {
             FillInternationalHolidays();
