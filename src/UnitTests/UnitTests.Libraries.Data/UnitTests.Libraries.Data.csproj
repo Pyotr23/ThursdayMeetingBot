@@ -4,6 +4,10 @@
         <TargetFramework>net5.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
+
+        <RootNamespace>Tests.Unit.ThursdayMeetingBot.Libraries.Data</RootNamespace>
+
+        <AssemblyName>Tests.Unit.ThursdayMeetingBot.Libraries.Data</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

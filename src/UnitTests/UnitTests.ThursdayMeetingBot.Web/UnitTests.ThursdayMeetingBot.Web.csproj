@@ -4,6 +4,10 @@
         <TargetFramework>net5.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
+
+        <AssemblyName>Tests.Unit.ThursdayMeetingBot.Web</AssemblyName>
+
+        <RootNamespace>Tests.Unit.ThursdayMeetingBot.Web</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
