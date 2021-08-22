@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using HtmlAgilityPack;
 using ThursdayMeetingBot.Libraries.Wikipedia.Models;
 
+[assembly: InternalsVisibleTo("Tests.Unit.ThursdayMeetingBot.Libraries.Wikipedia")]
 namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
 {
     /// <summary>
@@ -88,7 +90,11 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
         {
             return _nodeExtractor
                 .GetLiNodes()
-                .Select(htmlNode => new Holiday(htmlNode.InnerText));
+                .SelectMany(htmlNode => _nodeExtractor.HasUl(htmlNode)
+                    ? _nodeExtractor
+                        .GetLiNodes(htmlNode)
+                        .Select(n => new Holiday(htmlNode.InnerText, n.InnerText))
+                    : new Holiday[] {new (htmlNode.InnerText)});
         }
     }
 }

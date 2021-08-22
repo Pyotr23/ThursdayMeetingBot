@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\src\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj" />
       <ProjectReference Include="..\..\ThursdayMeetingBot.Web\ThursdayMeetingBot.Web.csproj" />
     </ItemGroup>
 

@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ThursdayMeetingBot.Libraries.Wikipedia.Models
 {
@@ -18,13 +20,57 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Models
         /// <summary>
         ///     Constructor.
         /// </summary>
-        /// <param name="rawText"> The text from the site that needs to be cleared of unnecessary words. </param>
-        internal Holiday(string rawText)
+        /// <param name="text"> The text from the site that needs to be cleared of unnecessary words. </param>
+        internal Holiday(string text)
         {
-            Text = new Regex(Pattern)
-                .Replace(rawText, " ")
+            ClearText(ref text);
+            Text = text;
+        }
+
+        /// <summary>
+        ///     Constructor.
+        /// </summary>
+        /// <param name="countryName"> Country name with unnecessary symbols. </param>
+        /// <param name="text"> The text from the site that needs to be cleared of unnecessary words. </param>
+        internal Holiday(string countryName, string text)
+        {
+            countryName = GetPartBeforeColons(countryName);
+            ClearText(ref countryName);
+            ClearText(ref text);
+            Text = text.Contains(" — ")
+                ? countryName + ", " + text
+                : countryName + " — " + text;
+        }
+
+        private static string GetPartBeforeColons(string text)
+        {
+            var chars = text
+                .TakeWhile(c => c != ':')
+                .ToArray();
+            
+            return new string(chars);
+        }
+
+        private static void ClearText(ref string text)
+        {
+            ConfirmRegexReplace(ref text);
+            Trim(ref text);
+            var words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            text = string.Join(' ', words); 
+        }
+
+        private static void ConfirmRegexReplace(ref string text)
+        {
+            text = new Regex(Pattern)
+                .Replace(text, " ");
+        }
+
+        private static void Trim(ref string text)
+        {
+            text = text
                 .Trim()
-                .TrimEnd('.');;
+                .TrimEnd('.')
+                .TrimEnd();
         }
     }
 }

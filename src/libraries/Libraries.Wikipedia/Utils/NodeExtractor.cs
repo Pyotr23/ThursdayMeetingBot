@@ -59,5 +59,37 @@ namespace ThursdayMeetingBot.Libraries.Wikipedia.Utils
                 .ChildNodes
                 .Where(n => n.Name == Li);
         }
+        
+        /// <summary>
+        ///     Get collection of "li" HTML elements.
+        /// </summary>
+        /// <param name="node"> HTML element. </param>
+        /// <returns> Collection of HTML nodes. </returns>
+        internal IEnumerable<HtmlNode> GetLiNodes(HtmlNode node)
+        {
+            var ulNode = node
+                .ChildNodes
+                .FindFirst(Ul);
+
+            if (ulNode is null)
+                return Enumerable.Empty<HtmlNode>();
+            
+            return 
+                ulNode
+                .ChildNodes
+                .Where(n => n.Name == Li);
+        }
+
+        /// <summary>
+        ///     Checks whether the node contains a list (ul).
+        /// </summary>
+        /// <param name="node"> HTML node. </param>
+        /// <returns> True if contains . </returns>
+        internal bool HasUl(HtmlNode node)
+        {
+            return node
+                .ChildNodes
+                .Any(n => n.Name == Ul);
+        }
     }
 }
