@@ -9,7 +9,7 @@ namespace Tests.Unit.ThursdayMeetingBot.Libraries.Wikipedia.Utils
     public class HolidayParserTests
     {
         [Test]
-        public void Parse_TheFirstOfAugustHtml_Correctparsing()
+        public void Parse_TheFirstOfAugustHtml_CorrectParsing()
         {
             var currentDirectory = Directory.GetCurrentDirectory();
             var htmlFilePath = Path.Combine(currentDirectory, @"HtmlDocuments\the-first-of-august.html");

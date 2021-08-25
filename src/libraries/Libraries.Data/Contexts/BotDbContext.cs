@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using ThursdayMeetingBot.Libraries.Data.Helpers;
 using ThursdayMeetingBot.Libraries.Data.Models;
@@ -37,7 +38,19 @@ namespace ThursdayMeetingBot.Libraries.Data.Contexts
         ///     Table with messages.
         /// </summary>
         public DbSet<Message> Messages { get; set; }
-        
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var connectionStringBuilder = new SqliteConnectionStringBuilder
+            {
+                DataSource = "ThursdayMeetingBot.db"
+            };
+            var connectionString = connectionStringBuilder.ToString();
+            var connection = new SqliteConnection(connectionString);
+            optionsBuilder.UseSqlite(connection, 
+                builder => builder.MigrationsAssembly("ThursdayMeetingBot.Libraries.Data.MigrationStore"));
+        }
+
         /// <summary>
         ///     Method executing while models creating.
         /// </summary>
@@ -46,9 +59,9 @@ namespace ThursdayMeetingBot.Libraries.Data.Contexts
         {
             base.OnModelCreating(modelBuilder);
             
-            Func<string, string> nameChangeRule = StringHelper.ToSnakeCase;
-            var caseSetter = new CaseSetter(nameChangeRule, modelBuilder);
-            caseSetter.ChangeDatabaseEntityNames();
+            // Func<string, string> nameChangeRule = StringHelper.ToSnakeCase;
+            // var caseSetter = new CaseSetter(nameChangeRule, modelBuilder);
+            // caseSetter.ChangeDatabaseEntityNames();
         }
     }
 }

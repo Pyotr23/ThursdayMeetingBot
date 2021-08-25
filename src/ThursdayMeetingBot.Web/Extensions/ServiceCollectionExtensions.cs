@@ -42,19 +42,22 @@ namespace ThursdayMeetingBot.Web.Extensions
             IConfiguration configuration) where T : DbContext
         {
             const string migrationAssembly = AssemblyConstant.MigrationAssemblyName;
-
+            
+            
             void PostgreOptionsAction(NpgsqlDbContextOptionsBuilder builder) 
                 => builder.MigrationsAssembly(migrationAssembly);
-
+            
             var connectionString = configuration
                 .GetSection(nameof(DbConfiguration))
                 .Get<DbConfiguration>()
                 .ConnectionString;
-
+            
             void DbContextOptionsAction(DbContextOptionsBuilder builder) 
                 => builder.UseNpgsql(connectionString, PostgreOptionsAction);
-
-            return services.AddDbContext<T>(DbContextOptionsAction);
+                
+            return services                
+                .AddEntityFrameworkSqlite()
+                .AddDbContext<T>();
         }
 
         internal static IServiceCollection AddServices<TDbContext>(
