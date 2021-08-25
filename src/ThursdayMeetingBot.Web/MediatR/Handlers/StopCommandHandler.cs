@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using ThursdayMeetingBot.Libraries.Core.Constants;
+using ThursdayMeetingBot.Libraries.Core.Services.Quartz;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
-using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
-using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 
 namespace ThursdayMeetingBot.Web.MediatR.Handlers
@@ -47,19 +47,14 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
 
             _logger.LogInformation($"[{request.Id}] Handle of stop command");
 
-            var isSuccess = await _quartzService.DeleteJobAsync(request.ChatId.ToString(), cancellationToken);
+            await _quartzService.DeleteJobAsync(request.ChatId.ToString(), cancellationToken);
 
-            if (isSuccess)
-            {
-                await _botService
-                    .Client
-                    .SendTextMessageAsync(request.ChatId,
-                        BotAnswer.NotificationsAreDisabled,
-                        cancellationToken: cancellationToken);
-                return Unit.Value;
-            }
+            await _botService
+                .Client
+                .SendTextMessageAsync(request.ChatId,
+                    BotAnswer.NotificationsAreDisabled,
+                    cancellationToken: cancellationToken);
             
-            _logger.LogWarning($"[{request.Id}] Failed when delete job");
             return Unit.Value;
         }
     }

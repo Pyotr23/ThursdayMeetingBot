@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
 using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
 using ThursdayMeetingBot.Libraries.Data.Models;
 using Xunit;
 
-namespace UnitTests.ThursdayMeetingBot.Libraries.Data.MapperProfiles
+namespace Tests.Unit.ThursdayMeetingBot.Libraries.Data.MapperProfiles
 {
     public class ChatMapperProfileTests
     {

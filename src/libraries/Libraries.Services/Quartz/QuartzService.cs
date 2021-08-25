@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Quartz;
-using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
+using ThursdayMeetingBot.Libraries.Core.Models.Quartz;
+using ThursdayMeetingBot.Libraries.Core.Services.Quartz;
 using ThursdayMeetingBot.Libraries.Quartz.Jobs;
-using ThursdayMeetingBot.Libraries.Quartz.Models;
 
 namespace ThursdayMeetingBot.Libraries.Services.Quartz
 {
@@ -25,16 +25,14 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
         }
 
         /// <inheritdoc cref="IQuartzService.ScheduleJobAsync"/>
-        public async Task ScheduleJobAsync(NotificationInfo info, CancellationToken cancellationToken)
+        public async Task ScheduleJobAsync(long chatId, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Start schedule job ({info})");
+            _logger.LogInformation($"Start schedule job for chat {chatId}");
             
-            var (chatId, notificationMessage) = info;
             
             var job = JobBuilder
                 .Create<TextNotificationJob>()
                 .WithIdentity(chatId.ToString())
-                .UsingJobData(nameof(TextNotificationJob.NotificationMessage), notificationMessage)
                 .Build();
 
             var trigger = TriggerBuilder
@@ -44,8 +42,7 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
                 // .StartAt(new DateTimeOffset(dateTime))
                 .WithSimpleSchedule(builder 
                     => builder
-                        .WithIntervalInSeconds(30)
-                        .RepeatForever())
+                        .WithIntervalInSeconds(30))
                 .Build();
 
             await _scheduler.ScheduleJob(job, trigger, cancellationToken);

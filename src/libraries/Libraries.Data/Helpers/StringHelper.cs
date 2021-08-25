@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
-[assembly: InternalsVisibleTo("UnitTests.ThursdayMeetingBot.Libraries.Data")]
+[assembly: InternalsVisibleTo("Tests.Unit.ThursdayMeetingBot.Libraries.Data")]
 namespace ThursdayMeetingBot.Libraries.Data.Helpers
 {
     /// <summary>

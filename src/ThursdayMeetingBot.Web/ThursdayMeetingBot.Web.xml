@@ -4,26 +4,6 @@
         <name>ThursdayMeetingBot.Web</name>
     </assembly>
     <members>
-        <member name="T:ThursdayMeetingBot.Web.Constants.DateTimeConstant">
-            <summary>
-                Date and time constants.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.DaysInWeek">
-            <summary>
-                The number of days in a week.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.DayOfWeekRussianDescriptions">
-            <summary>
-                Names of days of the week in Russian in the plural in the genitive case.
-            </summary>
-        </member>
-        <member name="F:ThursdayMeetingBot.Web.Constants.DateTimeConstant.MoscowTimeZone">
-            <summary>
-                Moscow time zone.
-            </summary>
-        </member>
         <member name="T:ThursdayMeetingBot.Web.Controllers.BotConfigurationController">
             <summary>
                 Controller for manage bot configuration.
@@ -61,24 +41,6 @@
             </summary>
             <param name="update"> New update from bot. </param>
             <returns> Ok Action or error. </returns>
-        </member>
-        <member name="T:ThursdayMeetingBot.Web.Dictionaries.TimerDictionary">
-            <summary>
-                Dictionary of timers.
-            </summary>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Dictionaries.TimerDictionary.AddAsync(System.Int64,System.Threading.Timer)">
-            <summary>
-                Add to dictionary a new key-value pair.
-            </summary>
-            <param name="id"> Identificator-key. </param>
-            <param name="timer"> Timer-value. </param>
-        </member>
-        <member name="M:ThursdayMeetingBot.Web.Dictionaries.TimerDictionary.DeleteAsync(System.Int64)">
-            <summary>
-                Stop and delete existing timer.
-            </summary>
-            <param name="id"> Timer identificator. </param>
         </member>
         <member name="T:ThursdayMeetingBot.Web.Extensions.DateTimeExtensions">
             <summary>
@@ -202,7 +164,7 @@
                 Command "/start" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Quartz.Interfaces.IQuartzService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler`1.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StartCommandHandler{`0}},Microsoft.Extensions.Options.IOptions{ThursdayMeetingBot.Libraries.Core.Models.Configurations.NotificationConfiguration},ThursdayMeetingBot.Libraries.Core.Services.Quartz.IQuartzService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
             <summary>
                 Constructor.
             </summary>
@@ -224,7 +186,7 @@
                 Command "/stop" handler.
             </summary>
         </member>
-        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler},ThursdayMeetingBot.Libraries.Quartz.Interfaces.IQuartzService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
+        <member name="M:ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{ThursdayMeetingBot.Web.MediatR.Handlers.StopCommandHandler},ThursdayMeetingBot.Libraries.Core.Services.Quartz.IQuartzService,ThursdayMeetingBot.Libraries.Core.Services.Telegram.IBotService)">
             <summary>
                 Constructor.
             </summary>

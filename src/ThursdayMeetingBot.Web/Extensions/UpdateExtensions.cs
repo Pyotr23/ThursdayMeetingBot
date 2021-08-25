@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using ThursdayMeetingBot.Libraries.Core.Extensions;
 
 namespace ThursdayMeetingBot.Web.Extensions
 {

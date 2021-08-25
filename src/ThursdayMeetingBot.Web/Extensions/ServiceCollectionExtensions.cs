@@ -5,15 +5,17 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using Quartz.Spi;
 using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
+using ThursdayMeetingBot.Libraries.Core.Services.Quartz;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram.Entity;
+using ThursdayMeetingBot.Libraries.Core.Services.Wikipedia;
 using ThursdayMeetingBot.Libraries.Data.MapperProfiles;
-using ThursdayMeetingBot.Libraries.Quartz.Interfaces;
 using ThursdayMeetingBot.Libraries.Quartz.Jobs;
 using ThursdayMeetingBot.Libraries.Quartz.Jobs.Factory;
 using ThursdayMeetingBot.Libraries.Services.Quartz;
 using ThursdayMeetingBot.Libraries.Services.Telegram;
 using ThursdayMeetingBot.Libraries.Services.Telegram.Entity;
+using ThursdayMeetingBot.Libraries.Wikipedia.Services;
 using ThursdayMeetingBot.Web.Constants;
 using ThursdayMeetingBot.Web.Helpers;
 using ThursdayMeetingBot.Web.MapperProfiles;
@@ -66,6 +68,7 @@ namespace ThursdayMeetingBot.Web.Extensions
             
             services.TryAddSingleton<IBotService, BotService>();
             services.TryAddSingleton<IQuartzService, QuartzService>();
+            services.TryAddSingleton<IWikiService, WikiService>();
 
             return services;
         }

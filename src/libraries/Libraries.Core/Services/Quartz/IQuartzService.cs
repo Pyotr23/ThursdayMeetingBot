@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using ThursdayMeetingBot.Libraries.Quartz.Models;
+using ThursdayMeetingBot.Libraries.Core.Models.Quartz;
 
-namespace ThursdayMeetingBot.Libraries.Quartz.Interfaces
+namespace ThursdayMeetingBot.Libraries.Core.Services.Quartz
 {
     /// <summary>
     ///     Hosted service using Quartz library.
@@ -12,10 +12,10 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Interfaces
         /// <summary>
         ///     Create job.
         /// </summary>
-        /// <param name="info"> Information for creating job. </param>
+        /// <param name="chatId"> Chat identificator. </param>
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns> Task. </returns>
-        Task ScheduleJobAsync(NotificationInfo info, CancellationToken cancellationToken);
+        Task ScheduleJobAsync(long chatId, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Delete job (stop notification).

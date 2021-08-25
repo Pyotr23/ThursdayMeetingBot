@@ -17,7 +17,7 @@
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="10.1.1" />
-      <PackageReference Include="Telegram.Bot" Version="11.0.0-beta-4" />
+      <PackageReference Include="Telegram.Bot" Version="16.0.2" />
     </ItemGroup>
 
     <ItemGroup>

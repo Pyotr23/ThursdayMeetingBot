@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using ThursdayMeetingBot.Web.MapperProfiles;
 
-namespace UnitTests.ThursdayMeetingBot.Web.MapperProfiles
+namespace Tests.Unit.ThursdayMeetingBot.Web.MapperProfiles
 {
     public class TelegramMapperProfileTests
     {

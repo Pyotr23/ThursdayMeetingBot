@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ThursdayMeetingBot.Libraries.Quartz.Models
+﻿namespace ThursdayMeetingBot.Libraries.Core.Models.Quartz
 {
     /// <summary>
     ///     Information for creating a notification.

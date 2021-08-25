@@ -1,7 +1,7 @@
 ﻿using ThursdayMeetingBot.Libraries.Data.Helpers;
 using Xunit;
 
-namespace UnitTests.ThursdayMeetingBot.Libraries.Data.Helpers
+namespace Tests.Unit.ThursdayMeetingBot.Libraries.Data.Helpers
 {
     public class StringHelperTests
     {

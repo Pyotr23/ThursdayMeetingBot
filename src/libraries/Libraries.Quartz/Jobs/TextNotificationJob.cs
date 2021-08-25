@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Quartz;
+using ThursdayMeetingBot.Libraries.Core.Constants;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
+using ThursdayMeetingBot.Libraries.Core.Services.Wikipedia;
 
 namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
 {
@@ -12,22 +14,23 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
     {
         private readonly ILogger<TextNotificationJob> _logger;
         private readonly IBotService _botService;
-        
-        /// <summary>
-        ///     Notification text message.
-        /// </summary>
-        public string? NotificationMessage { private get; set; }
+        private readonly IWikiService _wikiService;
 
         /// <summary>
         ///     Constructor.
         /// </summary>
         /// <param name="logger"> Logger. </param>
         /// <param name="botService"> Bot service. </param>
+        /// <param name="wikiService"> Service for Wikipedia parsing. </param>
         public TextNotificationJob(
-            ILogger<TextNotificationJob> logger, IBotService botService)
+            ILogger<TextNotificationJob> logger, 
+            IBotService botService,
+            IWikiService wikiService
+            )
         {
             _logger = logger;
             _botService = botService;
+            _wikiService = wikiService;
         }
         
         /// <summary>
@@ -36,10 +39,6 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
         /// <param name="context"> IJobExecutionContext. </param>
         public async Task Execute(IJobExecutionContext context)
         {
-            var dataMap = context.MergedJobDataMap;
-
-            NotificationMessage = dataMap.GetString(nameof(NotificationMessage));
-            
             var keyName = context
                 .JobDetail
                 .Key
@@ -47,10 +46,16 @@ namespace ThursdayMeetingBot.Libraries.Quartz.Jobs
 
             if (!long.TryParse(keyName, out var chatId))
                 _logger.LogError($"Can't convert {keyName} to chat id");
-            
+
+            var holiday = await _wikiService.GetHolidayTextAsync();
+
+            var notificationText = string.IsNullOrEmpty(holiday)
+                ? BotAnswer.NotificationMessageWithoutReason
+                : BotAnswer.NotificationMessageWithReason + holiday;
+
             var result = await _botService
                 .Client
-                .SendTextMessageAsync(chatId, NotificationMessage, cancellationToken: context.CancellationToken);
+                .SendTextMessageAsync(chatId, notificationText, cancellationToken: context.CancellationToken);
 
             if (result is null)
             {
