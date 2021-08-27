@@ -38,30 +38,5 @@ namespace ThursdayMeetingBot.Libraries.Data.Contexts
         ///     Table with messages.
         /// </summary>
         public DbSet<Message> Messages { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var connectionStringBuilder = new SqliteConnectionStringBuilder
-            {
-                DataSource = "ThursdayMeetingBot.db"
-            };
-            var connectionString = connectionStringBuilder.ToString();
-            var connection = new SqliteConnection(connectionString);
-            optionsBuilder.UseSqlite(connection, 
-                builder => builder.MigrationsAssembly("ThursdayMeetingBot.Libraries.Data.MigrationStore"));
-        }
-
-        /// <summary>
-        ///     Method executing while models creating.
-        /// </summary>
-        /// <param name="modelBuilder"> Model builder. </param>
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            
-            // Func<string, string> nameChangeRule = StringHelper.ToSnakeCase;
-            // var caseSetter = new CaseSetter(nameChangeRule, modelBuilder);
-            // caseSetter.ChangeDatabaseEntityNames();
-        }
     }
 }

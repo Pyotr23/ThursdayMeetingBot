@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -42,22 +44,23 @@ namespace ThursdayMeetingBot.Web.Extensions
             IConfiguration configuration) where T : DbContext
         {
             const string migrationAssembly = AssemblyConstant.MigrationAssemblyName;
-            
-            
-            void PostgreOptionsAction(NpgsqlDbContextOptionsBuilder builder) 
+
+            void SqLiteOptionsAction(SqliteDbContextOptionsBuilder builder)
                 => builder.MigrationsAssembly(migrationAssembly);
             
-            var connectionString = configuration
-                .GetSection(nameof(DbConfiguration))
-                .Get<DbConfiguration>()
-                .ConnectionString;
+            var connectionStringBuilder = new SqliteConnectionStringBuilder
+            {
+                DataSource = "ThursdayMeetingBot.db", 
+            };
+            var connectionString = connectionStringBuilder.ToString();
+            var connection = new SqliteConnection(connectionString);
             
             void DbContextOptionsAction(DbContextOptionsBuilder builder) 
-                => builder.UseNpgsql(connectionString, PostgreOptionsAction);
+                => builder.UseSqlite(connection, SqLiteOptionsAction);
                 
             return services                
                 .AddEntityFrameworkSqlite()
-                .AddDbContext<T>();
+                .AddDbContext<T>(DbContextOptionsAction);
         }
 
         internal static IServiceCollection AddServices<TDbContext>(
