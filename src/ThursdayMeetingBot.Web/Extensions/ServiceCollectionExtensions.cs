@@ -47,12 +47,12 @@ namespace ThursdayMeetingBot.Web.Extensions
 
             void SqLiteOptionsAction(SqliteDbContextOptionsBuilder builder)
                 => builder.MigrationsAssembly(migrationAssembly);
+
+            var connectionString = configuration
+                .GetSection(nameof(DbConfiguration))
+                .Get<DbConfiguration>()
+                .ConnectionString;
             
-            var connectionStringBuilder = new SqliteConnectionStringBuilder
-            {
-                DataSource = "ThursdayMeetingBot.db", 
-            };
-            var connectionString = connectionStringBuilder.ToString();
             var connection = new SqliteConnection(connectionString);
             
             void DbContextOptionsAction(DbContextOptionsBuilder builder) 
