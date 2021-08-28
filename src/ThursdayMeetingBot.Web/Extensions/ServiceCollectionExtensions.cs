@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using Quartz.Spi;
 using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
 using ThursdayMeetingBot.Libraries.Core.Services.Quartz;

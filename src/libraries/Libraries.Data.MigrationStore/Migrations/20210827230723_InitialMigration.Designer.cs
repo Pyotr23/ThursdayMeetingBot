@@ -9,7 +9,7 @@ using ThursdayMeetingBot.Libraries.Data.Contexts;
 namespace ThursdayMeetingBot.Libraries.Data.MigrationStore.Migrations
 {
     [DbContext(typeof(BotDbContext))]
-    [Migration("20210825191921_InitialMigration")]
+    [Migration("20210827230723_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
