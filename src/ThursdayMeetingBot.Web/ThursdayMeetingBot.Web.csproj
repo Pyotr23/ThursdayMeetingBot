@@ -8,8 +8,8 @@
         <DocumentationFile>$(MSBuildProjectDirectory)\ThursdayMeetingBot.Web.xml</DocumentationFile>
         <Configurations>Debug;Release</Configurations>
         <Nullable>disable</Nullable>
-        <AssemblyVersion>1.0.1</AssemblyVersion>
-        <FileVersion>1.0.1</FileVersion>
+        <AssemblyVersion>2.0.0</AssemblyVersion>
+        <FileVersion>2.0.0</FileVersion>
       <UserSecretsId>71ab3556-df83-44dd-bd7f-0b71386cb141</UserSecretsId>
   </PropertyGroup>
 
