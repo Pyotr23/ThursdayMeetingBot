@@ -38,4 +38,10 @@
       <ProjectReference Include="..\libraries\Libraries.Wikipedia\Libraries.Wikipedia.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="ThursdayMeetingBot.db">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

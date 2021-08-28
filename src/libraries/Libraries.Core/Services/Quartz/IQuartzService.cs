@@ -12,10 +12,10 @@ namespace ThursdayMeetingBot.Libraries.Core.Services.Quartz
         /// <summary>
         ///     Create job.
         /// </summary>
-        /// <param name="chatId"> Chat identificator. </param>
+        /// <param name="info"> Notification info. </param>
         /// <param name="cancellationToken"> Cancellation token. </param>
         /// <returns> Task. </returns>
-        Task ScheduleJobAsync(long chatId, CancellationToken cancellationToken);
+        Task ScheduleJobAsync(NotificationInfo info, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Delete job (stop notification).
