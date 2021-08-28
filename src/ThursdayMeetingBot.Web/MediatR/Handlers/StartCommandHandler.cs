@@ -7,8 +7,10 @@ using Microsoft.Extensions.Options;
 using ThursdayMeetingBot.Libraries.Core.Constants;
 using ThursdayMeetingBot.Libraries.Core.Models.Configurations;
 using ThursdayMeetingBot.Libraries.Core.Models.DTOes;
+using ThursdayMeetingBot.Libraries.Core.Models.Quartz;
 using ThursdayMeetingBot.Libraries.Core.Services.Quartz;
 using ThursdayMeetingBot.Libraries.Core.Services.Telegram;
+using ThursdayMeetingBot.Web.Helpers;
 using ThursdayMeetingBot.Web.MediatR.Commands;
 using ThursdayMeetingBot.Web.Models.Notification;
 
@@ -56,7 +58,13 @@ namespace ThursdayMeetingBot.Web.MediatR.Handlers
 
             _logger.LogInformation($"[{request.Id}] Handle of start command");
 
-            await _quartzService.ScheduleJobAsync(request.ChatId, cancellationToken);
+            var stringChatId = request
+                .ChatId
+                .ToString();
+            var startAt = DateTimeHelper.GetCurrentWeekNotificationDateTime(_configuration);
+            var notificationInfo = new NotificationInfo(stringChatId, startAt);
+
+            await _quartzService.ScheduleJobAsync(notificationInfo, cancellationToken);
 
             var notificationDateTime = new NotificationDateTime(_configuration);
 

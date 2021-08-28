@@ -41,7 +41,7 @@ namespace ThursdayMeetingBot.Web
                 .AddDbContexts<BotDbContext>(Configuration)
                 .AddServices<BotDbContext>()
                 .AddAutoMapperProfiles();
-            
+
             services.AddHttpClient(HttpClientConstant.Name, 
                 hc => hc.BaseAddress = new Uri(HttpClientConstant.UriString));
          
