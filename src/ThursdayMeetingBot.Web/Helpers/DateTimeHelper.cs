@@ -7,8 +7,9 @@ namespace ThursdayMeetingBot.Web.Helpers
     {
         internal static DateTime GetCurrentWeekNotificationDateTime(NotificationConfiguration configuration)
         {
+            Enum.TryParse<DayOfWeek>(configuration.DayOfWeek, ignoreCase: true, out var dayOfWeek);
             return GetPreviousSundayBeginning()
-                .AddDays((int) configuration.DayOfWeek)
+                .AddDays((int) dayOfWeek)
                 .AddHours(configuration.Hour)
                 .AddMinutes(configuration.Minute);
         }

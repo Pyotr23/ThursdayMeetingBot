@@ -31,7 +31,7 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
         {
             var (chatId, dateTime) = info;
 
-            _logger.LogInformation($"Start schedule job for chat {chatId}");
+            _logger.LogInformation($"Start schedule job. Info: {info}");
             
             var job = JobBuilder
                 .Create<TextNotificationJob>()
@@ -41,9 +41,8 @@ namespace ThursdayMeetingBot.Libraries.Services.Quartz
             var trigger = TriggerBuilder
                 .Create()
                 .WithIdentity(chatId)
-                .StartNow()
                 .StartAt(new DateTimeOffset(dateTime))
-                .WithSimpleSchedule(builder => builder.WithIntervalInSeconds(30))
+                .WithSimpleSchedule(builder => builder.WithIntervalInHours(24))
                 .Build();
 
             await _scheduler.ScheduleJob(job, trigger, cancellationToken);

@@ -10,7 +10,7 @@ namespace ThursdayMeetingBot.Libraries.Core.Models.Configurations
         /// <summary>
         ///     The day of the week on which the notification will occur.
         /// </summary>
-        public DayOfWeek DayOfWeek { get; init; }
+        public string DayOfWeek { get; init; }
         
         /// <summary>
         ///     Notification UTC hour.
